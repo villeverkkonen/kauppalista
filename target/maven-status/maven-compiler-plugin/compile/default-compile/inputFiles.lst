@@ -1,4 +1,4 @@
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\TodoDatabaseController.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\TodoDatabaseRepository.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\Item.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\TodoDatabaseApplication.java
+C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\application\KauppalistaController.java
+C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\application\KauppalistaApplication.java
+C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\application\KauppalistaRepository.java
+C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\application\Tuote.java

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Kauppalista</title>
+        
+        <style>
+
+        </style>
+        
+    </head>
+
+    
+    
+    <body>
+        <h1 th:text="${tuote.name}">tuotteen nimi</h1>
+
+        <p>Tuotetta on zekattu <span th:text="${tuote.checked}">-1</span> kertaa.</p>
+
+        <a th:href="@{/}">Takaisin listaan</a>
+    </body>
+</html>

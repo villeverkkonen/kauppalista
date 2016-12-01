@@ -4,7 +4,7 @@
         <title>Kauppalista</title>
     </head>
 
-    <body style="background-color: background">
+    <body>
         <h1>Kauppalista</h1>
 
         <table>
@@ -13,9 +13,9 @@
                 <th></th>
             </tr>
 
-            <tr th:each="item : ${items}">
-                <td><a th:href="@{/{item}(item=${item.id})}" th:text="${item.name}">Item name</a></td>
-                <td><form th:action="@{/{item}(item=${item.id})}" th:method="DELETE"><input type="submit" value="Done!"/></form></td>
+            <tr th:each="tuote : ${tuotteet}">
+                <td><a th:href="@{/{tuote}(tuote=${tuote.id})}" th:text="${tuote.tuoteNimi}">Item name</a></td>
+                <td><form th:action="@{/{tuote}(tuote=${tuote.id})}" th:method="DELETE"><input type="submit" value="Ostettu"/></form></td>
             </tr>
         </table>
 
@@ -24,7 +24,7 @@
 
         <form action="/" method="POST">
             <span>Tuote:</span>
-            <input type="text" name="name"/>
+            <input type="text" name="tuoteNimi"/>
             <input type="submit" value="Lisää!"/>
         </form>
     </body>

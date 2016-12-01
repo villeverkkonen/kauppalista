@@ -1,4 +1,4 @@
-kauppalista\TodoDatabaseRepository.class
-kauppalista\Item.class
-kauppalista\TodoDatabaseController.class
-kauppalista\TodoDatabaseApplication.class
+kauppalista\application\Tuote.class
+kauppalista\application\KauppalistaController.class
+kauppalista\application\KauppalistaApplication.class
+kauppalista\application\KauppalistaRepository.class

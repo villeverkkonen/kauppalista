@@ -1,4 +1,4 @@
-kauppalista\application\Tuote.class
-kauppalista\application\KauppalistaController.class
-kauppalista\application\KauppalistaApplication.class
-kauppalista\application\KauppalistaRepository.class
+kauppalista\KauppalistaApplication.class
+kauppalista\domain\Tuote.class
+kauppalista\controller\KauppalistaController.class
+kauppalista\repository\KauppalistaRepository.class

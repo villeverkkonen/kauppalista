@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
     <head>
-        <title>Kauppalista</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title th:text="${tuote.nimi}">tuote</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
         
         <style>
-
+            body {
+                font-family: 'Lato', sans-serif;
+                margin-left: 10px;
+            }
+            
         </style>
         
     </head>
-
-    
-    
     <body>
-        <h1 th:text="${tuote.name}">tuotteen nimi</h1>
-
-        <p>Tuotetta on zekattu <span th:text="${tuote.checked}">-1</span> kertaa.</p>
-
+        <h1 th:text="${tuote.nimi}">tuote</h1>
         <a th:href="@{/}">Takaisin listaan</a>
     </body>
 </html>

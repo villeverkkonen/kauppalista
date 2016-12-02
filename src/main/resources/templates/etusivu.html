@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kauppalista</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+        
+        <style>
+            body {
+                font-family: 'Lato', sans-serif;
+                margin-left: 10px;
+            }
+            
+            .btn {
+                
+            }
+            
+            .btn-success {
+                
+            }
+            
+            .btn-warning {
+                
+            }
+            
+            .table {
+                font-size: 20px;
+                width: 50%;
+            }
+            
+        </style>
+        
+    </head>
+    <body>
+        <h1>Kauppalista</h1>
+        
+        <table class="table">
+            <tr>
+                <th>Tuote</th>
+                <th></th>
+            </tr>
+
+            <tr th:each="tuote : ${tuotteet}">
+                <td><a th:href="@{/{id}(id=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
+                <td><form th:action="@{/{id}(id=${tuote.id})}" th:method="DELETE"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
+            </tr>
+        </table>
+
+
+        <h2>Lisää tuote</h2>
+
+        <form action="/" method="POST">
+            <span>Tuote:</span>
+            <input type="text" name="nimi" autocomplete="off"/>
+            <button type="submit" class="btn btn-success">Lisää</button> 
+        </form>
+        
+        
+    </body>
+</html>

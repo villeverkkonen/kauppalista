@@ -30,7 +30,7 @@ public class KauppalistaController {
     }
 
     @RequestMapping(value = "/ostettu/{id}", method = RequestMethod.POST)
-    public String merkkaaOstetuksi(@PathVariable(required = false) Long id) {
+    public String merkkaaOstetuksi(@PathVariable Long id) {
         Tuote tuote = tuoteRepository.findById(id);
         tuote.merkkaaOstetuksi(); // ostettiin kaikki (ostettiin n ei vielä toteutettu).
         tuoteRepository.save(tuote);

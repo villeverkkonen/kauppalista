@@ -1,6 +1,6 @@
-kauppalista/domain/Tuote.class
-kauppalista/repository/TuoteRepository.class
-kauppalista/domain/OstettuTuote.class
-kauppalista/repository/OstettuTuoteRepository.class
-kauppalista/controller/KauppalistaController.class
-kauppalista/KauppalistaApplication.class
+kauppalista\repository\TuoteRepository.class
+kauppalista\KauppalistaApplication.class
+kauppalista\domain\Tuote.class
+kauppalista\controller\KauppalistaController.class
+kauppalista\repository\OstettuTuoteRepository.class
+kauppalista\domain\OstettuTuote.class

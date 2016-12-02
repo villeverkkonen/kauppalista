@@ -3,10 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Kauppalista</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
 
         <style>
             body {
@@ -45,36 +45,58 @@
                 padding: 10px 0px 15px;
             }
 
+            .tausta {
+                background-color: lightgray;
+                width: fit-content;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+            }
+
+            .tekstit {
+                margin-left: 15px;
+                margin-right: 15px;
+                margin-bottom: 15px;
+                margin-top: 15px;
+            }
+
+            .tuotteet {
+                font.size: 24px;
+            }
         </style>
-
     </head>
+    
     <body>
-        <h1 class="hit-the-floor">Kauppalista</h1>
+        <div class="tausta">
+            <div class="tekstit">
+                <h1 class="hit-the-floor">Kauppalista</h1>
 
-        <span>Tuotteet</span>
-        <table class="table">
-            <tr th:each="tuote : ${tuotteet}">
-                <td><a th:href="@{/{id}(id=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
-                <td><form th:action="@{/ostettu/{id}(id=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
-            </tr>
-        </table>
+                <span class="tuotteet" th:if="${tuotteet.size() > 0}">Tuotteet</span>
 
+                <table class="table">
+                    <tr th:each="tuote : ${tuotteet}">
+                        <td><a th:href="@{/{id}(id=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
+                        <td><form th:action="@{/ostettu/{id}(id=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
+                    </tr>
+                </table>
 
-        <h2>Lisää tuote</h2>
+                <h2>Lisää tuote</h2>
 
-        <form action="/" method="POST">
-            <input type="text" name="nimi" autocomplete="off"/>
-            <button type="submit" class="btn btn-success">Lisää</button> 
-        </form>
-        <br/>
-        <div th:if="${ostetutTuotteet != null}">
-            <span>Ostetut tuotteet:</span>
-            <table class="table">
-                <tr th:each="ostettuTuote : ${ostetutTuotteet}">
-                    <td th:text="${ostettuTuote.nimi}">Tuotteen nimi</td>
-                </tr>
-            </table>  
+                <form action="/" method="POST">
+                    <input type="text" name="nimi" autocomplete="off"/>
+                    <button type="submit" class="btn btn-success">Lisää</button> 
+                </form>
+                <br/>
+                <div th:if="${ostetutTuotteet.size() > 0}">
+                    <span class="tuotteet">Ostetut tuotteet:</span>
+                    <table class="table">
+                        <tr th:each="ostettuTuote : ${ostetutTuotteet}">
+                            <td th:text="${ostettuTuote.nimi}">Tuotteen nimi</td>
+                        </tr>
+                    </table>  
+                </div>
+            </div>
         </div>
-
     </body>
 </html>

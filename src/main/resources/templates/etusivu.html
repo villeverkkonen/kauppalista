@@ -12,6 +12,9 @@
             body {
                 font-family: 'Lato', sans-serif;
                 margin-left: 10px;
+                margin-right: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
             
             .btn {
@@ -28,21 +31,27 @@
             
             .table {
                 font-size: 20px;
-                width: 50%;
+                width: auto;
+            }
+            
+            .hit-the-floor {
+                color: black;
+                font-weight: bold;
+                text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+            }
+            
+            h1 {
+                font-size: 40px;
+                padding: 10px 0px 15px;
             }
             
         </style>
         
     </head>
     <body>
-        <h1>Kauppalista</h1>
+        <h1 class="hit-the-floor">Kauppalista</h1>
         
         <table class="table">
-            <tr>
-                <th>Tuote</th>
-                <th></th>
-            </tr>
-
             <tr th:each="tuote : ${tuotteet}">
                 <td><a th:href="@{/{id}(id=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
                 <td><form th:action="@{/{id}(id=${tuote.id})}" th:method="DELETE"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
@@ -57,7 +66,6 @@
             <input type="text" name="nimi" autocomplete="off"/>
             <button type="submit" class="btn btn-success">Lisää</button> 
         </form>
-        
         
     </body>
 </html>

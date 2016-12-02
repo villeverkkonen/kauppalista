@@ -55,7 +55,7 @@
         <table class="table">
             <tr th:each="tuote : ${tuotteet}">
                 <td><a th:href="@{/{id}(id=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
-                <td><form th:action="@{/{id}(id=${tuote.id})}" th:method="DELETE"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
+                <td><form th:action="@{/ostettu/{id}(id=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
             </tr>
         </table>
 

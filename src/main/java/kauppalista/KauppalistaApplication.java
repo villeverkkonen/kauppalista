@@ -1,4 +1,3 @@
-
 package kauppalista;
 
 import org.springframework.boot.SpringApplication;

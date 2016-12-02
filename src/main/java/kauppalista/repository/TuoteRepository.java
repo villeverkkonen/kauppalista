@@ -1,4 +1,3 @@
-
 package kauppalista.repository;
 
 import kauppalista.domain.Tuote;

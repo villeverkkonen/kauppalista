@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class KauppalistaController {
-    
+
     @Autowired
     private TuoteRepository tuoteRepository;
     

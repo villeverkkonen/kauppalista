@@ -51,6 +51,7 @@
     <body>
         <h1 class="hit-the-floor">Kauppalista</h1>
         
+        <span>Tuotteet</span>
         <table class="table">
             <tr th:each="tuote : ${tuotteet}">
                 <td><a th:href="@{/{id}(id=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
@@ -62,10 +63,18 @@
         <h2>Lisää tuote</h2>
 
         <form action="/" method="POST">
-            <span>Tuote:</span>
             <input type="text" name="nimi" autocomplete="off"/>
             <button type="submit" class="btn btn-success">Lisää</button> 
         </form>
+        <br/>
+        <div th:if="${ostetutTuotteet != null}">
+            <span>Ostetut tuotteet:</span>
+            <table class="table">
+                <tr th:each="ostettuTuote : ${ostetutTuotteet}">
+                    <td th:text="${ostettuTuote.nimi}">Tuotteen nimi</td>
+                </tr>
+            </table>  
+        </div>
         
     </body>
 </html>

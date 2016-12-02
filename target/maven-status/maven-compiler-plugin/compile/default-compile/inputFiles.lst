@@ -1,6 +1,6 @@
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\KauppalistaApplication.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\domain\Tuote.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\repository\TuoteRepository.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\controller\KauppalistaController.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\repository\OstettuTuoteRepository.java
-C:\Users\zille\tkt\wepa\kauppalista\src\main\java\kauppalista\domain\OstettuTuote.java
+/Users/ekalaja/Projektit/kauppalista/src/main/java/kauppalista/domain/OstettuTuote.java
+/Users/ekalaja/Projektit/kauppalista/src/main/java/kauppalista/domain/Tuote.java
+/Users/ekalaja/Projektit/kauppalista/src/main/java/kauppalista/KauppalistaApplication.java
+/Users/ekalaja/Projektit/kauppalista/src/main/java/kauppalista/controller/KauppalistaController.java
+/Users/ekalaja/Projektit/kauppalista/src/main/java/kauppalista/repository/OstettuTuoteRepository.java
+/Users/ekalaja/Projektit/kauppalista/src/main/java/kauppalista/repository/TuoteRepository.java

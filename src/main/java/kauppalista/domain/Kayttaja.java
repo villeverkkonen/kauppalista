@@ -4,6 +4,9 @@ package kauppalista.domain;
 import javax.persistence.Entity;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+//Tietokantaan tallennettava käyttäjä,
+//joka voi luoda kauppalistoja (Kauppalista) admin-roolissa,
+//ja liittyä kutsusta toisen luomaan kauppalistaan user-roolissa
 @Entity
 public class Kayttaja extends AbstractPersistable<Long> {
     

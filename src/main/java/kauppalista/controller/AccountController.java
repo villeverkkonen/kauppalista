@@ -17,12 +17,14 @@ public class AccountController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
     
+    //Listaa kaikki tunnuksen luoneet käyttäjät etusivulle
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String etusivu(Model model) {
         model.addAttribute("kayttajat", kayttajaRepository.findAll());
         return "etusivu";
     }
     
+    //Lomakkeen kautta luodaan uusi käyttäjätunnus salasanalla
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String lisaaKayttaja(@RequestParam(required=false)
             String kayttajanimi, String salasana) {
@@ -30,6 +32,7 @@ public class AccountController {
         return "redirect:/";
     }
     
+    //Näyttää yhden käyttäjän käyttäjäsivun ja tiedot käyttäjästä
     @RequestMapping(value = "/{kayttajaId}", method = RequestMethod.GET)
     public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);

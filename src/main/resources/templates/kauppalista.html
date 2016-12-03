@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Etusivu</title>
+        <title>Kauppalista</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
 
@@ -60,6 +61,10 @@
                 margin-bottom: 20px;
                 margin-top: 20px;
             }
+
+            .tuotteet {
+                font-size: 24px;
+            }
         </style>
     </head>
 
@@ -68,23 +73,30 @@
             <div class="tekstit">
                 <h1 class="hit-the-floor">Kauppalista</h1>
 
-                <h3>Tervetuloa Kauppalistaan!</h3>
-                
-                <span>Luodut tunnukset:</span>
+                <span class="tuotteet" th:if="${tuotteet.size() > 0}">Tuotteet</span>
+
                 <table class="table">
-                    <tr th:each="kayttaja : ${kayttajat}">
-                        <td><a th:href="@{/{kayttajaId}(kayttajaId=${kayttaja.id})}" th:text="${kayttaja.nimi}">Käyttäjän nimi</a></td>
+                    <tr th:each="tuote : ${tuotteet}">
+                        <td><a th:href="@{/kauppalista/{tuoteId}(tuoteId=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
+                        <td><form th:action="@{/ostettu/{tuoteId}(tuoteId=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
                     </tr>
                 </table>
 
-                <span>Luo uusi käyttäjätunnus</span>
-                <form action="/" method="POST">
-                    <input type="text" name="kayttajanimi" autocomplete="off"/>
-                    <br/>
-                    <input type="text" name="salasana" autocomplete="off"/>
-                    <button type="submit" class="btn btn-success">Luo tunnus</button> 
+                <h2>Lisää tuote</h2>
+
+                <form action="/kauppalista" method="POST">
+                    <input type="text" name="tuoteNimi" autocomplete="off"/>
+                    <button type="submit" class="btn btn-success">Lisää</button> 
                 </form>
                 <br/>
+                <div th:if="${ostetutTuotteet.size() > 0}">
+                    <span class="tuotteet">Ostetut tuotteet:</span>
+                    <table class="table">
+                        <tr th:each="ostettuTuote : ${ostetutTuotteet}">
+                            <td th:text="${ostettuTuote.nimi}">Tuotteen nimi</td>
+                        </tr>
+                    </table>  
+                </div>
             </div>
         </div>
     </body>

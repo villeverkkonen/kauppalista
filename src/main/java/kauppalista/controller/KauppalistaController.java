@@ -16,31 +16,31 @@ public class KauppalistaController {
     @Autowired
     private TuoteRepository tuoteRepository;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/kauppalista", method = RequestMethod.GET)
     public String etusivu(Model model) {
         model.addAttribute("tuotteet", tuoteRepository.findOstettavat());
         model.addAttribute("ostetutTuotteet", tuoteRepository.findOstetut());
-        return "etusivu";
+        return "kauppalista";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String tuoteSivu(Model model, @PathVariable Long id) {
-        model.addAttribute("tuote", tuoteRepository.findOne(id));
+    @RequestMapping(value = "/kauppalista/{tuoteId}", method = RequestMethod.GET)
+    public String tuoteSivu(Model model, @PathVariable Long tuoteId) {
+        model.addAttribute("tuote", tuoteRepository.findOne(tuoteId));
         return "tuote";
     }
 
-    @RequestMapping(value = "/ostettu/{id}", method = RequestMethod.POST)
-    public String merkkaaOstetuksi(@PathVariable Long id) {
-        Tuote tuote = tuoteRepository.findById(id);
+    @RequestMapping(value = "/ostettu/{tuoteId}", method = RequestMethod.POST)
+    public String merkkaaOstetuksi(@PathVariable Long tuoteId) {
+        Tuote tuote = tuoteRepository.findById(tuoteId);
         tuote.merkkaaOstetuksi(); // ostettiin kaikki (ostettiin n ei vielä toteutettu).
         tuoteRepository.save(tuote);
-        return "redirect:/";
+        return "redirect:/kauppalista";
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String lisaaTuote(@RequestParam(required = false) String nimi) {
-        tuoteRepository.save(new Tuote(nimi.trim()));
-        return "redirect:/";
+    @RequestMapping(value = "/kauppalista", method = RequestMethod.POST)
+    public String lisaaTuote(@RequestParam(required = false) String tuoteNimi) {
+        tuoteRepository.save(new Tuote(tuoteNimi.trim()));
+        return "redirect:/kauppalista";
     }
 
 }

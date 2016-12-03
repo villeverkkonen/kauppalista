@@ -95,8 +95,9 @@
                         <tr th:each="ostettuTuote : ${ostetutTuotteet}">
                             <td th:text="${ostettuTuote.nimi}">Tuotteen nimi</td>
                         </tr>
-                    </table>  
+                    </table>
                 </div>
+                <a th:href="@{/}">Takaisin etusivulle</a>
             </div>
         </div>
     </body>

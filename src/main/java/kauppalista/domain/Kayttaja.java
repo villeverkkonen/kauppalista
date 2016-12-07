@@ -1,13 +1,11 @@
 package kauppalista.domain;
 
 import javax.persistence.Entity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 //Tietokantaan tallennettava käyttäjä,
-//joka voi luoda kauppalistoja (Kauppalista) admin-roolissa,
-//ja liittyä kutsusta toisen luomaan kauppalistaan user-roolissa
+//joka voi luoda kauppalistoja (Kauppalista)
+//rooliksi määritellään ADMIN ja salasana kryptataan AccounControllerissa
 @Entity
 public class Kayttaja extends AbstractPersistable<Long> {
 
@@ -18,9 +16,9 @@ public class Kayttaja extends AbstractPersistable<Long> {
     public Kayttaja() {
 
     }
-    
+
     public Kayttaja(String kayttajanimi) {
-        this.kayttajanimi= kayttajanimi;
+        this.kayttajanimi = kayttajanimi;
         this.rooli = "ADMIN";
     }
 

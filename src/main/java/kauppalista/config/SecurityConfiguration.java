@@ -15,29 +15,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    
+
     @Autowired
     private UserDetailsService userDetailsService;
 
+    //määritellään mihin polkuihin pääsee kukin
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.headers().frameOptions().sameOrigin();
+        http.csrf().disable(); // poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi
+        http.headers().frameOptions().sameOrigin(); // sallitaan framejen käyttö
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers("/kauppalista").hasAnyAuthority("ADMIN");
-        http.formLogin()
+                .antMatchers(HttpMethod.GET, "/").permitAll() //etusivulle pääsee kirjautumatta
+                .antMatchers("/kauppalista").hasAnyAuthority("ADMIN"); ///kauppalista vain admineille
+        http.formLogin() //kaikki pääsee kirjautumaan sisään ja ulos
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
     }
-    
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-    
+
+    //kryptaa salasanan muotoon jota ei helpolla arvaa
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

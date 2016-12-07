@@ -1,4 +1,3 @@
-
 package kauppalista.domain;
 
 import javax.persistence.Entity;
@@ -10,5 +9,5 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 //Sisältää tuotteita (Tuote)
 @Entity
 public class Kauppalista extends AbstractPersistable<Long> {
-    
+
 }

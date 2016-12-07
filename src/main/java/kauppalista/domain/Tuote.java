@@ -6,31 +6,31 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class Tuote extends AbstractPersistable<Long> {
 
-    private String nimi;
+    private String tuotenimi;
 
     private double ostettavienLkm;
 
     private double ostettujenLkm;
 
     public Tuote() {
-        this("");
+        this.tuotenimi = "";
     }
 
     public Tuote(String nimi) {
         this.ostettavienLkm = 1;
         this.ostettujenLkm = 0;
-        this.nimi = nimi;
+        this.tuotenimi = nimi;
     }
 
-    public String getNimi() {
-        if (this.nimi == null) {
-            this.nimi = "";
+    public String getTuotenimi() {
+        if (this.tuotenimi == null) {
+            this.tuotenimi = "";
         }
-        return nimi;
+        return tuotenimi;
     }
 
-    public void setNimi(String nimi) {
-        this.nimi = nimi;
+    public void setTuotenimi(String nimi) {
+        this.tuotenimi = nimi;
     }
 
     public double getOstettavienLkm() {

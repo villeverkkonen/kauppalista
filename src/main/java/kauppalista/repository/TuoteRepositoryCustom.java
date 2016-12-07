@@ -7,7 +7,7 @@ public interface TuoteRepositoryCustom {
 
     public Tuote findById(Long id);
 
-    public Tuote findByNimi(String name);
+    public Tuote findByTuotenimi(String tuotename);
 
     public List<Tuote> findOstettavat();
 

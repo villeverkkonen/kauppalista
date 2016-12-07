@@ -53,10 +53,13 @@
         <div class="tausta">
             <div class="tekstit">
                 <span>Käyttäjän nimi:</span>
-                <span th:text="${kayttaja.nimi}">Käyttäjän nimi</span>
+                <span th:text="${kayttaja.kayttajanimi}">Käyttäjän nimi</span>
                 <br/>
                 <span>Käyttäjän salasana:</span>
                 <span th:text="${kayttaja.salasana}">Käyttäjän salasana</span>
+                <br/>
+                <span>Käyttäjän rooli:</span>
+                <span th:text="${kayttaja.rooli}">Käyttäjän rooli</span>
                 <br/>
                 <a th:href="@{/}">Takaisin etusivulle</a>
             </div>

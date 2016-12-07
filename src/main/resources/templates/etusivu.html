@@ -73,19 +73,21 @@
                 <span>Luodut tunnukset:</span>
                 <table class="table">
                     <tr th:each="kayttaja : ${kayttajat}">
-                        <td><a th:href="@{/{kayttajaId}(kayttajaId=${kayttaja.id})}" th:text="${kayttaja.nimi}">Käyttäjän nimi</a></td>
+                        <td><a th:href="@{/etusivu/{kayttajaId}(kayttajaId=${kayttaja.id})}"
+                               th:text="${kayttaja.kayttajanimi}">Käyttäjän nimi</a></td>
                     </tr>
                 </table>
 
                 <span>Luo uusi käyttäjätunnus</span>
-                <form action="/" method="POST">
+                <form action="/etusivu" method="POST">
                     <input type="text" name="kayttajanimi" autocomplete="off"/>
                     <br/>
                     <input type="password" name="salasana" autocomplete="off"/>
                     <button type="submit" class="btn btn-success">Luo tunnus</button> 
                 </form>
                 <br/>
-                <a th:href="@{/kauppalista}">Kaikille yhteiseen kauppalistaan</a>
+                <a th:href="@{/kauppalista}">Kaikille yhteiseen kauppalistaan
+                    <br/>(vaatii ADMIN-kirjautumisen)</a>
             </div>
         </div>
     </body>

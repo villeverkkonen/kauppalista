@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("kauppalista")
 public class KauppalistaController {
 
     @Autowired
     private TuoteRepository tuoteRepository;
 
     //Listaa kaikki kauppalistan tuotteet ja ostetuiksi merkatutu tuotteet
-    @RequestMapping(value = "/kauppalista", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String etusivu(Model model) {
         model.addAttribute("tuotteet", tuoteRepository.findOstettavat());
         model.addAttribute("ostetutTuotteet", tuoteRepository.findOstetut());
@@ -26,7 +27,7 @@ public class KauppalistaController {
 
     //Näyttää tuotteen sivun, jossa voi olla tarkempia tuotekuvauksia
     //tai jopa kuva tuotteesta, helpottaakseen löytämään juuri oikean tuotteen kaupasta
-    @RequestMapping(value = "/kauppalista/{tuoteId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{tuoteId}", method = RequestMethod.GET)
     public String tuoteSivu(Model model, @PathVariable Long tuoteId) {
         model.addAttribute("tuote", tuoteRepository.findOne(tuoteId));
         return "tuote";
@@ -42,9 +43,9 @@ public class KauppalistaController {
     }
 
     //Lisää tuotteen kauppalistalle
-    @RequestMapping(value = "/kauppalista", method = RequestMethod.POST)
-    public String lisaaTuote(@RequestParam(required = false) String tuoteNimi) {
-        tuoteRepository.save(new Tuote(tuoteNimi.trim()));
+    @RequestMapping(method = RequestMethod.POST)
+    public String lisaaTuote(@RequestParam(required = false) String tuotenimi) {
+        tuoteRepository.save(new Tuote(tuotenimi.trim()));
         return "redirect:/kauppalista";
     }
 

@@ -77,15 +77,15 @@
 
                 <table class="table">
                     <tr th:each="tuote : ${tuotteet}">
-                        <td><a th:href="@{/kauppalista/{tuoteId}(tuoteId=${tuote.id})}" th:text="${tuote.nimi}">Tuotteen nimi</a></td>
-                        <td><form th:action="@{/ostettu/{tuoteId}(tuoteId=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
+                        <td><a th:href="@{/kauppalista/{tuoteId}(tuoteId=${tuote.id})}" th:text="${tuote.tuotenimi}">Tuotteen nimi</a></td>
+                        <td><form th:action="@{/kauppalista/ostettu/{tuoteId}(tuoteId=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
                     </tr>
                 </table>
 
                 <h2>Lisää tuote</h2>
 
                 <form action="/kauppalista" method="POST">
-                    <input type="text" name="tuoteNimi" autocomplete="off"/>
+                    <input type="text" name="tuotenimi" autocomplete="off"/>
                     <button type="submit" class="btn btn-success">Lisää</button> 
                 </form>
                 <br/>
@@ -93,7 +93,7 @@
                     <span class="tuotteet">Ostetut tuotteet:</span>
                     <table class="table">
                         <tr th:each="ostettuTuote : ${ostetutTuotteet}">
-                            <td th:text="${ostettuTuote.nimi}">Tuotteen nimi</td>
+                            <td th:text="${ostettuTuote.tuotenimi}">Tuotteen nimi</td>
                         </tr>
                     </table>
                 </div>

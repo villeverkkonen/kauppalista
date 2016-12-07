@@ -17,9 +17,9 @@ public class TuoteRepositoryImpl implements TuoteRepositoryCustom {
     }
 
     @Override
-    public Tuote findByNimi(String nimi) {
+    public Tuote findByTuotenimi(String tuotenimi) {
         List<Tuote> tuotteet = this.tuoteRepository.findAll();
-        return tuotteet.stream().filter(tuote -> tuote.getNimi().equals(nimi)).findAny().orElse(null);
+        return tuotteet.stream().filter(tuote -> tuote.getTuotenimi().equals(tuotenimi)).findAny().orElse(null);
     }
 
     @Override

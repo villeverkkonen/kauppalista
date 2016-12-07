@@ -5,6 +5,7 @@ import kauppalista.repository.KayttajaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,9 @@ public class AccountController {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     //Listaa kaikki tunnuksen luoneet käyttäjät etusivulle
     @RequestMapping(method = RequestMethod.GET)
@@ -29,7 +33,10 @@ public class AccountController {
     //Lomakkeen kautta luodaan uusi käyttäjätunnus salasanalla
     @RequestMapping(method = RequestMethod.POST)
     public String lisaaKayttaja(@RequestParam(required = false) String kayttajanimi, String salasana) {
-        kayttajaRepository.save(new Kayttaja(kayttajanimi, salasana));
+        Kayttaja kayttaja = new Kayttaja(kayttajanimi);
+        kayttaja.setSalasana(passwordEncoder.encode(salasana));
+        
+        kayttajaRepository.save(kayttaja);
         return "redirect:/etusivu";
     }
 

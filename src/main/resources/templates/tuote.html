@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title th:text="${tuote.nimi}">tuote</title>
+        <title th:text="${tuote.tuotenimi}">tuote</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
         <link rel="shortcut icon" href="/images/favicon.png" type="image/png"/>
@@ -49,6 +49,7 @@
     <body>
         <div class="tausta">
             <div class="teksti">
+                <h1>Tuotteen nimi:</h1>
                 <h1 th:text="${tuote.tuotenimi}">tuote</h1>
                 <a th:href="@{/kauppalista}">Takaisin listaan</a>
             </div>

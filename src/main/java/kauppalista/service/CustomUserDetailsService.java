@@ -20,9 +20,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String kayttajanimi) throws UsernameNotFoundException {
         Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajanimi);
         String rooli = kayttaja.getRooli();
-//        if (kayttaja == null) {
-//            throw new UsernameNotFoundException("No such user: " + kayttajanimi);
-//        }
+        if (kayttaja == null) {
+            throw new UsernameNotFoundException("No such user: " + kayttajanimi);
+        }
 
         return new org.springframework.security.core.userdetails.User(
                 kayttaja.getKayttajanimi(),

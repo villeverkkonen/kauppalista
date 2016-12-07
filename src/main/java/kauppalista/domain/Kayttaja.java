@@ -18,6 +18,11 @@ public class Kayttaja extends AbstractPersistable<Long> {
     public Kayttaja() {
 
     }
+    
+    public Kayttaja(String kayttajanimi) {
+        this.kayttajanimi= kayttajanimi;
+        this.rooli = "ADMIN";
+    }
 
     public Kayttaja(String kayttajanimi, String salasana) {
         this.kayttajanimi = kayttajanimi;

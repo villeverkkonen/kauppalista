@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="fi">
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Etusivu</title>
+        <title>Kirjautuminen</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <link rel="shortcut icon" href="/images/favicon.png" type="image/png"/>
@@ -22,15 +25,6 @@
 
             .btn-success {
 
-            }
-
-            .btn-warning {
-
-            }
-
-            .table {
-                font-size: 20px;
-                width: auto;
             }
 
             .hit-the-floor {
@@ -60,38 +54,30 @@
                 margin-bottom: 20px;
                 margin-top: 20px;
             }
-
+            
+            .keskinappi {
+                text-align: center;
+            }
+            
         </style>
     </head>
-
     <body>
         <div class="tausta">
             <div class="tekstit">
-                <h1 class="hit-the-floor">Kauppalista</h1>
-
-                <h3>Tervetuloa Kauppalistaan!</h3>
-
-                <span>Luodut tunnukset:</span>
-                <table class="table">
-                    <tr th:each="kayttaja : ${kayttajat}">
-                        <td><a th:href="@{/etusivu/{kayttajaId}(kayttajaId=${kayttaja.id})}"
-                               th:text="${kayttaja.kayttajanimi}">Käyttäjän nimi</a></td>
-                    </tr>
-                </table>
-
-                <span>Luo uusi käyttäjätunnus</span>
-                <form action="/etusivu" method="POST">
-                    <input type="text" name="kayttajanimi" autocomplete="off"/>
-                    <br/>
-                    <input type="password" name="salasana" autocomplete="off"/>
-                    <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
+                <h1 class="hit-the-floor">Kirjaudu sisään</h1>
+                <br/>
+                <br/>
+                <div th:if="${param.error}">
+                    <span>Väärä käyttäjätunnus tai salasana</span>
+                </div>
+                <div th:if="${param.logout}">
+                    <span>Olet kirjautunut ulos</span>
+                </div>
+                <form th:action="@{/login}" method="post">
+                    <div><label>Käyttäjätunnus: <input type="text" name="username" autocomplete="off"/></label></div>
+                    <div><label style="margin-left: 41px;">Salasana: <input type="password" name="password" autocomplete="off"/></label></div>
+                    <div class="keskinappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
                 </form>
-                <br/>
-                <a th:href="@{/kauppalista}">Kaikille yhteiseen kauppalistaan
-                    <br/>(vaatii ADMIN-kirjautumisen)</a>
-                <br/>
-                <br/>
-                <a href="/logout">Kirjaudu ulos</a>
             </div>
         </div>
     </body>

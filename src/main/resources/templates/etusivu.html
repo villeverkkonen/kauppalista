@@ -24,8 +24,19 @@
 
             }
 
-            .btn-warning {
-
+            .btn-kauppalista {
+                background-color: #ff0033;
+                color: black;
+            }
+            
+            .btn-logout {
+                background-color: #000000;
+                color: white;
+            }
+            
+            .btn-login {
+                background-color: #009966;
+                color: black;
             }
 
             .table {
@@ -87,11 +98,17 @@
                     <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
                 </form>
                 <br/>
-                <a th:href="@{/kauppalista}">Kaikille yhteiseen kauppalistaan
-                    <br/>(vaatii ADMIN-kirjautumisen)</a>
+                <form action="/kauppalista">
+                    <button class="btn btn-kauppalista" type="submit">Kauppalistaan</button>
+                </form>
                 <br/>
+                <form action="/login">
+                    <button class="btn btn-login" type="submit">Kirjaudu sisään</button>
+                </form>
                 <br/>
-                <a href="/logout">Kirjaudu ulos</a>
+                <form action="/logout">
+                    <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
+                </form>
             </div>
         </div>
     </body>

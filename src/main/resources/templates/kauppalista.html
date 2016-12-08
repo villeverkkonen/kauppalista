@@ -28,6 +28,16 @@
             .btn-warning {
 
             }
+            
+            .btn-etusivu {
+                background-color: #ff0033;
+                color: black;
+            }
+            
+            .btn-logout {
+                background-color: #000000;
+                color: white;
+            }
 
             .table {
                 font-size: 20px;
@@ -97,10 +107,13 @@
                         </tr>
                     </table>
                 </div>
-                <a th:href="@{/etusivu}">Takaisin etusivulle</a>
+                <form action="/etusivu">
+                    <button class="btn btn-etusivu" type="submit">Etusivulle</button>
+                </form>
                 <br/>
-                <br/>
-                <a href="/logout">Kirjaudu ulos</a>
+                <form action="/logout">
+                    <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
+                </form>
             </div>
         </div>
     </body>

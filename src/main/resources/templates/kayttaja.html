@@ -52,6 +52,7 @@
     <body>
         <div class="tausta">
             <div class="tekstit">
+                <h3>Käyttäjätiedot</h3>
                 <span>Käyttäjän nimi:</span>
                 <span th:text="${kayttaja.kayttajanimi}">Käyttäjän nimi</span>
                 <br/>
@@ -62,6 +63,15 @@
                 <span th:text="${kayttaja.rooli}">Käyttäjän rooli</span>
                 <br/>
                 <a th:href="@{/}">Takaisin etusivulle</a>
+            </div>
+
+            <div class="kauppalistat">
+                <h3>Kauppalistat</h3>
+                <ul>
+                    <li th:each="lista : ${kauppalistat}">
+                        <a th:href="@{/{kayttajaId}/kauppalista/(kauppalistaId=${kauppalistaId})}" th:text="${lista.name}">kauppalista</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </body>

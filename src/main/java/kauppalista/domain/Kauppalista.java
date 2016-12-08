@@ -18,8 +18,9 @@ public class Kauppalista extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "kauppalistat", fetch = FetchType.EAGER)
     private List<Kayttaja> kayttajat;
 
-//    private Map<Tuote, Integer> ostettavatTuotteet;
-//    private Map<Tuote, Integer> ostetutTuotteet;
+    @OneToMany
+    private List<Tuote> ostettavatTuotteet;
+
     public List<Kayttaja> getKayttajat() {
         return kayttajat;
     }

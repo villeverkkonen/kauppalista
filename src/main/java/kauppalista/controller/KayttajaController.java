@@ -1,6 +1,9 @@
 package kauppalista.controller;
 
+import java.util.List;
+import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
+import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class AccountController {
+public class KayttajaController {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
+    @Autowired
+    private KauppalistaRepository kauppalistaRepository;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -42,6 +48,16 @@ public class AccountController {
     public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
         model.addAttribute("kayttaja", kayttaja);
+        return "kayttaja";
+    }
+    
+    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
+    public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
+        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+//        List<Kauppalista> kauppalistat = kauppalistaRepository.findByKayttajanimi(kayttaja.getKayttajanimi());
+        List<Kauppalista> kauppalistat = kayttajaRepository.findOne(kayttajaId).getKauppalista();
+        model.addAttribute("kayttaja", kayttaja);
+        model.addAttribute("kauppalistat", kauppalistat);
         return "kayttaja";
     }
 }

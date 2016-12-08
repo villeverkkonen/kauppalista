@@ -1,6 +1,8 @@
 package kauppalista.controller;
 
+import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Tuote;
+import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.TuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ public class KauppalistaController {
     @Autowired
     private TuoteRepository tuoteRepository;
 
+    @Autowired
+    private KauppalistaRepository kauppalistaRepository;
+    
     //Listaa kaikki kauppalistan tuotteet ja ostetuiksi merkatutu tuotteet
     @RequestMapping(value = "/kauppalista", method = RequestMethod.GET)
     public String etusivu(Model model) {
@@ -24,6 +29,14 @@ public class KauppalistaController {
         return "kauppalista";
     }
 
+    @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
+    public String kauppalistaSivu(Model model, @PathVariable Long kauppalistaId) {
+        Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
+        model.addAttribute("kauppalista", kl);
+//        model.addAttribute("ostetutTuotteet", kl.);
+        return "kauppalista";
+    }
+    
     //Näyttää tuotteen sivun, jossa voi olla tarkempia tuotekuvauksia
     //tai jopa kuva tuotteesta, helpottaakseen löytämään juuri oikean tuotteen kaupasta
     @RequestMapping(value = "/kauppalista/{tuoteId}", method = RequestMethod.GET)

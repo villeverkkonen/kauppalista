@@ -1,6 +1,9 @@
 package kauppalista.domain;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 //Tietokantaan tallennettava käyttäjä,
@@ -13,8 +16,10 @@ public class Kayttaja extends AbstractPersistable<Long> {
     private String salasana;
     private String rooli;
 
-    public Kayttaja() {
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Kauppalista> kauppalistat;
 
+    public Kayttaja() {
     }
 
     public Kayttaja(String kayttajanimi) {
@@ -29,6 +34,19 @@ public class Kayttaja extends AbstractPersistable<Long> {
     }
 
     public String getKayttajanimi() {
+        return kayttajanimi;
+    }
+        
+
+    public List<Kauppalista> getKauppalista() {
+        return kauppalistat;
+    }
+
+    public void setKauppalistat(List<Kauppalista> kauppalistat) {
+        this.kauppalistat = kauppalistat;
+    }
+
+    public String getNimi() {
         return kayttajanimi;
     }
 

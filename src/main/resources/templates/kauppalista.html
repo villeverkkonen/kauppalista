@@ -82,6 +82,9 @@
         <div class="tausta">
             <div class="tekstit">
                 <h1 class="hit-the-floor">Kauppalista</h1>
+                <div sec:authorize="isAuthenticated()">
+                    <span>Olet kirjautuneena käyttäjänä: </span><span sec:authentication="name">käyttäjänimi</span>
+                </div>
 
                 <span class="tuotteet" th:if="${tuotteet.size() > 0}">Tuotteet</span>
 

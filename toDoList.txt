@@ -1,5 +1,8 @@
 Keskeneräiset tehtävät:
 
+-Etusivulla kirjautuminen
+-Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
+
 
 
 

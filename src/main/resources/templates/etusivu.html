@@ -28,12 +28,12 @@
                 background-color: #ff0033;
                 color: black;
             }
-            
+
             .btn-logout {
                 background-color: #000000;
                 color: white;
             }
-            
+
             .btn-login {
                 background-color: #009966;
                 color: black;
@@ -79,6 +79,9 @@
         <div class="tausta">
             <div class="tekstit">
                 <h1 class="hit-the-floor">Kauppalista</h1>
+                <div sec:authorize="isAuthenticated()">
+                    <span>Olet kirjautuneena käyttäjänä</span>
+                </div>
 
                 <h3>Tervetuloa Kauppalistaan!</h3>
 

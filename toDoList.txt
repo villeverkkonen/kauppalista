@@ -11,6 +11,7 @@
 - Uusien listojen luominen
 - Käyttäjien kutsuminen yhteiseen kauppalistaan
 - Historian toteutus (totuusarvolla muunnos historiaan?)
+- Erilliset tuotanto- ja testausprofiilit
 
 
 

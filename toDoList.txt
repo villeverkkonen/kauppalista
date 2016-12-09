@@ -1,15 +1,22 @@
 ﻿Keskeneräiset tehtävät:
-- Kirjautuminen samalla, kun luodaan uusi tunnus (Ville paraikaa yrittää)
+- Kirjautuminen samalla, kun luodaan uusi tunnus
 - Testien tekeminen
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
-
-
-
+- Kun tekee pyynnön jollekin sivulle, niin konsoliin ilmestyy useita viestej:
+	2016-12-09 21:16:03.519  WARN 232 --- [nio-8080-exec-9] o.s.web.servlet.PageNotFound
+             	: Request method 'GET' not supported
+	2016-12-09 21:16:03.520  WARN 232 --- [nio-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver
+ 		: Resolved exception caused by Handler execution: org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported
+	Sivut kuitenkin avautuvat..?
+- Väärällä tunnuksella kirjautuminen ohjaa /login?error-sivulle jossa on vain erroria, miten saataisiin virheilmoitus etusivulle?
 
 
 
 Valmiit tehtävät:
 - Etusivulla kirjautuminen
+- Käyttäjätunnuksen luomisessa tyhjä kenttä ohjaa erilliselle lomakkeelle, joka ilmoittaa, missä kentässä oli virhe.
+	Virhe tulee vain tyhjistä kentistä (@NotBlank-annotaatiot Kayttaja.java)
+- Jos kirjautuessa jättää kentän tyhjäksi, ilmestyy javascript alert, joka kertoo, mitä tarvitaan
 - Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
 	(tein collapse-napin, eli nappia painattaessa lomake
 	laskeutuu esiin. Ei tarvitse latailla uutta sivua)

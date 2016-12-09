@@ -13,6 +13,28 @@
         <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
         </script>
+        <script type="text/javascript">
+            function kirjautumislomakeOikein()
+            {
+
+                if (document.kirjautumislomake.username.value === "" ||
+                        document.kirjautumislomake.username.value === null)
+                {
+                    alert("Anna käyttäjätunnus!");
+                    document.kirjautumislomake.username.focus();
+                    return false;
+                }
+
+                if (document.kirjautumislomake.password.value === "" ||
+                        document.kirjautumislomake.password.value === null)
+                {
+                    alert("Anna salasana!");
+                    document.kirjautumislomake.password.focus();
+                    return false;
+                }
+                return(true);
+            }
+        </script>
         <style>
             body {
                 font-family: 'Lato', sans-serif;
@@ -108,7 +130,7 @@
                 </table>
 
                 <div sec:authorize="!isAuthenticated()">
-                    <form action="/login" method="post">
+                    <form name="kirjautumislomake" action="/login" method="POST" onsubmit="return(kirjautumislomakeOikein())">
                         <div><label>Käyttäjätunnus:<br/> <input type="text" name="username" autocomplete="off"/></label></div>
                         <div><label>Salasana:<br/> <input type="password" name="password" autocomplete="off"/></label></div>
                         <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
@@ -120,12 +142,14 @@
                 </div>
                 <div sec:authorize="!isAuthenticated()">
                     <br/>
-                    <button data-toggle="collapse" data-target="#lomake" class="btn btn-info">Luo uusi tunnus</button>
-                    <div id="lomake" class="collapse">
-                        <form action="/etusivu" method="POST">
-                            <input type="text" name="kayttajanimi" autocomplete="off"/>
+                    <button data-toggle="collapse" data-target="#tunnuslomake" class="btn btn-info">Luo uusi tunnus</button>
+                    <div id="tunnuslomake" class="collapse">
+                        <form action="#" th:action="@{/etusivu}" th:object="${kayttaja}" method="POST">
+                            <input type="text" th:field="*{kayttajanimi}" name="kayttajanimi" autocomplete="off"/>
+                            <span th:if="${#fields.hasErrors('kayttajanimi')}" th:errors="*{kayttajanimi}">Käyttäjänimen virheviesti</span>
                             <br/>
-                            <input type="password" name="salasana" autocomplete="off"/>
+                            <input type="password" th:field="*{salasana}" name="salasana" autocomplete="off"/>
+                            <span th:if="${#fields.hasErrors('salasana')}" th:errors="*{salasana}">Salasanan virheviesti</span>
                             <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
                         </form>
                     </div>
@@ -136,5 +160,6 @@
                 </div>
             </div>
         </div>
+        <script th:src="@{javascript/lomakeTarkistus.js}"></script>
     </body>
 </html>

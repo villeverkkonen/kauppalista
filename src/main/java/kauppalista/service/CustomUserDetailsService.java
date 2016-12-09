@@ -20,13 +20,21 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String kayttajanimi) throws UsernameNotFoundException {
         Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajanimi);
         String rooli = kayttaja.getRooli();
+        String salasana = kayttaja.getSalasana();
         if (kayttaja == null) {
-            throw new UsernameNotFoundException("No such user: " + kayttajanimi);
+            throw new UsernameNotFoundException("Käyttäjätunnusta " 
+                    + kayttajanimi + "ei löydy");
+        }
+        if (kayttajanimi == null || kayttajanimi.equals("")) {
+            throw new UsernameNotFoundException("Aseta käyttäjänimi!");
+        }
+        if (salasana == null || salasana.equals("")) {
+            throw new UsernameNotFoundException("Aseta salasana!");
         }
 
         return new org.springframework.security.core.userdetails.User(
-                kayttaja.getKayttajanimi(),
-                kayttaja.getSalasana(),
+                kayttajanimi,
+                salasana,
                 true,
                 true,
                 true,

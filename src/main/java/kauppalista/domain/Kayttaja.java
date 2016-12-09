@@ -4,16 +4,21 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 //Tietokantaan tallennettava käyttäjä,
 //joka voi luoda kauppalistoja (Kauppalista)
-//rooliksi määritellään ADMIN ja salasana kryptataan AccounControllerissa
+//rooliksi määritellään ADMIN ja salasana kryptataan KayttajaControllerissa
 @Entity
 public class Kayttaja extends AbstractPersistable<Long> {
 
+    @NotBlank(message = "Anna käyttäjänimi")
     private String kayttajanimi;
+    
+    @NotBlank(message = "Anna salasana")
     private String salasana;
+    
     private String rooli;
 
     @ManyToMany(fetch = FetchType.EAGER)

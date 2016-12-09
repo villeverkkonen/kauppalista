@@ -73,11 +73,4 @@ public class DefaultController {
         }
         return "redirect:/etusivu";
     }
-
-    //Sisäänkirjautumisen käsittely ja login.html sivulle ohjaaminen
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage() {
-        return "login";
-    }
-
 }

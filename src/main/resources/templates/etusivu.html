@@ -34,9 +34,13 @@
 
             }
 
+            .tunnusnappi {
+
+            }
+
             .btn-kauppalista {
                 background-color: #ff0033;
-                color: black;
+                color: white;
             }
 
             .btn-logout {
@@ -103,30 +107,32 @@
                     </tr>
                 </table>
 
-                <br/>
-                <form action="/login">
-                    <button class="btn btn-login" type="submit">Kirjaudu sisään</button>
-                </form>
-                <br/>
-                <form action="/kauppalista">
-                    <button class="btn btn-kauppalista" type="submit">Kauppalistaan</button>
-                </form>
-                <br/>
-                <button data-toggle="collapse" data-target="#lomake" class="btn btn-info">Luo uusi tunnus</button>
-                <div id="lomake" class="collapse">
-                    <form action="/etusivu" method="POST">
-                        <input type="text" name="kayttajanimi" autocomplete="off"/>
-                        <br/>
-                        <input type="password" name="salasana" autocomplete="off"/>
-                        <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
+                <div sec:authorize="!isAuthenticated()">
+                    <form action="/login" method="post">
+                        <div><label>Käyttäjätunnus:<br/> <input type="text" name="username" autocomplete="off"/></label></div>
+                        <div><label>Salasana:<br/> <input type="password" name="password" autocomplete="off"/></label></div>
+                        <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
                     </form>
                 </div>
-                <br/>
-                <br/>
                 <div sec:authorize="isAuthenticated()">
-                    <form action="/logout">
-                        <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
-                    </form>
+                    <br/>
+                    <a href="/kauppalista"><button class="btn btn-kauppalista" type="submit">Kauppalistaan</button></a>
+                </div>
+                <div sec:authorize="!isAuthenticated()">
+                    <br/>
+                    <button data-toggle="collapse" data-target="#lomake" class="btn btn-info">Luo uusi tunnus</button>
+                    <div id="lomake" class="collapse">
+                        <form action="/etusivu" method="POST">
+                            <input type="text" name="kayttajanimi" autocomplete="off"/>
+                            <br/>
+                            <input type="password" name="salasana" autocomplete="off"/>
+                            <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
+                        </form>
+                    </div>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <br/>
+                    <a href="/logout"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
                 </div>
             </div>
         </div>

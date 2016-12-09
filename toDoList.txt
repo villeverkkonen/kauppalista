@@ -1,7 +1,6 @@
 ﻿Keskeneräiset tehtävät:
 
-- Etusivulla kirjautuminen (Ville hoitaa paraikaa...)
-- Uuteen ikkunaan tai sivuun uuden käyttäjän luominen(Ville hoitaa paraikaa...)
+- Etusivulla kirjautuminen (Ville paraikaa miettii osaako tehdä tätä...)
 - Testien tekeminen
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
 
@@ -12,3 +11,6 @@
 
 
 Valmiit tehtävät:
+- Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
+	(tein collapse-napin, eli nappia painattaessa lomake
+	laskeutuu esiin. Ei tarvitse latailla uutta sivua)

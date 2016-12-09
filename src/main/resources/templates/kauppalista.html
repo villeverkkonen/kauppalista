@@ -28,12 +28,12 @@
             .btn-warning {
 
             }
-            
+
             .btn-etusivu {
                 background-color: #ff0033;
-                color: black;
+                color: white;
             }
-            
+
             .btn-logout {
                 background-color: #000000;
                 color: white;
@@ -110,13 +110,10 @@
                         </tr>
                     </table>
                 </div>
-                <form action="/etusivu">
-                    <button class="btn btn-etusivu" type="submit">Etusivulle</button>
-                </form>
+                <a href="/etusivu"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
                 <br/>
-                <form action="/logout">
-                    <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
-                </form>
+                <br/>
+                <a href="/logout"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
             </div>
         </div>
     </body>

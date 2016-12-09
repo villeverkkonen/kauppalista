@@ -22,7 +22,7 @@ public class KayttajaController {
 
     @Autowired
     private KauppalistaRepository kauppalistaRepository;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -50,7 +50,6 @@ public class KayttajaController {
 //        model.addAttribute("kayttaja", kayttaja);
 //        return "kayttaja";
 //    }
-    
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);

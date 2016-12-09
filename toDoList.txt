@@ -1,6 +1,5 @@
 ﻿Keskeneräiset tehtävät:
-
-- Etusivulla kirjautuminen (Ville paraikaa miettii osaako tehdä tätä...)
+- Kirjautuminen samalla, kun luodaan uusi tunnus (Ville paraikaa yrittää)
 - Testien tekeminen
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
 
@@ -10,6 +9,7 @@
 
 
 Valmiit tehtävät:
+- Etusivulla kirjautuminen
 - Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
 	(tein collapse-napin, eli nappia painattaessa lomake
 	laskeutuu esiin. Ei tarvitse latailla uutta sivua)

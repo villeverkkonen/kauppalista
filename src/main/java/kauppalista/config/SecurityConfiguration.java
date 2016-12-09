@@ -27,7 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll() //etusivulle pääsee kirjautumatta
                 .antMatchers("/kauppalista").hasAnyAuthority("ADMIN"); ///kauppalista vain admineille
         http.formLogin() //kaikki pääsee kirjautumaan sisään ja ulos
-                .loginPage("/login") //ohjaa itse tekemällemme login.html-sivulle
+                .loginPage("/login")
+                .defaultSuccessUrl("/etusivu")
+                .failureUrl("/etusivu")
                 .permitAll()
                 .and()
                 .logout()

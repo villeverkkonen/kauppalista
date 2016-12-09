@@ -2,6 +2,7 @@
 - Kirjautuminen samalla, kun luodaan uusi tunnus (Ville paraikaa yrittää)
 - Testien tekeminen
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
+- Uusien listojen luominen
 - Käyttäjien kutsuminen yhteiseen kauppalistaan
 - Historian toteutus (totuusarvolla muunnos historiaan?)
 

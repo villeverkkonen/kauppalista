@@ -1,7 +1,9 @@
-Keskeneräiset tehtävät:
+﻿Keskeneräiset tehtävät:
 
--Etusivulla kirjautuminen
--Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
+- Etusivulla kirjautuminen (Ville hoitaa paraikaa...)
+- Uuteen ikkunaan tai sivuun uuden käyttäjän luominen(Ville hoitaa paraikaa...)
+- Testien tekeminen
+- Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
 
 
 

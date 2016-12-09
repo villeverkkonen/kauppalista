@@ -3,6 +3,9 @@
 - Etusivulla kirjautuminen (Ville paraikaa miettii osaako tehdä tätä...)
 - Testien tekeminen
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
+- Käyttäjien kutsuminen yhteiseen kauppalistaan
+- Historian toteutus (totuusarvolla muunnos historiaan?)
+
 
 
 

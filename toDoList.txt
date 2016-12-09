@@ -9,7 +9,6 @@
 
 
 
-
 Valmiit tehtävät:
 - Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
 	(tein collapse-napin, eli nappia painattaessa lomake

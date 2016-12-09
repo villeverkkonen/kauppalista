@@ -7,6 +7,12 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <link rel="shortcut icon" href="/images/favicon.png" type="image/png"/>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+        </script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+        </script>
         <style>
             body {
                 font-family: 'Lato', sans-serif;
@@ -21,6 +27,10 @@
             }
 
             .btn-success {
+
+            }
+
+            .btn-info {
 
             }
 
@@ -93,21 +103,25 @@
                     </tr>
                 </table>
 
-                <span>Luo uusi käyttäjätunnus</span>
-                <form action="/etusivu" method="POST">
-                    <input type="text" name="kayttajanimi" autocomplete="off"/>
-                    <br/>
-                    <input type="password" name="salasana" autocomplete="off"/>
-                    <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
+                <br/>
+                <form action="/login">
+                    <button class="btn btn-login" type="submit">Kirjaudu sisään</button>
                 </form>
                 <br/>
                 <form action="/kauppalista">
                     <button class="btn btn-kauppalista" type="submit">Kauppalistaan</button>
                 </form>
                 <br/>
-                <form action="/login">
-                    <button class="btn btn-login" type="submit">Kirjaudu sisään</button>
-                </form>
+                <button data-toggle="collapse" data-target="#lomake" class="btn btn-info">Luo uusi tunnus</button>
+                <div id="lomake" class="collapse">
+                    <form action="/etusivu" method="POST">
+                        <input type="text" name="kayttajanimi" autocomplete="off"/>
+                        <br/>
+                        <input type="password" name="salasana" autocomplete="off"/>
+                        <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
+                    </form>
+                </div>
+                <br/>
                 <br/>
                 <div sec:authorize="isAuthenticated()">
                     <form action="/logout">

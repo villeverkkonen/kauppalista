@@ -1,7 +1,7 @@
 package kauppalista.domain;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -21,12 +21,29 @@ public class Kauppalista extends AbstractPersistable<Long> {
     @OneToMany
     private List<Tuote> ostettavatTuotteet;
 
+    private String listanimi;
+
+    public String getListanimi() {
+        return listanimi;
+    }
+
+    public void setListanimi(String nimi) {
+        this.listanimi = nimi;
+    }
+
     public List<Kayttaja> getKayttajat() {
         return kayttajat;
     }
 
     public void setKayttajat(List<Kayttaja> kayttajat) {
         this.kayttajat = kayttajat;
+    }
+
+    public void setKayttaja(Kayttaja kayttaja) {
+        if (this.kayttajat == null) {
+            this.kayttajat = new ArrayList<Kayttaja>();
+        }
+        this.kayttajat.add(kayttaja);
     }
 
 //    public void merkkaaOstetuksi() {

@@ -44,18 +44,18 @@ public class KayttajaController {
     }
 
     //Näyttää yhden käyttäjän käyttäjäsivun ja tiedot käyttäjästä
-    @RequestMapping(value = "/etusivu/{kayttajaId}", method = RequestMethod.GET)
-    public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {
-        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-        model.addAttribute("kayttaja", kayttaja);
-        return "kayttaja";
-    }
+//    @RequestMapping(value = "/etusivu/{kayttajaId}", method = RequestMethod.GET)
+//    public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {
+//        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+//        model.addAttribute("kayttaja", kayttaja);
+//        return "kayttaja";
+//    }
     
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-//        List<Kauppalista> kauppalistat = kauppalistaRepository.findByKayttajanimi(kayttaja.getKayttajanimi());
-        List<Kauppalista> kauppalistat = kayttajaRepository.findOne(kayttajaId).getKauppalista();
+//        List<Kauppalista> kauppalistat = kauppalistaRepository.findAll();
+        List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
         return "kayttaja";

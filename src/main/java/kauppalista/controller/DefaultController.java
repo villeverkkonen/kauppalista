@@ -59,4 +59,9 @@ public class DefaultController {
     public String ohjaaEtusivulle() {
         return "redirect:/etusivu";
     }
+    
+    @RequestMapping(value = "/kirjautuminen", method = RequestMethod.GET)
+    public String kirjautumisSivu() {
+        return "kirjautuminen";
+    }
 }

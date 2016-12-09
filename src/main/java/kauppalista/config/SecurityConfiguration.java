@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin() //kaikki pääsee kirjautumaan sisään ja ulos
                 .loginPage("/login")
                 .defaultSuccessUrl("/etusivu")
-                .failureUrl("/etusivu")
+                .failureUrl("/kirjautuminen")
                 .permitAll()
                 .and()
                 .logout()

@@ -130,7 +130,7 @@
                 </table>
 
                 <div sec:authorize="!isAuthenticated()">
-                    <form name="kirjautumislomake" action="/login" method="POST" onsubmit="return(kirjautumislomakeOikein())">
+                    <form action="#" th:action="@{/login}" method="POST" onsubmit="return(kirjautumislomakeOikein())">
                         <div><label>Käyttäjätunnus:<br/> <input type="text" name="username" autocomplete="off"/></label></div>
                         <div><label>Salasana:<br/> <input type="password" name="password" autocomplete="off"/></label></div>
                         <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>

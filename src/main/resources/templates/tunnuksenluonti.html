@@ -43,6 +43,11 @@
                 margin-bottom: 20px;
                 margin-top: 20px;
             }
+
+            .btn-etusivu {
+                background-color: #ff0033;
+                color: white;
+            }
         </style>
 
     </head>
@@ -58,6 +63,8 @@
                     <span th:if="${#fields.hasErrors('salasana')}" th:errors="*{salasana}">Salasanan virheviesti</span>
                     <div><button type="submit" class="btn btn-success">Luo tunnus</button></div>
                 </form>
+                <br/>
+                <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
             </div>
         </div>
     </body>

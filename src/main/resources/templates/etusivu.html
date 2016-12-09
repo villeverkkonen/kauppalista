@@ -13,6 +13,7 @@
         <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
         </script>
+        <!--        Tyhjästä kentästä tulee alert ja kursori menee valmiiksi siihen kenttään-->
         <script type="text/javascript">
             function kirjautumislomakeOikein()
             {
@@ -42,22 +43,6 @@
                 margin-right: 10px;
                 margin-top: 10px;
                 margin-bottom: 10px;
-            }
-
-            .btn {
-
-            }
-
-            .btn-success {
-
-            }
-
-            .btn-info {
-
-            }
-
-            .tunnusnappi {
-
             }
 
             .btn-kauppalista {
@@ -130,7 +115,7 @@
                 </table>
 
                 <div sec:authorize="!isAuthenticated()">
-                    <form action="#" th:action="@{/login}" method="POST" onsubmit="return(kirjautumislomakeOikein())">
+                    <form name="kirjautumislomake" action="#" th:action="@{/login}" method="POST" onsubmit="return(kirjautumislomakeOikein())">
                         <div><label>Käyttäjätunnus:<br/> <input type="text" name="username" autocomplete="off"/></label></div>
                         <div><label>Salasana:<br/> <input type="password" name="password" autocomplete="off"/></label></div>
                         <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
@@ -160,6 +145,5 @@
                 </div>
             </div>
         </div>
-        <script th:src="@{javascript/lomakeTarkistus.js}"></script>
     </body>
 </html>

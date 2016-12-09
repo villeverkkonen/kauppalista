@@ -47,6 +47,11 @@
             span {
                 font-size: 24px;
             }
+            
+            .btn-etusivu {
+                background-color: #ff0033;
+                color: white;
+            }
         </style>
     </head>
     <body>
@@ -61,17 +66,16 @@
                 <br/>
                 <span>Käyttäjän rooli:</span>
                 <span th:text="${kayttaja.rooli}">Käyttäjän rooli</span>
-                <br/>
-                <a th:href="@{/}">Takaisin etusivulle</a>
-            </div>
 
-            <div class="kauppalistat">
-                <h3>Kauppalistat</h3>
-                <ul>
-                    <li th:each="lista : ${kauppalistat}">
-                        <a th:href="@{/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId=${lista.id}, kayttajaId=${kayttaja.id})}" th:text="${lista.listanimi}">kauppalista</a>
-                    </li>
-                </ul>
+                <div class="kauppalistat">
+                    <h3>Kauppalistat</h3>
+                    <ul>
+                        <li th:each="lista : ${kauppalistat}">
+                            <a th:href="@{/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId=${lista.id}, kayttajaId=${kayttaja.id})}" th:text="${lista.listanimi}">kauppalista</a>
+                        </li>
+                    </ul>
+                </div>
+                <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
             </div>
         </div>
     </body>

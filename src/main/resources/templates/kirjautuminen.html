@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
         <link rel="shortcut icon" href="/images/favicon.png" type="image/png"/>
+        <!--        Tyhjästä kentästä tulee alert ja kursori menee valmiiksi siihen kenttään-->
         <script type="text/javascript">
             function kirjautumislomakeOikein()
             {
@@ -60,16 +61,9 @@
                 margin-top: 20px;
             }
             
-            .btn {
-                
-            }
-            
-            .btn-success {
-                
-            }
-            
-            .tunnusnappi {
-                
+            .btn-etusivu {
+                background-color: #ff0033;
+                color: white;
             }
         </style>
 
@@ -83,6 +77,8 @@
                     <div><label>Salasana:<br/> <input type="password" name="password" autocomplete="off"/></label></div>
                     <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
                 </form>
+                <br/>
+                <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
             </div>
         </div>
     </body>

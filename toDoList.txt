@@ -9,6 +9,14 @@
  		: Resolved exception caused by Handler execution: org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported
 	Sivut kuitenkin avautuvat..?
 - Väärällä tunnuksella kirjautuminen ohjaa /login?error-sivulle jossa on vain erroria, miten saataisiin virheilmoitus etusivulle?
+- Uusien listojen luominen
+- Käyttäjien kutsuminen yhteiseen kauppalistaan
+- Historian toteutus (totuusarvolla muunnos historiaan?)
+
+
+
+
+
 
 
 

@@ -46,15 +46,11 @@ public class Kauppalista extends AbstractPersistable<Long> {
         this.kayttajat.add(kayttaja);
     }
 
-//    public void merkkaaOstetuksi() {
-//        // ostettiin kaikki.
-//        this.ostettujenLkm += this.ostettavienLkm;
-//        this.ostettavienLkm = 0;
-//    }
-//
-//    public void merkkaaOstetuksi(double n) {
-//        // ostettiin n.
-//        this.ostettujenLkm += n;
-//        this.ostettavienLkm = Math.max(0, this.ostettavienLkm - n);
-//    }
+    public List<Tuote> getOstettavatTuotteet() {
+        return ostettavatTuotteet;
+    }
+
+    public void setOstettavatTuotteet(List<Tuote> ostettavatTuotteet) {
+        this.ostettavatTuotteet = ostettavatTuotteet;
+    }
 }

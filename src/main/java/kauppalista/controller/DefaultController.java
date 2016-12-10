@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
+import kauppalista.domain.Tuote;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
+import kauppalista.repository.TuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,8 @@ public class DefaultController {
     @Autowired
     private KauppalistaRepository kauppalistaRepository;
 
+    @Autowired
+    private TuoteRepository tuoteRepository;
     //luodaan valmiiksi ADMIN-oikeuksinen testikäyttäjä
     @PostConstruct
     public void init() {
@@ -39,6 +43,9 @@ public class DefaultController {
         Kauppalista kl = new Kauppalista();
         kl.setListanimi("lista 1");
         kl.setKayttaja(admin);
+//        Tuote t = new Tuote("banaani");
+//        tuoteRepository.save(t);
+//        kl.getOstettavatTuotteet().add(t);
         kauppalistaRepository.save(kl);
 
         Kauppalista kl2 = new Kauppalista();

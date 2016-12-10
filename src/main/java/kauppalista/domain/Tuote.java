@@ -1,24 +1,32 @@
 package kauppalista.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
 public class Tuote extends AbstractPersistable<Long> {
 
     private String tuotenimi;
+    private boolean ostettu;
 
-    private double ostettavienLkm;
+    @ManyToOne
+    private Kauppalista kauppalista;
 
-    private double ostettujenLkm;
+    public Kauppalista getKauppalista() {
+        return kauppalista;
+    }
+
+    public void setKauppalista(Kauppalista kauppalista) {
+        this.kauppalista = kauppalista;
+    }
 
     public Tuote() {
         this.tuotenimi = "";
     }
 
     public Tuote(String nimi) {
-        this.ostettavienLkm = 1;
-        this.ostettujenLkm = 0;
+        this.ostettu = false;
         this.tuotenimi = nimi;
     }
 
@@ -33,31 +41,11 @@ public class Tuote extends AbstractPersistable<Long> {
         this.tuotenimi = nimi;
     }
 
-    public double getOstettavienLkm() {
-        return ostettavienLkm;
+    public boolean getOstettu() {
+        return ostettu;
     }
 
-    public void setOstettavienLkm(double ostettavienLkm) {
-        this.ostettavienLkm = ostettavienLkm;
-    }
-
-    public double getOstettujenLkm() {
-        return ostettujenLkm;
-    }
-
-    public void setOstettujenLkm(double ostettujenLkm) {
-        this.ostettujenLkm = ostettujenLkm;
-    }
-
-    public void merkkaaOstetuksi() {
-        // ostettiin kaikki.
-        this.ostettujenLkm += this.ostettavienLkm;
-        this.ostettavienLkm = 0;
-    }
-
-    public void merkkaaOstetuksi(double n) {
-        // ostettiin n.
-        this.ostettujenLkm += n;
-        this.ostettavienLkm = Math.max(0, this.ostettavienLkm - n);
+    public void setOstettu(boolean b) {
+        this.ostettu = b;
     }
 }

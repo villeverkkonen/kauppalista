@@ -22,15 +22,4 @@ public class TuoteRepositoryImpl implements TuoteRepositoryCustom {
         return tuotteet.stream().filter(tuote -> tuote.getTuotenimi().equals(tuotenimi)).findAny().orElse(null);
     }
 
-    @Override
-    public List<Tuote> findOstettavat() {
-        List<Tuote> tuotteet = this.tuoteRepository.findAll();
-        return tuotteet.stream().filter(tuote -> tuote.getOstettavienLkm() > 0).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Tuote> findOstetut() {
-        List<Tuote> tuotteet = this.tuoteRepository.findAll();
-        return tuotteet.stream().filter(tuote -> tuote.getOstettujenLkm() > 0).collect(Collectors.toList());
-    }
 }

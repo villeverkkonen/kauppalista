@@ -9,7 +9,4 @@ public interface TuoteRepositoryCustom {
 
     public Tuote findByTuotenimi(String tuotename);
 
-    public List<Tuote> findOstettavat();
-
-    public List<Tuote> findOstetut();
 }

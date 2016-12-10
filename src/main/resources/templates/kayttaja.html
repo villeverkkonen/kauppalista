@@ -71,7 +71,7 @@
                     <h3>Kauppalistat</h3>
                     <ul>
                         <li th:each="lista : ${kauppalistat}">
-                            <a th:href="@{/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId=${lista.id}, kayttajaId=${kayttaja.id})}" th:text="${lista.listanimi}">kauppalista</a>
+                            <a th:href="@{/kauppalista/{kauppalistaId}(kauppalistaId=${lista.id})}" th:text="${lista.listanimi}">kauppalista</a>
                         </li>
                     </ul>
                 </div>

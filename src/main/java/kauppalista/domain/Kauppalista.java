@@ -39,11 +39,19 @@ public class Kauppalista extends AbstractPersistable<Long> {
         this.kayttajat = kayttajat;
     }
 
-    public void setKayttaja(Kayttaja kayttaja) {
+    public void lisaaKayttaja(Kayttaja kayttaja) {
         if (this.kayttajat == null) {
             this.kayttajat = new ArrayList<Kayttaja>();
         }
         this.kayttajat.add(kayttaja);
+    }
+
+    public void lisaaTuote(Tuote tuote) {
+        if (this.ostettavatTuotteet == null) {
+            this.ostettavatTuotteet = new ArrayList<Tuote>();
+        }
+
+        this.ostettavatTuotteet.add(tuote);
     }
 
     public List<Tuote> getOstettavatTuotteet() {

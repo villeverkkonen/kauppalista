@@ -1,5 +1,6 @@
 package kauppalista.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,10 +16,10 @@ public class Kayttaja extends AbstractPersistable<Long> {
 
     @NotBlank(message = "Anna käyttäjänimi")
     private String kayttajanimi;
-    
+
     @NotBlank(message = "Anna salasana")
     private String salasana;
-    
+
     private String rooli;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -41,7 +42,6 @@ public class Kayttaja extends AbstractPersistable<Long> {
     public String getKayttajanimi() {
         return kayttajanimi;
     }
-        
 
     public List<Kauppalista> getKauppalista() {
         return kauppalistat;
@@ -49,6 +49,13 @@ public class Kayttaja extends AbstractPersistable<Long> {
 
     public void setKauppalistat(List<Kauppalista> kauppalistat) {
         this.kauppalistat = kauppalistat;
+    }
+
+    public void lisaaKauppalista(Kauppalista kauppalista) {
+        if (this.kauppalistat == null) {
+            this.kauppalistat = new ArrayList<Kauppalista>();
+        }
+        this.kauppalistat.add(kauppalista);
     }
 
     public String getNimi() {

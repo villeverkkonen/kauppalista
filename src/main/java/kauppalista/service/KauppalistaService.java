@@ -7,6 +7,8 @@ package kauppalista.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import kauppalista.domain.Kauppalista;
+import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
@@ -32,11 +34,30 @@ public class KauppalistaService {
     public List<Tuote> haeBooleanillaTuotteetKauppalistalta(Long kauppalistaId, boolean b) {
         List<Tuote> listanTuotteet = kauppalistaRepository.findOne(kauppalistaId).getOstettavatTuotteet();
         List<Tuote> palautettavatTuotteet = new ArrayList();
-        for(Tuote t : listanTuotteet){
-            if(t.getOstettu() == b) {
+        for (Tuote t : listanTuotteet) {
+            if (t.getOstettu() == b) {
                 palautettavatTuotteet.add(t);
             }
         }
         return palautettavatTuotteet;
-    }    
+    }
+
+    public void lisaaTuoteKauppalistalle(Tuote tuote, Kauppalista kauppalista) {
+//        Kauppalista kl = this.kauppalistaRepository.findOne(kauppalista.getId());
+        kauppalista.lisaaTuote(tuote);
+        this.kauppalistaRepository.save(kauppalista);
+    }
+
+    public void lisaaKayttajaKauppalistalle(Kayttaja k, Kauppalista kl) {
+//        Kauppalista kauppalista = this.kauppalistaRepository.findOne(kl.getId());
+//        Kayttaja kayttaja = this.kayttajaRepository.findOne(k.getId());
+
+        kl.lisaaKayttaja(k);
+        k.lisaaKauppalista(kl);
+
+        this.kauppalistaRepository.save(kl);
+        this.kayttajaRepository.save(k);
+    }
+    
+    
 }

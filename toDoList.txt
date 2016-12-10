@@ -1,12 +1,9 @@
-Keskeneräiset tehtävät:
+﻿Keskeneräiset tehtävät:
 
-- Tarvitaan ’luo uusi Kauppalista’ nappi
-
-- Kirjautuminen samalla, kun luodaan uusi tunnus (Ville paraikaa yrittää)
+- Kirjautuminen samalla, kun luodaan uusi tunnus
 - Testien tekeminen
 -KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käytääjän kauppalista luokalle ja kauppalistan käyttäjä luokalle.
-- Tuotteiden yhdistäminen yksittäisiin kauppalistoihin (KauppalistaService ??)
-- Kun tekee pyynnön jollekin sivulle, niin konsoliin ilmestyy useita viestej:
+- Kun tekee pyynnön jollekin sivulle, niin konsoliin ilmestyy useita viestejä:
 	2016-12-09 21:16:03.519  WARN 232 --- [nio-8080-exec-9] o.s.web.servlet.PageNotFound
              	: Request method 'GET' not supported
 	2016-12-09 21:16:03.520  WARN 232 --- [nio-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver
@@ -16,6 +13,9 @@ Keskeneräiset tehtävät:
 - Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi
 - Historian toteutus (totuusarvolla muunnos historiaan?)
 - Erilliset tuotanto- ja testausprofiilit
+- Linkki tietystä kauppalistasta takaisin käyttäjän käyttäjäsivulle, missä näkyy kauppalistat.
+	En osannut tehdä, koska en keksinyt mistä saan käyttäjäId:n polkuun, kun listassa voi olla miljoonakin käyttäjää,
+	niin mistä tietää kenen id:n valitsee?
 
 
 
@@ -32,3 +32,5 @@ Valmiit tehtävät:
 - Uuteen ikkunaan tai sivuun uuden käyttäjän luominen
 	(tein collapse-napin, eli nappia painattaessa lomake
 	laskeutuu esiin. Ei tarvitse latailla uutta sivua)
+- Tuotteiden yhdistäminen yksittäisiin kauppalistoihin
+- Tarvitaan ’luo uusi Kauppalista’ nappi

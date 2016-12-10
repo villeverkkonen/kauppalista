@@ -54,7 +54,7 @@ public class KauppalistaController {
     }
 
     //Lisää tuotteen kauppalistalle
-    @RequestMapping(value = "{/kauppalista/{kauppalistaId}/", method = RequestMethod.POST)
+    @RequestMapping(value = "/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
     public String lisaaTuote(@PathVariable Long kauppalistaId, @RequestParam(required = false) String tuotenimi) {
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
 

@@ -52,6 +52,11 @@
                 background-color: #ff0033;
                 color: white;
             }
+            
+            .btn-logout {
+                background-color: #000000;
+                color: white;
+            }
         </style>
     </head>
     <body>
@@ -75,7 +80,16 @@
                         </li>
                     </ul>
                 </div>
+                <br/>
+                <form action="#" th:action="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}" method="POST">
+                    <input type="text" name="kauppalistaNimi" autocomplete="off"/>
+                    <button type="submit" class="btn btn-success">Luo kauppalista</button>
+                </form>
+                <br/>
                 <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
+                <br/>
+                <br/>
+                <a th:href="@{/logout}"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
             </div>
         </div>
     </body>

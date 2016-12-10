@@ -21,9 +21,9 @@
                 background-color: #ff0033;
                 color: white;
             }
-
-            .btn-logout {
-                background-color: #000000;
+            
+            .btn-kayttaja {
+                background-color: yellow;
                 color: white;
             }
 
@@ -97,10 +97,13 @@
                         </tr>
                     </table>
                 </div>
+<!--                Tähän nappi takaisin käyttäjäsivulle/kauppalistat-sivulle
+                Mutta en osannut tehdä. Listaan voi kuulua monta käyttäjää,
+                mistä tiedän, kuka niistä on haluamamme käyttäjä ja id?
+                <a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>
+                <br/>
+                <br/>-->
                 <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
-                <br/>
-                <br/>
-                <a th:href="@{/logout}"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
             </div>
         </div>
     </body>

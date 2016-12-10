@@ -17,11 +17,6 @@
                 margin-bottom: 10px;
             }
 
-            .btn-kauppalista {
-                background-color: #ff0033;
-                color: white;
-            }
-
             .btn-logout {
                 background-color: #000000;
                 color: white;
@@ -106,10 +101,6 @@
                         <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
                     </form>
                 </div>
-                <div sec:authorize="isAuthenticated()">
-                    <br/>
-                    <a href="/kauppalista"><button class="btn btn-kauppalista" type="submit">Kauppalistaan</button></a>
-                </div>
                 <div sec:authorize="!isAuthenticated()">
                     <br/>
                     <button data-toggle="collapse" data-target="#tunnuslomake" class="btn btn-info">Luo uusi tunnus</button>
@@ -125,7 +116,6 @@
                     </div>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <br/>
                     <a href="/logout"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
                 </div>
             </div>

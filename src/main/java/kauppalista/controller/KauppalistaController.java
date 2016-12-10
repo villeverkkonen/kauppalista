@@ -2,6 +2,7 @@ package kauppalista.controller;
 
 import java.util.List;
 import kauppalista.domain.Kauppalista;
+import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class KauppalistaController {
@@ -85,6 +85,18 @@ public class KauppalistaController {
         tuote.setOstettu(true);
         tuoteRepository.save(tuote);
         return "redirect:/kauppalista/{kauppalistaId}";
+    }
+    
+    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
+    public String luoKauppalista(@PathVariable Long kayttajaId, 
+            @RequestParam(required=false) String kauppalistaNimi) {
+        Kauppalista kl = new Kauppalista();
+        kl.setListanimi(kauppalistaNimi);
+        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
+        Long kauppalistaId = kl.getId();
+        
+        return "redirect:/kauppalista/" + kauppalistaId;
     }
 
 }

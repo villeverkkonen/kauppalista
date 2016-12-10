@@ -49,6 +49,9 @@
 
             .tunnusnappi {
 
+            .btn-etusivu {
+                background-color: #ff0033;
+                color: white;
             }
         </style>
 
@@ -74,6 +77,8 @@
                     <div><label>Salasana:<br/> <input type="password" name="password" id="salasana" autocomplete="off"/></label></div>
                     <div class="tunnusnappi"><button class="btn btn-success" type="submit">Kirjaudu</button></div>
                 </form>
+                <br/>
+                <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>

@@ -17,18 +17,6 @@
                 margin-bottom: 10px;
             }
 
-            .btn {
-
-            }
-
-            .btn-success {
-
-            }
-
-            .btn-warning {
-
-            }
-
             .btn-etusivu {
                 background-color: #ff0033;
                 color: white;
@@ -97,7 +85,7 @@
 
                 <h2>Lisää tuote</h2>
 
-                <form action="/kauppalista" method="POST">
+                <form action="#" th:action="@{/kauppalista}" method="POST">
                     <input type="text" name="tuotenimi" autocomplete="off"/>
                     <button type="submit" class="btn btn-success">Lisää</button> 
                 </form>
@@ -110,10 +98,10 @@
                         </tr>
                     </table>
                 </div>
-                <a href="/etusivu"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
+                <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
                 <br/>
                 <br/>
-                <a href="/logout"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
+                <a th:href="@{/logout}"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
             </div>
         </div>
     </body>

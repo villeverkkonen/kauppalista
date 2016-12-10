@@ -43,6 +43,11 @@
                 margin-bottom: 20px;
                 margin-top: 20px;
             }
+
+            .btn-kauppalista {
+                background-color: #ff0033;
+                color: white;
+            }
         </style>
 
     </head>
@@ -51,7 +56,7 @@
             <div class="teksti">
                 <h1>Tuotteen nimi:</h1>
                 <h1 th:text="${tuote.tuotenimi}">tuote</h1>
-                <a th:href="@{/kauppalista}">Takaisin listaan</a>
+                <a href="/kauppalista"><button class="btn btn-kauppalista" type="submit">Kauppalistaan</button></a>
             </div>
         </div>
     </body>

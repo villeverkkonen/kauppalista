@@ -1,8 +1,8 @@
 ﻿Keskeneräiset tehtävät:
 
 - Kirjautuminen samalla, kun luodaan uusi tunnus
-- Testien tekeminen
--KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käytääjän kauppalista luokalle ja kauppalistan käyttäjä luokalle.
+- Testien tekeminen (Antti koodaa tällä hetkellä kirjautumiseen liittyviä testejä)
+- KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käytääjän kauppalista luokalle ja kauppalistan käyttäjä luokalle.
 - Kun tekee pyynnön jollekin sivulle, niin konsoliin ilmestyy useita viestejä:
 	2016-12-09 21:16:03.519  WARN 232 --- [nio-8080-exec-9] o.s.web.servlet.PageNotFound
              	: Request method 'GET' not supported

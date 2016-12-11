@@ -24,10 +24,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable(); // poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi
         http.headers().frameOptions().sameOrigin(); // sallitaan framejen käyttö
         http.authorizeRequests()
-                .antMatchers("/etusivu").permitAll() //etusivulle pääsee kirjautumatta
-                .anyRequest().authenticated();
+                .antMatchers("/").permitAll() //etusivulle pääsee kirjautumatta
+                .antMatchers("/kauppalista").hasAnyAuthority("ADMIN"); ///kauppalista vain admineille
         http.formLogin() //kaikki pääsee kirjautumaan sisään ja ulos
-                .loginPage("/etusivu")
+                .loginPage("/login")
                 .defaultSuccessUrl("/etusivu")
                 .failureUrl("/kirjautuminen")
                 .permitAll()

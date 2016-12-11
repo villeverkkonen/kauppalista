@@ -77,7 +77,7 @@ public class KayttajaControllerTest {
         assertTrue("Luodun käyttäjän käyttäjänimen pitää olla annettu käyttäjänimi.", luotuKayttaja.getNimi().equals(kayttajanimi));
 
         assertTrue("Luodun käyttäjän tallennettu salasanatiiviste ei saa olla null.", luotuKayttaja.getSalasana() != null);
-        assertTrue("Luodun käyttäjän tallennettu salasanatiivisteen pitää olla oikea salasanatiiviste.",
+        assertTrue("Luodun käyttäjän tallennetun salasanatiivisteen pitää olla oikea salasanatiiviste.",
                 this.passwordEncoder.matches(salasana, luotuKayttaja.getSalasana()));
         assertFalse("Luodun käyttäjän tallennettu salasanatiiviste ei saa olla annettu salasana.", luotuKayttaja.getSalasana().equals(salasana));
     }

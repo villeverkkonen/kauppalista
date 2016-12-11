@@ -1,5 +1,11 @@
 package kauppalista.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+import kauppalista.domain.Kayttaja;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -29,10 +37,31 @@ public class KayttajaControllerTest {
     }
 
     @Test
-    public void etusivuOnOlemassaJaSiihenLiittyyAttribuuttiKayttajat() throws Exception {
+    public void tunnuksenLuontiToimiiOikein() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
+
+        List<Kayttaja> kayttajat = new ArrayList((Collection<Kayttaja>) res.getModelAndView().getModel().get("kayttajat"));
+
+        int kayttajienLkm = kayttajat.size();
+
+        String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
+        String salasana = "salasana" + UUID.randomUUID().toString();
+
+        mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+
+        MvcResult uusiRes = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> uudetKayttajat = new ArrayList((Collection<Kayttaja>) uusiRes.getModelAndView().getModel().get("kayttajat"));
+        int uusiKayttajienLkm = uudetKayttajat.size();
+
+        assertTrue("Kun on luotu uusi käyttäjä, käyttäjien määrän pitäisi kasvaa yhdellä", uusiKayttajienLkm == kayttajienLkm + 1);
     }
 }

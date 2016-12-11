@@ -36,7 +36,7 @@ public class KayttajaController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    AuthenticationManager authManager;
+    private AuthenticationManager authManager;
 
     //Listaa kaikki tunnuksen luoneet käyttäjät etusivulle
     //Kayttaja on parametrissa Hibernaten validointia varten
@@ -59,6 +59,7 @@ public class KayttajaController {
             return "tunnuksenluonti";
         }
         
+        // Otetaan tokeniin muistiin uuden käyttäjän tiedot
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getKayttajanimi());
 
         //asetetaan kryptattu salasana
@@ -67,25 +68,13 @@ public class KayttajaController {
 
         kayttajaRepository.save(kayttaja);
 
-//        autoLogin(HttpServletRequest request, kayttaja.getNimi(), kayttaja.getSalasana());
+        // Authentikoidaan uusi luotu käyttäjä
         Authentication auth = authManager.authenticate(authRequest);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         return "redirect:/etusivu";
     }
 
-//    public void autoLogin(HttpServletRequest request, String kayttajaNimi, String salasana) {
-//        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttajaNimi, salasana);
-//        Authentication authentication = authManager.authenticate(authRequest);
-//
-//        SecurityContext securityContext = SecurityContextHolder.getContext();
-//        securityContext.setAuthentication(authentication);
-//
-//        // Create a new session and add the security context.
-//        HttpSession session = request.getSession(true);
-//        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-//
-//    }
     //Näyttää yhden käyttäjän käyttäjäsivun ja tiedot käyttäjästä
 //    @RequestMapping(value = "/etusivu/{kayttajaId}", method = RequestMethod.GET)
 //    public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {

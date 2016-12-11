@@ -57,7 +57,7 @@ public class KayttajaController {
         }
         
         // Otetaan tokeniin muistiin uuden käyttäjän tiedot
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getKayttajanimi());
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getSalasana());
 
         //asetetaan kryptattu salasana
         kayttaja.setSalasana(passwordEncoder.encode(kayttaja.getSalasana()));

@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import kauppalista.domain.Kayttaja;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -28,6 +31,9 @@ public class KayttajaControllerTest {
 
     @Autowired
     private WebApplicationContext context;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     private MockMvc mockMvc;
 
@@ -62,6 +68,17 @@ public class KayttajaControllerTest {
         List<Kayttaja> uudetKayttajat = new ArrayList((Collection<Kayttaja>) uusiRes.getModelAndView().getModel().get("kayttajat"));
         int uusiKayttajienLkm = uudetKayttajat.size();
 
-        assertTrue("Kun on luotu uusi käyttäjä, käyttäjien määrän pitäisi kasvaa yhdellä", uusiKayttajienLkm == kayttajienLkm + 1);
+        assertTrue("Kun on luotu uusi käyttäjä, käyttäjien määrän pitäisi kasvaa yhdellä.", uusiKayttajienLkm == kayttajienLkm + 1);
+
+        List<Kayttaja> luodutKayttajat = uudetKayttajat.stream().filter(kayttaja -> kayttaja.getNimi().equals(kayttajanimi)).collect(Collectors.toList());
+        assertTrue("Kun on luotu tietyn niminen käyttäjä, sen nimisiä käyttäjiä pitää löytyä tasan 1.", luodutKayttajat.size() == 1);
+
+        Kayttaja luotuKayttaja = luodutKayttajat.get(0);
+        assertTrue("Luodun käyttäjän käyttäjänimen pitää olla annettu käyttäjänimi.", luotuKayttaja.getNimi().equals(kayttajanimi));
+
+        assertTrue("Luodun käyttäjän tallennettu salasanatiiviste ei saa olla null.", luotuKayttaja.getSalasana() != null);
+        assertTrue("Luodun käyttäjän tallennettu salasanatiivisteen pitää olla oikea salasanatiiviste.",
+                this.passwordEncoder.matches(salasana, luotuKayttaja.getSalasana()));
+        assertFalse("Luodun käyttäjän tallennettu salasanatiiviste ei saa olla annettu salasana.", luotuKayttaja.getSalasana().equals(salasana));
     }
 }

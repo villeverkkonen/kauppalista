@@ -1,12 +1,19 @@
 package kauppalista.controller;
 
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +35,9 @@ public class KayttajaController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    AuthenticationManager authManager;
+
     //Listaa kaikki tunnuksen luoneet käyttäjät etusivulle
     //Kayttaja on parametrissa Hibernaten validointia varten
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
@@ -45,6 +55,11 @@ public class KayttajaController {
         if (bindingResult.hasErrors()) {
             return "tunnuksenluonti";
         }
+        if (kayttajaRepository.findByKayttajanimi(kayttaja.getKayttajanimi()) != null) {
+            return "tunnuksenluonti";
+        }
+        
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getKayttajanimi());
 
         //asetetaan kryptattu salasana
         kayttaja.setSalasana(passwordEncoder.encode(kayttaja.getSalasana()));
@@ -52,9 +67,25 @@ public class KayttajaController {
 
         kayttajaRepository.save(kayttaja);
 
+//        autoLogin(HttpServletRequest request, kayttaja.getNimi(), kayttaja.getSalasana());
+        Authentication auth = authManager.authenticate(authRequest);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
         return "redirect:/etusivu";
     }
 
+//    public void autoLogin(HttpServletRequest request, String kayttajaNimi, String salasana) {
+//        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttajaNimi, salasana);
+//        Authentication authentication = authManager.authenticate(authRequest);
+//
+//        SecurityContext securityContext = SecurityContextHolder.getContext();
+//        securityContext.setAuthentication(authentication);
+//
+//        // Create a new session and add the security context.
+//        HttpSession session = request.getSession(true);
+//        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+//
+//    }
     //Näyttää yhden käyttäjän käyttäjäsivun ja tiedot käyttäjästä
 //    @RequestMapping(value = "/etusivu/{kayttajaId}", method = RequestMethod.GET)
 //    public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {

@@ -1,14 +1,7 @@
 ﻿Keskeneräiset tehtävät:
 
-- Kirjautuminen samalla, kun luodaan uusi tunnus
-- Testien tekeminen (Antti koodaa tällä hetkellä kirjautumiseen liittyviä testejä)
+- Testien tekeminen
 - KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käytääjän kauppalista luokalle ja kauppalistan käyttäjä luokalle.
-- Kun tekee pyynnön jollekin sivulle, niin konsoliin ilmestyy useita viestejä:
-	2016-12-09 21:16:03.519  WARN 232 --- [nio-8080-exec-9] o.s.web.servlet.PageNotFound
-             	: Request method 'GET' not supported
-	2016-12-09 21:16:03.520  WARN 232 --- [nio-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver
- 		: Resolved exception caused by Handler execution: org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported
-	Sivut kuitenkin avautuvat..?
 - Uusien listojen luominen -> ’Kauppalistaan’ napin pitäisi listata kaikki käyttäjän kauppalistat 
 - Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi
 - Historian toteutus (totuusarvolla muunnos historiaan?)
@@ -34,3 +27,4 @@ Valmiit tehtävät:
 	laskeutuu esiin. Ei tarvitse latailla uutta sivua)
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin
 - Tarvitaan ’luo uusi Kauppalista’ nappi
+- Kirjautuminen samalla, kun luodaan uusi tunnus

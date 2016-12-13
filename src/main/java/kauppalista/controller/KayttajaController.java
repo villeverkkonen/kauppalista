@@ -72,13 +72,6 @@ public class KayttajaController {
         return "redirect:/etusivu";
     }
 
-    //Näyttää yhden käyttäjän käyttäjäsivun ja tiedot käyttäjästä
-//    @RequestMapping(value = "/etusivu/{kayttajaId}", method = RequestMethod.GET)
-//    public String kayttajaSivu(Model model, @PathVariable Long kayttajaId) {
-//        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-//        model.addAttribute("kayttaja", kayttaja);
-//        return "kayttaja";
-//    }
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);

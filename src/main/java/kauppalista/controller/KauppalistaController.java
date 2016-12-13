@@ -68,14 +68,6 @@ public class KauppalistaController {
         return "redirect:/kauppalista/" + listaId;
     }
 
-    //Näyttää tuotteen sivun, jossa voi olla tarkempia tuotekuvauksia
-    //tai jopa kuva tuotteesta, helpottaakseen löytämään juuri oikean tuotteen kaupasta
-//    @RequestMapping(value = "/kauppalista/{tuoteId}", method = RequestMethod.GET)
-//    public String tuoteSivu(Model model, @PathVariable Long tuoteId) {
-//        model.addAttribute("tuote", tuoteRepository.findOne(tuoteId));
-//        return "tuote";
-//    }
-
     //Merkataan kauppalistalla oleva tuote ostetuksi
     //KauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle. En tiedä onko toteutus oikea
     @RequestMapping(value = "/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
@@ -86,16 +78,16 @@ public class KauppalistaController {
         tuoteRepository.save(tuote);
         return "redirect:/kauppalista/{kauppalistaId}";
     }
-    
+
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
-    public String luoKauppalista(@PathVariable Long kayttajaId, 
-            @RequestParam(required=false) String kauppalistaNimi) {
+    public String luoKauppalista(@PathVariable Long kayttajaId,
+            @RequestParam(required = false) String kauppalistaNimi) {
         Kauppalista kl = new Kauppalista();
         kl.setListanimi(kauppalistaNimi);
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
         this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
         Long kauppalistaId = kl.getId();
-        
+
         return "redirect:/kauppalista/" + kauppalistaId;
     }
 

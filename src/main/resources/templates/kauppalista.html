@@ -78,7 +78,7 @@
 
                 <table class="table">
                     <tr th:each="tuote : ${tuotteet}">
-                        <td><a th:href="@{/kauppalista/{kauppalistaId}/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id})}" th:text="${tuote.tuotenimi}">Tuotteen nimi</a></td>
+                        <td th:text="${tuote.tuotenimi}">Tuotteen nimi</td>
                         <td><form th:action="@{/kauppalista/{kauppalistaId}/ostettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
                     </tr>
                 </table>
@@ -97,12 +97,10 @@
                         </tr>
                     </table>
                 </div>
-<!--                Tähän nappi takaisin käyttäjäsivulle/kauppalistat-sivulle
-                Mutta en osannut tehdä. Listaan voi kuulua monta käyttäjää,
-                mistä tiedän, kuka niistä on haluamamme käyttäjä ja id?
-                <a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>
+<!--                Tähän linkki käyttäjäsivuille, mutta kayttajaId:tä ei saada mistään-->
+<!--                <a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>-->
                 <br/>
-                <br/>-->
+                <br/>
                 <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
             </div>
         </div>

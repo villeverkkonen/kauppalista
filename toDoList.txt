@@ -1,14 +1,11 @@
 ﻿Keskeneräiset tehtävät:
 
 - Testien tekeminen
-- KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käytääjän kauppalista luokalle ja kauppalistan käyttäjä luokalle.
-- Uusien listojen luominen -> ’Kauppalistaan’ napin pitäisi listata kaikki käyttäjän kauppalistat 
 - Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi
 - Historian toteutus (totuusarvolla muunnos historiaan?)
 - Erilliset tuotanto- ja testausprofiilit
-- Linkki tietystä kauppalistasta takaisin käyttäjän käyttäjäsivulle, missä näkyy kauppalistat.
-	En osannut tehdä, koska en keksinyt mistä saan käyttäjäId:n polkuun, kun listassa voi olla miljoonakin käyttäjää,
-	niin mistä tietää kenen id:n valitsee?
+- Puuttuikos vielä yksi tietokantataulu?
+- (extrana jos aikaa riittää, kielivaihtoehto {eng riittänee}, mahdollisuus lisäpisteisiin)
 
 
 
@@ -28,3 +25,6 @@ Valmiit tehtävät:
 - Tuotteiden yhdistäminen yksittäisiin kauppalistoihin
 - Tarvitaan ’luo uusi Kauppalista’ nappi
 - Kirjautuminen samalla, kun luodaan uusi tunnus
+- Uusien listojen luominen -> ’Kauppalistaan’ napin pitäisi listata kaikki käyttäjän kauppalistat
+- Linkki tietystä kauppalistasta takaisin käyttäjän käyttäjäsivulle, missä näkyy kauppalistat
+- KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käyttäjän kauppalista-luokalle ja kauppalistan käyttäjä-luokalle

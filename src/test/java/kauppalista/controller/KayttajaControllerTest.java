@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -58,7 +59,7 @@ public class KayttajaControllerTest {
 
         this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
                 .andExpect(status().is3xxRedirection())
-                .andReturn();
+                .andExpect(redirectedUrl("/etusivu"));
 
         MvcResult uusiRes = this.mockMvc.perform(get("/etusivu"))
                 .andExpect(model().attributeExists("kayttajat"))
@@ -97,7 +98,7 @@ public class KayttajaControllerTest {
 
         mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
                 .andExpect(status().is3xxRedirection())
-                .andReturn();
+                .andExpect(redirectedUrl("/etusivu"));
 
         MvcResult resLisayksenJalkeen = this.mockMvc.perform(get("/etusivu"))
                 .andExpect(model().attributeExists("kayttajat"))

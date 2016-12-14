@@ -1,5 +1,6 @@
 package kauppalista.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import kauppalista.domain.Kauppalista;
@@ -53,11 +54,60 @@ public class KayttajaController {
     //oliomuuttujilta vaaditaan, ohjataan erilliselle
     //tunnuksenluontisivulle, missä virheilmoitus virheellisen kentän kohdalla
     @RequestMapping(value = "/etusivu", method = RequestMethod.POST)
-    public String lisaaKayttaja(@Valid @ModelAttribute Kayttaja kayttaja, BindingResult bindingResult) {
+    public String lisaaKayttaja(Model model, @Valid @ModelAttribute Kayttaja kayttaja, BindingResult bindingResult) {
+
+        boolean onkoVirheita = false;
+        List<String> virheet = new ArrayList();
+
         if (bindingResult.hasErrors()) {
-            return "tunnuksenluonti";
+            virheet.add("Virhe kirjautumisessa.");
+            onkoVirheita = true;
         }
+
         if (kayttajaRepository.findByKayttajanimi(kayttaja.getKayttajanimi()) != null) {
+            virheet.add("Käyttäjänimi on varattu.");
+            onkoVirheita = true;
+        }
+
+        if (kayttaja.getSalasana().equals(kayttaja.getKayttajanimi())) {
+            virheet.add("Salasana ei saa olla sama kuin käyttäjänimi.");
+            onkoVirheita = true;
+        }
+
+        if (kayttaja.getSalasana().length() < 8) {
+            virheet.add("Salasanan vähimmäispituus on 8.");
+            onkoVirheita = true;
+        }
+
+        if (!kayttaja.getSalasana().matches(".*[a-zA-Z]++.*")) {
+            virheet.add("Salasanan tulee sisältää ainakin yksi kirjain väliltä a ... z tai A ... Z.");
+            onkoVirheita = true;
+        }
+
+        if (!kayttaja.getSalasana().matches(".*[0-9]++.*")) {
+            virheet.add("Salasanan tulee sisältää ainakin yksi numero.");
+            onkoVirheita = true;
+        }
+
+        if (!kayttaja.getSalasana().matches(".*[^0-9a-zA-Z]++.*")) {
+            virheet.add("Salasanan tulee sisältää ainakin yksi merkki, joka ei ole kirjain a ... z eikä numero.");
+            onkoVirheita = true;
+        }
+
+        String kayttajatunnusTakaperin = new StringBuilder(kayttaja.getKayttajanimi()).reverse().toString();
+
+        if (kayttaja.getSalasana().equals(kayttajatunnusTakaperin)) {
+            virheet.add("Salasana ei saa olla käyttäjänimi takaperin.");
+            onkoVirheita = true;
+        }
+
+        if (kayttaja.getKayttajanimi().contains(kayttaja.getSalasana())) {
+            virheet.add("Salasana ei saa olla käyttäjätunnuksen osa.");
+            onkoVirheita = true;
+        }
+
+        if (onkoVirheita) {
+            model.addAttribute("virheet", virheet);
             return "tunnuksenluonti";
         }
 

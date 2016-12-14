@@ -299,7 +299,7 @@ public class KayttajaControllerTest {
         int kayttajienLkmAlussa = kayttajatAlussa.size();
 
         String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
-        long luku = UUID.randomUUID().hashCode();
+        long luku = UUID.randomUUID().getLeastSignificantBits();
         String salasana = "!0123456789" + luku;
 
         this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
@@ -331,7 +331,7 @@ public class KayttajaControllerTest {
         int kayttajienLkmAlussa = kayttajatAlussa.size();
 
         String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
-        long luku = UUID.randomUUID().hashCode();
+        long luku = UUID.randomUUID().getLeastSignificantBits();
         StringBuilder salasana = new StringBuilder("!abcdefgh" + luku);
 
         for (int i = 0; i < salasana.toString().length(); i++) {
@@ -374,7 +374,7 @@ public class KayttajaControllerTest {
         int kayttajienLkmAlussa = kayttajatAlussa.size();
 
         String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
-        long luku = UUID.randomUUID().hashCode();
+        long luku = UUID.randomUUID().getLeastSignificantBits();
         StringBuilder salasana = new StringBuilder("abcdefgh" + luku);
 
         for (int i = 0; i < salasana.toString().length(); i++) {

@@ -99,7 +99,7 @@ public class KauppalistaController {
         kl.setListanimi(kauppalistaNimi);
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
         this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
-        Long kauppalistaId = kl.getId();
+        String kauppalistaId = kl.getId().toString();
 
         return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
     }

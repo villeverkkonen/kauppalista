@@ -361,4 +361,55 @@ public class KayttajaControllerTest {
         assertTrue("Kun on yritetty luoda uusi käyttäjä, jonka salasana on ei sisällä kirjaimia a ... z eikä A - Z, käyttäjätunnusten määrä ei saa muuttua.",
                 kayttajienLkmLisaysyrityksenJalkeen == kayttajienLkmAlussa);
     }
+
+    @Test
+    public void salasananPitaaSisaltaaErikoismerkki() throws Exception {
+        MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatAlussa = new ArrayList((Collection<Kayttaja>) res.getModelAndView().getModel().get("kayttajat"));
+
+        int kayttajienLkmAlussa = kayttajatAlussa.size();
+
+        String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
+        long luku = UUID.randomUUID().hashCode();
+        StringBuilder salasana = new StringBuilder("abcdefgh" + luku);
+
+        for (int i = 0; i < salasana.toString().length(); i++) {
+            char merkki = salasana.toString().charAt(i);
+            if (merkki >= '0' && merkki <= '9') {
+                continue;
+            }
+
+            if (merkki >= 'a' && merkki <= 'z') {
+                continue;
+            }
+
+            if (merkki >= 'A' && merkki <= 'Z') {
+                continue;
+            }
+
+            // merkki on erikoismerkki. muutetaan se numeroksi.
+            merkki = (char) ((merkki % 10) + '0');
+            salasana.replace(i, i + 1, "" + merkki);
+        }
+
+        this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana.toString()))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+        MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatLisaysyrityksenJalkeen
+                = new ArrayList((Collection<Kayttaja>) resLisaysyrityksenJalkeen.getModelAndView().getModel().get("kayttajat"));
+        int kayttajienLkmLisaysyrityksenJalkeen = kayttajatLisaysyrityksenJalkeen.size();
+
+        assertTrue("Kun on yritetty luoda uusi käyttäjä, jonka salasana on ei sisällä yhtään erikoismerkkiä, käyttäjätunnusten määrä ei saa muuttua.",
+                kayttajienLkmLisaysyrityksenJalkeen == kayttajienLkmAlussa);
+    }
 }

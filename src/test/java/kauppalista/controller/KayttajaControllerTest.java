@@ -39,7 +39,7 @@ public class KayttajaControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 
     @Test
@@ -56,7 +56,7 @@ public class KayttajaControllerTest {
         String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
         String salasana = "salasana" + UUID.randomUUID().toString();
 
-        mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
+        this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
                 .andExpect(status().is3xxRedirection())
                 .andReturn();
 
@@ -109,7 +109,7 @@ public class KayttajaControllerTest {
 
         assertTrue("Kun on luotu uusi käyttäjä, käyttäjien määrän pitäisi kasvaa yhdellä.", kayttajienLkmLisayksenJalkeen == kayttajienLkmAlussa + 1);
 
-        mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
+        this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
 

@@ -41,6 +41,11 @@ public class DefaultController {
         admin.setRooli("ADMIN");
         kayttajaRepository.save(admin);
 
+        Kayttaja admin2 = new Kayttaja();
+        admin2.setKayttajanimi("admin2");
+        admin2.setSalasana(passwordEncoder.encode("admin2"));
+        admin2.setRooli("ADMIN");
+        kayttajaRepository.save(admin2);
         //luodaan adminille pari testikauppalistaa
         Kauppalista kl = new Kauppalista();
         kl.setListanimi("lista 1");
@@ -58,11 +63,6 @@ public class DefaultController {
         Kauppalista kl2 = new Kauppalista();
         kl2.setListanimi("lista 2");
         this.kauppalistaService.lisaaKayttajaKauppalistalle(admin, kl2);
-//
-//        admin.lisaaKauppalista(kl);
-//        admin.lisaaKauppalista(kl2);
-//
-//        kayttajaRepository.save(admin);
     }
 
     //pyyntö juuripolkuun ohjaa etusivulle

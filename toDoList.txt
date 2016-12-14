@@ -1,8 +1,10 @@
-﻿Keskeneräiset tehtävät:
+Keskeneräiset tehtävät:
 
 - Testien tekeminen
-- Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi
+- Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi <- Controllerilla on nyt metodi, tarvitaan kauppalista sivulle ’lisää käyttäjä’-nappi, uudelleen ohjaus samalle kauppalistalle
 - Historian toteutus (totuusarvolla muunnos historiaan?)
+- tuotteiden poistaminen kauppalistalta
+- kauppalistan poistaminen? Cascade toiminnolla?
 - Erilliset tuotanto- ja testausprofiilit
 - Puuttuikos vielä yksi tietokantataulu?
 - (extrana jos aikaa riittää, kielivaihtoehto {eng riittänee}, mahdollisuus lisäpisteisiin)
@@ -28,3 +30,4 @@ Valmiit tehtävät:
 - Uusien listojen luominen -> ’Kauppalistaan’ napin pitäisi listata kaikki käyttäjän kauppalistat
 - Linkki tietystä kauppalistasta takaisin käyttäjän käyttäjäsivulle, missä näkyy kauppalistat
 - KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käyttäjän kauppalista-luokalle ja kauppalistan käyttäjä-luokalle
+- Tyhjiin syötteisiin reagoidaan

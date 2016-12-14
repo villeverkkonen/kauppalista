@@ -1,6 +1,7 @@
 package kauppalista.controller;
 
 import java.util.List;
+import java.util.Random;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
@@ -31,6 +32,8 @@ public class KauppalistaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
+    private String[] noname = {"HoBo","Pokemon Trainers","Norjalainen hiihtäjä","Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
+
     //Listaa yhden kauppalistan tuotteet
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
     public String kauppalistaSivu(Model model,
@@ -52,12 +55,15 @@ public class KauppalistaController {
             @RequestParam(required = false) String tuotenimi) {
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
 
-        Tuote t = new Tuote(tuotenimi.trim());
-        kl.lisaaTuote(t);
+        if (!tuotenimi.trim().isEmpty()) {
+            Tuote t = new Tuote(tuotenimi.trim());
+            tuoteRepository.save(t);
 
-        tuoteRepository.save(t);
-        kauppalistaRepository.save(kl);
+            kl.lisaaTuote(t);
 
+            tuoteRepository.save(t);
+            kauppalistaRepository.save(kl);
+        }
         return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
@@ -76,7 +82,6 @@ public class KauppalistaController {
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-//        List<Kauppalista> kauppalistat = kauppalistaRepository.findAll();
         List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
@@ -87,6 +92,9 @@ public class KauppalistaController {
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
     public String luoKauppalista(@PathVariable Long kayttajaId,
             @RequestParam(required = false) String kauppalistaNimi) {
+        if (kauppalistaNimi.trim().isEmpty()) {
+            kauppalistaNimi = "The " + noname[new Random().nextInt(noname.length)] + " diet";
+        }
         Kauppalista kl = new Kauppalista();
         kl.setListanimi(kauppalistaNimi);
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
@@ -95,4 +103,12 @@ public class KauppalistaController {
 
         return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
     }
+
+    @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}/{uusiKayttajaId}", method = RequestMethod.POST)
+    public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId, @PathVariable Long uusiKayttajaId) {
+
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(this.kayttajaRepository.findOne(uusiKayttajaId), this.kauppalistaRepository.findOne(kauppalistaId));
+        return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
+    }
+
 }

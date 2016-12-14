@@ -43,14 +43,12 @@ public class KauppalistaService {
     }
 
     public void lisaaTuoteKauppalistalle(Tuote tuote, Kauppalista kauppalista) {
-//        Kauppalista kl = this.kauppalistaRepository.findOne(kauppalista.getId());
+        tuoteRepository.save(tuote);
         kauppalista.lisaaTuote(tuote);
         this.kauppalistaRepository.save(kauppalista);
     }
 
     public void lisaaKayttajaKauppalistalle(Kayttaja k, Kauppalista kl) {
-//        Kauppalista kauppalista = this.kauppalistaRepository.findOne(kl.getId());
-//        Kayttaja kayttaja = this.kayttajaRepository.findOne(k.getId());
 
         kl.lisaaKayttaja(k);
         k.lisaaKauppalista(kl);
@@ -58,6 +56,5 @@ public class KauppalistaService {
         this.kauppalistaRepository.save(kl);
         this.kayttajaRepository.save(k);
     }
-    
-    
+
 }

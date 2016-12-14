@@ -76,26 +76,4 @@ public class KayttajaController {
 
         return "redirect:/etusivu";
     }
-
-    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
-    public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
-        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-//        List<Kauppalista> kauppalistat = kauppalistaRepository.findAll();
-        List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
-        model.addAttribute("kayttaja", kayttaja);
-        model.addAttribute("kauppalistat", kauppalistat);
-        return "kayttaja";
-    }
-
-    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
-    public String luoKauppalista(@PathVariable Long kayttajaId,
-            @RequestParam(required = false) String kauppalistaNimi) {
-        Kauppalista kl = new Kauppalista();
-        kl.setListanimi(kauppalistaNimi);
-        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
-        Long kauppalistaId = kl.getId();
-
-        return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
-    }
 }

@@ -2,6 +2,7 @@ package kauppalista.controller;
 
 import java.util.List;
 import kauppalista.domain.Kauppalista;
+import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
@@ -29,15 +30,6 @@ public class KauppalistaController {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
-
-    //Listaa kaikki käyttäjän kauppalistat
-    //TÄSSÄ ON ONGELMA: miten saadaan String kayttajanimi käytettäväksi?
-    @RequestMapping(value = "/kauppalistat", method = RequestMethod.GET)
-    public String etusivu(Model model, @RequestParam String kayttajanimi, @PathVariable Long kauppalistaId) {
-        List<Kauppalista> kayttajanListat = kayttajaRepository.findByKayttajanimi(kayttajanimi).getKauppalista();
-        model.addAttribute("kauppalistat", kayttajanListat);
-        return "kauppalistat";
-    }
 
     //Listaa yhden kauppalistan tuotteet
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
@@ -78,5 +70,29 @@ public class KauppalistaController {
         tuote.setOstettu(true);
         tuoteRepository.save(tuote);
         return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
+    }
+
+    //listaa tietyn käyttäjän kauppalistat
+    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
+    public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
+        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+//        List<Kauppalista> kauppalistat = kauppalistaRepository.findAll();
+        List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
+        model.addAttribute("kayttaja", kayttaja);
+        model.addAttribute("kauppalistat", kauppalistat);
+        return "kayttaja";
+    }
+
+    //lisää tietylle käyttäjälle kauppalistan
+    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
+    public String luoKauppalista(@PathVariable Long kayttajaId,
+            @RequestParam(required = false) String kauppalistaNimi) {
+        Kauppalista kl = new Kauppalista();
+        kl.setListanimi(kauppalistaNimi);
+        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
+        Long kauppalistaId = kl.getId();
+
+        return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
     }
 }

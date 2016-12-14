@@ -89,7 +89,11 @@
                 <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
                 <br/>
                 <br/>
-                <a th:href="@{/logout}"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
+                <div sec:authorize="isAuthenticated()">
+                    <form action="#" th:action="@{/logout}" method="POST">
+                    <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

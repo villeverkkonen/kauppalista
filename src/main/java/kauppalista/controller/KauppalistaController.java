@@ -2,7 +2,6 @@ package kauppalista.controller;
 
 import java.util.List;
 import kauppalista.domain.Kauppalista;
-import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
@@ -41,21 +40,24 @@ public class KauppalistaController {
     }
 
     //Listaa yhden kauppalistan tuotteet
-    @RequestMapping(value = "/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
-    public String kauppalistaSivu(Model model, @PathVariable Long kauppalistaId) {
+    @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
+    public String kauppalistaSivu(Model model,
+            @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) {
         List<Tuote> tuotteet = this.kauppalistaService.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, false);
         List<Tuote> ostetutTuotteet = this.kauppalistaService.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, true);
 
         model.addAttribute("kauppalista", kauppalistaRepository.findOne(kauppalistaId));
         model.addAttribute("tuotteet", tuotteet);
         model.addAttribute("ostetutTuotteet", ostetutTuotteet);
+        model.addAttribute("kayttaja", kayttajaRepository.findOne(kayttajaId));
 
         return "kauppalista";
     }
 
     //Lisää tuotteen kauppalistalle
-    @RequestMapping(value = "/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
-    public String lisaaTuote(@PathVariable Long kauppalistaId, @RequestParam(required = false) String tuotenimi) {
+    @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
+    public String lisaaTuote(@PathVariable Long kauppalistaId,
+            @RequestParam(required = false) String tuotenimi) {
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
 
         Tuote t = new Tuote(tuotenimi.trim());
@@ -64,18 +66,17 @@ public class KauppalistaController {
         tuoteRepository.save(t);
         kauppalistaRepository.save(kl);
 
-        String listaId = kauppalistaId.toString();
-        return "redirect:/kauppalista/" + listaId;
+        return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
     //Merkataan kauppalistalla oleva tuote ostetuksi
     //KauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle. En tiedä onko toteutus oikea
-    @RequestMapping(value = "/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
     public String merkkaaOstetuksi(@PathVariable Long tuoteId) {
 
         Tuote tuote = tuoteRepository.findById(tuoteId);
         tuote.setOstettu(true);
         tuoteRepository.save(tuote);
-        return "redirect:/kauppalista/{kauppalistaId}";
+        return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 }

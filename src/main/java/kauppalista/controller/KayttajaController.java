@@ -96,6 +96,6 @@ public class KayttajaController {
         this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
         Long kauppalistaId = kl.getId();
 
-        return "redirect:/kauppalista/" + kauppalistaId;
+        return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
     }
 }

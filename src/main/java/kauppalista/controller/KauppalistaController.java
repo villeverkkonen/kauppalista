@@ -32,7 +32,7 @@ public class KauppalistaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
-    private String[] noname = {"HoBo","Pokemon Trainers","Norjalainen hiihtäjä","Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
+    private String[] noname = {"HoBo", "Pokemon Trainers", "Norjalainen hiihtäjä", "Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
 
     //Listaa yhden kauppalistan tuotteet
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
@@ -45,6 +45,7 @@ public class KauppalistaController {
         model.addAttribute("tuotteet", tuotteet);
         model.addAttribute("ostetutTuotteet", ostetutTuotteet);
         model.addAttribute("kayttaja", kayttajaRepository.findOne(kayttajaId));
+        model.addAttribute("kayttajat", kauppalistaService.haeKauppalistanKayttajat(kauppalistaId));
 
         return "kauppalista";
     }
@@ -104,10 +105,18 @@ public class KauppalistaController {
         return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
     }
 
-    @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}/{uusiKayttajaId}", method = RequestMethod.POST)
-    public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId, @PathVariable Long uusiKayttajaId) {
+    //Valmiiseen kauppalistaan lisätään toisia käyttäjiä
+    @RequestMapping(value = "{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja", method = RequestMethod.POST)
+    public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId,
+            @PathVariable Long kayttajaId,
+            @RequestParam(required = false) String kayttajatunnus) {
 
-        this.kauppalistaService.lisaaKayttajaKauppalistalle(this.kayttajaRepository.findOne(uusiKayttajaId), this.kauppalistaRepository.findOne(kauppalistaId));
+        if (kayttajatunnus.trim().isEmpty() || kayttajaRepository.findByKayttajanimi(kayttajatunnus) == null) {
+            return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
+        }
+        Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajatunnus);
+
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
         return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 

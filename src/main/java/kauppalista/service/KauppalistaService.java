@@ -57,4 +57,11 @@ public class KauppalistaService {
         this.kayttajaRepository.save(k);
     }
 
+    public List<Kayttaja> haeKauppalistanKayttajat(Long kauppalistaId) {
+        Kauppalista kauppalista = kauppalistaRepository.findOne(kauppalistaId);
+        List<Kayttaja> kauppalistanKayttajat = kauppalista.getKayttajat();
+
+        return kauppalistanKayttajat;
+    }
+
 }

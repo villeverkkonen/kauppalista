@@ -21,10 +21,15 @@
                 background-color: #ff0033;
                 color: white;
             }
-            
+
             .btn-kayttaja {
                 background-color: #ff9900;
                 color: white;
+            }
+
+            .btn-lisaaKayttaja {
+                background-color: #f0f0f0;
+                color: black;
             }
 
             .table {
@@ -73,6 +78,13 @@
                 <div sec:authorize="isAuthenticated()">
                     <span>Olet kirjautuneena käyttäjänä: </span><span sec:authentication="name">käyttäjänimi</span>
                 </div>
+                <br/>
+                <span>Listalla olevat käyttäjät:</span>
+                <table>
+                    <tr th:each="kayttaja : ${kayttajat}">
+                        <td th:text="${kayttaja.kayttajanimi}">Käyttäjätunnus</td>
+                    </tr>
+                </table>
 
                 <span class="tuotteet" th:if="${tuotteet.size() > 0}">Tuotteet</span>
 
@@ -97,10 +109,19 @@
                         </tr>
                     </table>
                 </div>
+                <br/>
                 <a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>
                 <br/>
                 <br/>
                 <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
+                <br/>
+                <br/>
+                <div>
+                    <form action="#" th:action="@{/{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja(kauppalistaId = ${kauppalista.id},kayttajaId = ${kayttaja.id})}" method="POST">
+                        <input type="text" name="kayttajatunnus" autocomplete="off"/>
+                        <button class="btn btn-lisaaKayttaja" type="submit">Lisää käyttäjä</button>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

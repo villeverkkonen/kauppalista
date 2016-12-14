@@ -81,4 +81,48 @@ public class KayttajaControllerTest {
                 this.passwordEncoder.matches(salasana, luotuKayttaja.getSalasana()));
         assertFalse("Luodun käyttäjän tallennettu salasanatiiviste ei saa olla annettu salasana.", luotuKayttaja.getSalasana().equals(salasana));
     }
+
+    @Test
+    public void eiKahtaSamaaTunnusta() throws Exception {
+        MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatAlussa = new ArrayList((Collection<Kayttaja>) res.getModelAndView().getModel().get("kayttajat"));
+        int kayttajienLkmAlussa = kayttajatAlussa.size();
+
+        String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
+        String salasana = "salasana" + UUID.randomUUID().toString();
+
+        mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
+                .andExpect(status().is3xxRedirection())
+                .andReturn();
+
+        MvcResult resLisayksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatLisayksenJalkeen = new ArrayList((Collection<Kayttaja>) resLisayksenJalkeen.getModelAndView().getModel().get("kayttajat"));
+        int kayttajienLkmLisayksenJalkeen = kayttajatLisayksenJalkeen.size();
+
+        assertTrue("Kun on luotu uusi käyttäjä, käyttäjien määrän pitäisi kasvaa yhdellä.", kayttajienLkmLisayksenJalkeen == kayttajienLkmAlussa + 1);
+
+        mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+        MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatLisaysyrityksenJalkeen
+                = new ArrayList((Collection<Kayttaja>) resLisaysyrityksenJalkeen.getModelAndView().getModel().get("kayttajat"));
+        int kayttajienLkmLisaysyrityksenJalkeen = kayttajatLisaysyrityksenJalkeen.size();
+
+        assertTrue("Kun on yritetty luoda uusi käyttäjä, jolla on varattu käyttäjänimi, käyttäjien määrä ei saa muuttua.",
+                kayttajienLkmLisaysyrityksenJalkeen == kayttajienLkmLisayksenJalkeen);
+    }
 }

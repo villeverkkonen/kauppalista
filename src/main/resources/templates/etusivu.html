@@ -116,7 +116,9 @@
                     </div>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <a href="/logout"><button class="btn btn-logout" type="submit">Kirjaudu ulos</button></a>
+                    <form action="#" th:action="@{/logout}" method="POST">
+                    <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
+                    </form>
                 </div>
             </div>
         </div>

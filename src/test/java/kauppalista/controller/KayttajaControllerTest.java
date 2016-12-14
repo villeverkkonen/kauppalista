@@ -286,4 +286,36 @@ public class KayttajaControllerTest {
         assertTrue("Kun on yritetty luoda uusi käyttäjä, jonka salasana on sama kuin käyttäjätunnuksen keskiosa, käyttäjätunnusten määrä ei saa muuttua.",
                 kayttajienLkmKolmannenLisaysyrityksenJalkeen == kayttajienLkmAlussa);
     }
+
+    @Test
+    public void salasananPitaaSisaltaaKirjainValiltaAZaz() throws Exception {
+        MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatAlussa = new ArrayList((Collection<Kayttaja>) res.getModelAndView().getModel().get("kayttajat"));
+
+        int kayttajienLkmAlussa = kayttajatAlussa.size();
+
+        String kayttajanimi = "kayttaja" + UUID.randomUUID().toString();
+        long luku = UUID.randomUUID().hashCode();
+        String salasana = "!0123456789" + luku;
+
+        this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+
+        MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(view().name("etusivu"))
+                .andReturn();
+
+        List<Kayttaja> kayttajatLisaysyrityksenJalkeen
+                = new ArrayList((Collection<Kayttaja>) resLisaysyrityksenJalkeen.getModelAndView().getModel().get("kayttajat"));
+        int kayttajienLkmLisaysyrityksenJalkeen = kayttajatLisaysyrityksenJalkeen.size();
+
+        assertTrue("Kun on yritetty luoda uusi käyttäjä, jonka salasana on ei sisällä kirjaimia a ... z eikä A - Z, käyttäjätunnusten määrä ei saa muuttua.",
+                kayttajienLkmLisaysyrityksenJalkeen == kayttajienLkmAlussa);
+    }
 }

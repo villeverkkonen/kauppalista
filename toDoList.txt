@@ -1,6 +1,6 @@
 ﻿Keskeneräiset tehtävät:
 
-- Testien tekeminen
+- Testien tekeminen (Antti koodaa lisää testejä)
 - Historian toteutus (totuusarvolla muunnos historiaan?)
 - tuotteiden poistaminen kauppalistalta (poistuuko tuote jokaisen listalla olevan käyttäjän listalta, jos tekee simppelisti "tuoteRepository.delete(tuoteId);" ?)
 - kauppalistan poistaminen? Cascade toiminnolla?

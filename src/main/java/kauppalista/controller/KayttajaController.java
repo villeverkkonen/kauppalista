@@ -6,6 +6,7 @@ import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
+import kauppalista.service.KauppalistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class KayttajaController {
@@ -34,6 +36,9 @@ public class KayttajaController {
 
     @Autowired
     private AuthenticationManager authManager;
+
+    @Autowired
+    private KauppalistaService kauppalistaService;
 
     //Listaa kaikki tunnuksen luoneet käyttäjät etusivulle
     //Kayttaja on parametrissa Hibernaten validointia varten
@@ -55,7 +60,7 @@ public class KayttajaController {
         if (kayttajaRepository.findByKayttajanimi(kayttaja.getKayttajanimi()) != null) {
             return "tunnuksenluonti";
         }
-        
+
         // Otetaan tokeniin muistiin uuden käyttäjän tiedot
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getSalasana());
 
@@ -80,5 +85,17 @@ public class KayttajaController {
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
         return "kayttaja";
+    }
+
+    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
+    public String luoKauppalista(@PathVariable Long kayttajaId,
+            @RequestParam(required = false) String kauppalistaNimi) {
+        Kauppalista kl = new Kauppalista();
+        kl.setListanimi(kauppalistaNimi);
+        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
+        Long kauppalistaId = kl.getId();
+
+        return "redirect:/kauppalista/" + kauppalistaId;
     }
 }

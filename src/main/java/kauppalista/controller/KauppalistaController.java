@@ -78,17 +78,4 @@ public class KauppalistaController {
         tuoteRepository.save(tuote);
         return "redirect:/kauppalista/{kauppalistaId}";
     }
-
-    @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
-    public String luoKauppalista(@PathVariable Long kayttajaId,
-            @RequestParam(required = false) String kauppalistaNimi) {
-        Kauppalista kl = new Kauppalista();
-        kl.setListanimi(kauppalistaNimi);
-        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, kl);
-        Long kauppalistaId = kl.getId();
-
-        return "redirect:/kauppalista/" + kauppalistaId;
-    }
-
 }

@@ -1,6 +1,5 @@
 package kauppalista.repository;
 
-import java.util.List;
 import kauppalista.domain.Tuote;
 
 public interface TuoteRepositoryCustom {

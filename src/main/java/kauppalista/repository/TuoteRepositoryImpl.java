@@ -1,7 +1,6 @@
 package kauppalista.repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import kauppalista.domain.Tuote;
 import org.springframework.beans.factory.annotation.Autowired;
 

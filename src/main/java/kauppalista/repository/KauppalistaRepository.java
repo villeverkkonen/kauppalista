@@ -1,6 +1,5 @@
 package kauppalista.repository;
 
-import java.util.List;
 import kauppalista.domain.Kauppalista;
 import org.springframework.data.jpa.repository.JpaRepository;
 

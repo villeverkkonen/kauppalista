@@ -22,9 +22,9 @@ public class Kauppalista extends AbstractPersistable<Long> {
     private List<Tuote> ostettavatTuotteet;
 
     private String listanimi;
-    
+
     public Kauppalista() {
-        
+
     }
 
     public String getListanimi() {

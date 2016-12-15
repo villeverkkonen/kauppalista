@@ -29,9 +29,6 @@ public class DefaultController {
     private KayttajaRepository kayttajaRepository;
 
     @Autowired
-    private KauppalistaRepository kauppalistaRepository;
-
-    @Autowired
     private TuoteRepository tuoteRepository;
 
     @PostConstruct

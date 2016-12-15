@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import kauppalista.domain.Kayttaja;
-import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
-import kauppalista.service.KauppalistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,16 +27,10 @@ public class KayttajaController {
     private KayttajaRepository kayttajaRepository;
 
     @Autowired
-    private KauppalistaRepository kauppalistaRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AuthenticationManager authManager;
-
-    @Autowired
-    private KauppalistaService kauppalistaService;
 
     // Listaa kaikki tunnuksen luoneet käyttäjät etusivulle.
     // Kayttaja on parametrissa Hibernaten validointia varten.

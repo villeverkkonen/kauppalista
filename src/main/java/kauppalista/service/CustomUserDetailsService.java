@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         String rooli = kayttaja.getRooli();
         String salasana = kayttaja.getSalasana();
         if (kayttaja == null) {
-            throw new UsernameNotFoundException("Käyttäjätunnusta " 
+            throw new UsernameNotFoundException("Käyttäjätunnusta "
                     + kayttajanimi + "ei löydy");
         }
         if (kayttajanimi == null || kayttajanimi.equals("")) {

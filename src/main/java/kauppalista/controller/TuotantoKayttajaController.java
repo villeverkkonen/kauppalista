@@ -35,7 +35,7 @@ public class TuotantoKayttajaController {
     // Tuotannossa ei listata tunnuksen luoneita käyttäjiä etusivulle.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
     public String etusivu(Model model, @ModelAttribute Kayttaja kayttaja) {
-        model.addAttribute("kayttajat", new ArrayList());
+        model.addAttribute("kayttajat", null);
         return "etusivu";
     }
 

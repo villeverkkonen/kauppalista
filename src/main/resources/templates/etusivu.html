@@ -73,9 +73,9 @@
 
                 <h3>Tervetuloa Kauppalistaan!</h3>
 
-                <span>Luodut tunnukset:</span>
+                <span th:if="${kayttajat != null}" text="Luodut tunnukset:">Luodut tunnukset</span>
                 <table class="table">
-                    <tr th:each="kayttaja : ${kayttajat}">
+                    <tr th:if="${kayttajat != null}" th:each="kayttaja : ${kayttajat}">
                         <td><a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"
                                th:text="${kayttaja.kayttajanimi}">Käyttäjän nimi</a></td>
                     </tr>

@@ -18,15 +18,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    //määritellään mihin polkuihin pääsee kukin
+    // Määritellään mihin polkuihin kukin pääsee.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable(); // poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi
-        http.headers().frameOptions().sameOrigin(); // sallitaan framejen käyttö
+        http.csrf().disable();                      // Poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi.
+        http.headers().frameOptions().sameOrigin(); // Sallitaan framejen käyttö.
         http.authorizeRequests()
-                .antMatchers("/").permitAll() //etusivulle pääsee kirjautumatta
-                .antMatchers("/kauppalista").hasAnyAuthority("ADMIN"); ///kauppalista vain admineille
-        http.formLogin() //kaikki pääsee kirjautumaan sisään ja ulos
+                .antMatchers("/").permitAll() // Etusivulle pääsee kirjautumatta.
+                .antMatchers("/kauppalista").hasAnyAuthority("ADMIN"); // Kauppalista vain admineille.
+        http.formLogin() // Kaikki pääsee kirjautumaan sisään ja ulos.
                 .loginPage("/login")
                 .defaultSuccessUrl("/etusivu")
                 .failureUrl("/kirjautuminen")
@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/etusivu"); //uloskirjautuminen ohjaa etusivulle
+                .logoutSuccessUrl("/etusivu");      // Uloskirjautuminen ohjaa etusivulle.
     }
 
     @Autowired
@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    //kryptaa salasanan muotoon jota ei helpolla arvaa
+    // Palauttaa bcryptillä salasanasta lasketun kryptografisen tiivisteen (hash).
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

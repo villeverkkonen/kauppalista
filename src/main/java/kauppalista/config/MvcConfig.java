@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
-    //Asettaa login-sivulle näkymän, jotta voidaan tyylitellä sitä login.html:ssä
+    // Asettaa login-sivulle näkymän, jotta voidaan tyylitellä sitä login.html:ssä.
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");

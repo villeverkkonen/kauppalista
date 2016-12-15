@@ -41,18 +41,18 @@ public class KayttajaController {
     @Autowired
     private KauppalistaService kauppalistaService;
 
-    //Listaa kaikki tunnuksen luoneet käyttäjät etusivulle
-    //Kayttaja on parametrissa Hibernaten validointia varten
+    // Listaa kaikki tunnuksen luoneet käyttäjät etusivulle.
+    // Kayttaja on parametrissa Hibernaten validointia varten.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
     public String etusivu(Model model, @ModelAttribute Kayttaja kayttaja) {
         model.addAttribute("kayttajat", kayttajaRepository.findAll());
         return "etusivu";
     }
 
-    //Lomakkeen kautta luodaan uusi käyttäjätunnus
-    //jos lomakkeen kentät ei vastaa sitä, mitä Kayttaja-luokassa
-    //oliomuuttujilta vaaditaan, ohjataan erilliselle
-    //tunnuksenluontisivulle, missä virheilmoitus virheellisen kentän kohdalla
+    // Lomakkeen kautta luodaan uusi käyttäjätunnus.
+    // Jos lomakkeen kentät ei vastaa sitä, mitä Kayttaja-luokassa
+    // oliomuuttujilta vaaditaan, ohjataan erilliselle
+    // tunnuksenluontisivulle, missä virheilmoitus virheellisen kentän kohdalla.
     @RequestMapping(value = "/etusivu", method = RequestMethod.POST)
     public String lisaaKayttaja(Model model, @Valid @ModelAttribute Kayttaja kayttaja, BindingResult bindingResult) {
 
@@ -111,16 +111,16 @@ public class KayttajaController {
             return "tunnuksenluonti";
         }
 
-        // Otetaan tokeniin muistiin uuden käyttäjän tiedot
+        // Otetaan tokeniin muistiin uuden käyttäjän tiedot.
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getSalasana());
 
-        //asetetaan kryptattu salasana
+        // Asetetaan kryptattu salasana.
         kayttaja.setSalasana(passwordEncoder.encode(kayttaja.getSalasana()));
         kayttaja.setRooli("ADMIN");
 
         kayttajaRepository.save(kayttaja);
 
-        // Authentikoidaan uusi luotu käyttäjä
+        // Autentikoidaan uusi luotu käyttäjä.
         Authentication auth = authManager.authenticate(authRequest);
         SecurityContextHolder.getContext().setAuthentication(auth);
 

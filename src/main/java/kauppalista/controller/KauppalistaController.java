@@ -34,7 +34,7 @@ public class KauppalistaController {
 
     private String[] noname = {"HoBo", "Pokemon Trainers", "Norjalainen hiihtäjä", "Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
 
-    //Listaa yhden kauppalistan tuotteet
+    // Listaa yhden kauppalistan tuotteet.
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
     public String kauppalistaSivu(Model model,
             @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) {
@@ -50,7 +50,7 @@ public class KauppalistaController {
         return "kauppalista";
     }
 
-    //Lisää tuotteen kauppalistalle
+    // Lisää tuotteen kauppalistalle.
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
     public String lisaaTuote(@PathVariable Long kauppalistaId,
             @RequestParam(required = false) String tuotenimi) {
@@ -68,8 +68,8 @@ public class KauppalistaController {
         return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
-    //Merkataan kauppalistalla oleva tuote ostetuksi
-    //KauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle. En tiedä onko toteutus oikea
+    // Merkataan kauppalistalla oleva tuote ostetuksi.
+    // kauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle.
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
     public String merkkaaOstetuksi(@PathVariable Long tuoteId) {
 
@@ -79,7 +79,7 @@ public class KauppalistaController {
         return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
-    //listaa tietyn käyttäjän kauppalistat
+    // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
         Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
@@ -89,7 +89,7 @@ public class KauppalistaController {
         return "kayttaja";
     }
 
-    //lisää tietylle käyttäjälle kauppalistan
+    // Lisää tietylle käyttäjälle kauppalistan.
     @RequestMapping(value = "/etusivu/{kayttajaId}/kauppalistat", method = RequestMethod.POST)
     public String luoKauppalista(@PathVariable Long kayttajaId,
             @RequestParam(required = false) String kauppalistaNimi) {
@@ -105,7 +105,7 @@ public class KauppalistaController {
         return "redirect:/{kayttajaId}/kauppalista/" + kauppalistaId;
     }
 
-    //Valmiiseen kauppalistaan lisätään toisia käyttäjiä
+    // Valmiiseen kauppalistaan lisätään toinen/kolmas/jne. käyttäjä.
     @RequestMapping(value = "{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja", method = RequestMethod.POST)
     public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId,
             @PathVariable Long kayttajaId,
@@ -119,5 +119,4 @@ public class KauppalistaController {
         this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
         return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
-
 }

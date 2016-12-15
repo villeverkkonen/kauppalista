@@ -32,9 +32,10 @@ public class DefaultController {
     @Autowired
     private TuoteRepository tuoteRepository;
 
-    //luodaan valmiiksi ADMIN-oikeuksinen testikäyttäjä
     @PostConstruct
     public void init() {
+
+        // Luodaan valmiiksi ADMIN-oikeuksinen testikäyttäjä.
         Kayttaja admin = new Kayttaja();
         admin.setKayttajanimi("admin");
         admin.setSalasana(passwordEncoder.encode("admin"));
@@ -46,26 +47,30 @@ public class DefaultController {
         admin2.setSalasana(passwordEncoder.encode("admin2"));
         admin2.setRooli("ADMIN");
         kayttajaRepository.save(admin2);
-        //luodaan adminille pari testikauppalistaa
+
+        // Luodaan adminille pari testikauppalistaa.
         Kauppalista kl = new Kauppalista();
         kl.setListanimi("lista 1");
         this.kauppalistaService.lisaaKayttajaKauppalistalle(admin, kl);
 
+        // Lisätään kauppalistalle banaani.
         Tuote t = new Tuote("banaani");
         tuoteRepository.save(t);
 
         this.kauppalistaService.lisaaTuoteKauppalistalle(t, kl);
 
+        // Lisätään kauppalistalle maito.
         t = new Tuote("maito");
         tuoteRepository.save(t);
         this.kauppalistaService.lisaaTuoteKauppalistalle(t, kl);
 
+        // Luodaan toinenkin kauppalista ja jätetään se tyhjäksi.
         Kauppalista kl2 = new Kauppalista();
         kl2.setListanimi("lista 2");
         this.kauppalistaService.lisaaKayttajaKauppalistalle(admin, kl2);
     }
 
-    //pyyntö juuripolkuun ohjaa etusivulle
+    // Pyyntö juuripolkuun ohjaa etusivulle.
     @RequestMapping("/")
     public String ohjaaEtusivulle() {
         return "redirect:/etusivu";

@@ -20,5 +20,4 @@ public class TuoteRepositoryImpl implements TuoteRepositoryCustom {
         List<Tuote> tuotteet = this.tuoteRepository.findAll();
         return tuotteet.stream().filter(tuote -> tuote.getTuotenimi().equals(tuotenimi)).findAny().orElse(null);
     }
-
 }

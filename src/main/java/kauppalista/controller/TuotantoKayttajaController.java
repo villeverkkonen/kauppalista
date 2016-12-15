@@ -21,15 +21,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@Profile("default")
+@Profile("production")
 @Controller
-public class KayttajaController {
+public class TuotantoKayttajaController {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
-
-    @Autowired
-    private KauppalistaRepository kauppalistaRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -37,14 +34,10 @@ public class KayttajaController {
     @Autowired
     private AuthenticationManager authManager;
 
-    @Autowired
-    private KauppalistaService kauppalistaService;
-
-    // Listaa kaikki tunnuksen luoneet käyttäjät etusivulle.
-    // Kayttaja on parametrissa Hibernaten validointia varten.
+    // Tuotannossa ei listata tunnuksen luoneita käyttäjiä etusivulle.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
     public String etusivu(Model model, @ModelAttribute Kayttaja kayttaja) {
-        model.addAttribute("kayttajat", kayttajaRepository.findAll());
+        model.addAttribute("kayttajat", new ArrayList());
         return "etusivu";
     }
 

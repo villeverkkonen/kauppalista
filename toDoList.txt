@@ -4,7 +4,6 @@
 - Historian toteutus (totuusarvolla muunnos historiaan?)
 - tuotteiden poistaminen kauppalistalta (poistuuko tuote jokaisen listalla olevan käyttäjän listalta, jos tekee simppelisti "tuoteRepository.delete(tuoteId);" ?)
 - kauppalistan poistaminen? Cascade toiminnolla?
-- Erilliset tuotanto- ja testausprofiilit
 - Puuttuikos vielä yksi tietokantataulu?
 - (extrana jos aikaa riittää, kielivaihtoehto {eng riittänee}, mahdollisuus lisäpisteisiin)
 - Lisää käyttäjä -nappi ohjaa takaisin sivulle, jos käyttäjää ei löydy tai kenttä on tyhjä
@@ -33,3 +32,4 @@ Valmiit tehtävät:
 - KauppalistaService luokka, joka mm. kauppalistan lisäyksen yhteydessä lisää käyttäjän kauppalista-luokalle ja kauppalistan käyttäjä-luokalle
 - Tyhjiin syötteisiin reagoidaan kauppalistojen ja tuotteiden osalta
 - Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi
+- Erilliset tuotanto- ja testausprofiilit

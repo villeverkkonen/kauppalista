@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Profile("default")
+@Profile("production")
 @Controller
-public class KauppalistaController {
+public class TuotantoKauppalistaController {
 
     @Autowired
     private KauppalistaService kauppalistaService;
@@ -34,7 +34,7 @@ public class KauppalistaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
-    private final String[] noname = {"HoBo", "Pokemon Trainers", "Norjalainen hiihtäjä", "Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
+    private final String[] noname = {};
 
     // Listaa yhden kauppalistan tuotteet.
     @RequestMapping(value = "/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)

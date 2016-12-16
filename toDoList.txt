@@ -13,6 +13,10 @@
 	* nyt jos typottaa salasanan, niin sitä ei tiedä kun salattu kenttä, etkä nää salasanaasi mistään
 		* pitäisikö olla tuplavarmistus salasanan luonnille? Ja ehkä mahdollisuus nähdä salasana jostain?
 - Kirjautunut käyttäjä ei saisi nähdä muiden käyttäjäsivuja asettamalla URLiksi /kayttajat/x/kauppalistat
+- Laatikot ja välilyönnilliset tekstit skaalautuvat ikkunan/laitteen koon mukaan,
+	mutta yhteen pötköön oleva teksti kuten kryptattu salasana ei katkea keskeltä ja vaihda riviä,
+	vaan jatkuu laatikon leveyden yli.
+	En tiedä voiko tälle mitään, eikä varmaan niin pitkiä yhdyssanoja tule että näin kävisi, kryptattua salasanaahan ei näy tuotannossa.
 
 
 

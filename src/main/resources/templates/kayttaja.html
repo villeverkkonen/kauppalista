@@ -71,8 +71,10 @@
                     <span th:text="${salasanatiiviste}">Käyttäjän salasana</span>
                     <br/>
                 </div>
-                <span>Käyttäjän rooli:</span>
-                <span th:text="${kayttaja.rooli}">Käyttäjän rooli</span>
+                <div th:if="${kayttajarooli != null}">
+                    <span>Käyttäjän rooli:</span>
+                    <span th:text="${kayttajarooli}">Käyttäjän rooli</span>
+                </div>
 
                 <div class="kauppalistat">
                     <h3>Kauppalistat</h3>

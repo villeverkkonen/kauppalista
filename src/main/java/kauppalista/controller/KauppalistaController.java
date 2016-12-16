@@ -91,6 +91,9 @@ public class KauppalistaController {
 
         // Näytetään testausprofiilissa myös salasanatiiviste (tätä ei ole tuotantoprofiilissa).
         model.addAttribute("salasanatiiviste", kayttajaRepository.findOne(kayttajaId).getSalasana());
+
+        // Näytetään testausprofiilissa myös käyttäjärooli (tätä ei ole tuotantoprofiilissa).
+        model.addAttribute("kayttajarooli", kayttajaRepository.findOne(kayttajaId).getRooli());
         return "kayttaja";
     }
 

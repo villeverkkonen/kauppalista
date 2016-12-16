@@ -92,6 +92,9 @@ public class TuotantoKauppalistaController {
         // Tuotantoprofiilissa ei näytetä salasanatiivistettä.
         model.addAttribute("salasanatiiviste", null);
 
+        // Tuotantoprofiilissa ei näytetä käyttäjäroolia.
+        model.addAttribute("kayttajarooli", null);
+
         return "kayttaja";
     }
 

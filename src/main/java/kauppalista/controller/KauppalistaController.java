@@ -88,6 +88,9 @@ public class KauppalistaController {
         List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
+
+        // Näytetään testausprofiilissa myös salasanatiiviste (tätä ei ole tuotantoprofiilissa).
+        model.addAttribute("salasanatiiviste", kayttajaRepository.findOne(kayttajaId).getSalasana());
         return "kayttaja";
     }
 

@@ -88,6 +88,10 @@ public class TuotantoKauppalistaController {
         List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
+
+        // Tuotantoprofiilissa ei näytetä salasanatiivistettä.
+        model.addAttribute("salasanatiiviste", null);
+
         return "kayttaja";
     }
 

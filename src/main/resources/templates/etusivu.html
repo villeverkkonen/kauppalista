@@ -11,10 +11,9 @@
         <style>
             body {
                 font-family: 'Lato', sans-serif;
-                margin-left: 10px;
-                margin-right: 10px;
                 margin-top: 10px;
                 margin-bottom: 10px;
+                background-color: aliceblue;
             }
 
             .btn-logout {
@@ -51,6 +50,9 @@
                 border-top-left-radius: 15px;
                 border-top-right-radius: 15px;
                 padding: 15px 15px 15px 15px;
+                box-shadow: 10px 10px 5px #ccc;
+                margin-left: 10px;
+                margin-right: 10px;
             }
 
             .tekstit {
@@ -58,6 +60,11 @@
                 margin-right: 20px;
                 margin-bottom: 20px;
                 margin-top: 20px;
+            }
+
+            .tervetuloa {
+                font-weight: bold;
+                text-shadow: 1px 1px whitesmoke;
             }
 
         </style>
@@ -68,10 +75,10 @@
             <div class="tekstit">
                 <h1 class="hit-the-floor">Kauppalista</h1>
                 <div sec:authorize="isAuthenticated()">
-                    <span>Olet kirjautuneena käyttäjänä: </span><span sec:authentication="name">käyttäjänimi</span>
+                    <span>Olet kirjautuneena käyttäjänä: </span><span sec:authentication="name" style="font-weight: bold">käyttäjänimi</span>
                 </div>
 
-                <h3>Tervetuloa Kauppalistaan!</h3>
+                <h3 class="tervetuloa">Tervetuloa Kauppalistaan!</h3>
 
                 <span th:if="${kayttajat != null}" text="Luodut tunnukset:">Luodut tunnukset</span>
                 <table class="table">

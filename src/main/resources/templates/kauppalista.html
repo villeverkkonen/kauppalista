@@ -15,6 +15,7 @@
                 margin-right: 10px;
                 margin-top: 10px;
                 margin-bottom: 10px;
+                background-color: aliceblue;
             }
 
             .btn-etusivu {
@@ -56,6 +57,7 @@
                 border-top-left-radius: 15px;
                 border-top-right-radius: 15px;
                 padding: 15px 15px 15px 15px;
+                box-shadow: 10px 10px 5px #ccc;
             }
 
             .tekstit {
@@ -76,7 +78,7 @@
             <div class="tekstit">
                 <h1 class="hit-the-floor">Kauppalista</h1>
                 <div sec:authorize="isAuthenticated()">
-                    <span>Olet kirjautuneena käyttäjänä: </span><span sec:authentication="name">käyttäjänimi</span>
+                    <span>Olet kirjautuneena käyttäjänä: </span><span sec:authentication="name" style="font-weight: bold">käyttäjänimi</span>
                 </div>
                 <br/>
                 <span>Listalla olevat käyttäjät:</span>

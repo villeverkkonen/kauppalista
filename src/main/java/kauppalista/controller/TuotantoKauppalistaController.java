@@ -67,7 +67,7 @@ public class TuotantoKauppalistaController {
             tuoteRepository.save(t);
             kauppalistaRepository.save(kl);
         }
-        return "redirect:/{kayttajaId}/kauppalista/{kauppalistaId}";
+        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
     // Merkataan kauppalistalla oleva tuote ostetuksi.

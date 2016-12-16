@@ -48,6 +48,7 @@ public class KayttajaControllerTest {
     @Test
     public void tunnuksenLuontiToimiiOikein() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -60,10 +61,11 @@ public class KayttajaControllerTest {
         String salasana = "salasana" + UUID.randomUUID().toString();
 
         this.mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/etusivu"));
+                .andExpect(status().is3xxRedirection()) // onnistunut redirect
+                .andExpect(redirectedUrl("/etusivu"));  // sivulle "/etusivu".
 
         MvcResult uusiRes = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -88,6 +90,7 @@ public class KayttajaControllerTest {
     @Test
     public void eiKahtaSamaaTunnusta() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -99,10 +102,11 @@ public class KayttajaControllerTest {
         String salasana = "salasana" + UUID.randomUUID().toString();
 
         mockMvc.perform(post("/etusivu").param("kayttajanimi", kayttajanimi).param("salasana", salasana))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/etusivu"));
+                .andExpect(status().is3xxRedirection()) // onnistunut redirect
+                .andExpect(redirectedUrl("/etusivu"));  // sivulle "/etusivu".
 
         MvcResult resLisayksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -117,6 +121,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -132,6 +137,7 @@ public class KayttajaControllerTest {
     @Test
     public void eiLyhyttaSalasanaa() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -148,6 +154,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -163,6 +170,7 @@ public class KayttajaControllerTest {
     @Test
     public void salasanaEiSaaOllaKayttajatunnus() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -180,6 +188,7 @@ public class KayttajaControllerTest {
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
                 .andExpect(model().attributeExists("kayttajat"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("etusivu"))
                 .andReturn();
 
@@ -194,6 +203,7 @@ public class KayttajaControllerTest {
     @Test
     public void salasanaEiSaaOllaKayttajatunnusTakaperin() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -210,6 +220,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -225,6 +236,7 @@ public class KayttajaControllerTest {
     @Test
     public void salasanaEiSaaOllaKayttajatunnuksenOsa() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -241,6 +253,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -259,6 +272,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resToisenLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -277,6 +291,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resKolmannenLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -292,6 +307,7 @@ public class KayttajaControllerTest {
     @Test
     public void salasananPitaaSisaltaaKirjainValiltaAZaz() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -309,6 +325,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -324,6 +341,7 @@ public class KayttajaControllerTest {
     @Test
     public void salasananPitaaSisaltaaNumero() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -352,6 +370,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -367,6 +386,7 @@ public class KayttajaControllerTest {
     @Test
     public void salasananPitaaSisaltaaErikoismerkki() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();
@@ -403,6 +423,7 @@ public class KayttajaControllerTest {
                 .andReturn();
 
         MvcResult resLisaysyrityksenJalkeen = this.mockMvc.perform(get("/etusivu"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
                 .andExpect(view().name("etusivu"))
                 .andReturn();

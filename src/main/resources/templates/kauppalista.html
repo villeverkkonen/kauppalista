@@ -90,12 +90,12 @@
                 <table class="table">
                     <tr th:each="tuote : ${tuotteet}">
                         <td th:text="${tuote.tuotenimi}">Tuotteen nimi</td>
-                        <td><form th:action="@{/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id},kayttajaId=${kayttaja.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
+                        <td><form th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id},kayttajaId=${kayttaja.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
                     </tr>
                 </table>
 
                 <h2>Lisää tuote</h2>
-                <form action="#" th:action="@{/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId = ${kauppalista.id},kayttajaId=${kayttaja.id})}" method="POST">
+                <form action="#" th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId = ${kauppalista.id},kayttajaId=${kayttaja.id})}" method="POST">
                     <input type="text" name="tuotenimi" autocomplete="off"/>
                     <button type="submit" class="btn btn-success">Lisää</button> 
                 </form>
@@ -109,14 +109,14 @@
                     </table>
                 </div>
                 <br/>
-                <a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>
+                <a th:href="@{/kayttajat/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>
                 <br/>
                 <br/>
                 <a th:href="@{/etusivu}"><button class="btn btn-etusivu" type="submit">Etusivulle</button></a>
                 <br/>
                 <br/>
                 <div>
-                    <form action="#" th:action="@{/{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja(kauppalistaId = ${kauppalista.id},kayttajaId = ${kayttaja.id})}" method="POST">
+                    <form action="#" th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja(kauppalistaId = ${kauppalista.id},kayttajaId = ${kayttaja.id})}" method="POST">
                         <input type="text" name="kayttajatunnus" autocomplete="off"/>
                         <button class="btn btn-lisaaKayttaja" type="submit">Lisää käyttäjä</button>
                     </form>

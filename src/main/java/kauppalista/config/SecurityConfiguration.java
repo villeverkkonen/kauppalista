@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,8 +25,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();                      // Poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi.
         http.headers().frameOptions().sameOrigin(); // Sallitaan framejen käyttö.
         http.authorizeRequests()
-                .antMatchers("/").permitAll() // Etusivulle pääsee kirjautumatta.
-                .antMatchers("/kauppalista").hasAnyAuthority("ADMIN"); // Kauppalista vain admineille.
+                .antMatchers("/kayttajat/**").hasAnyAuthority("ADMIN"); // Kauppalista vain admineille.
+
         http.formLogin() // Kaikki pääsee kirjautumaan sisään ja ulos.
                 .loginPage("/login")
                 .defaultSuccessUrl("/etusivu")

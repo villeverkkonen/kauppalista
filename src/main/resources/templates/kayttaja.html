@@ -79,12 +79,12 @@
                     <h3>Kauppalistat</h3>
                     <ul>
                         <li th:each="lista : ${kauppalistat}">
-                            <a th:href="@{/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId=${lista.id},kayttajaId=${kayttaja.id})}" th:text="${lista.listanimi}">kauppalista</a>
+                            <a th:href="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}(kauppalistaId=${lista.id},kayttajaId=${kayttaja.id})}" th:text="${lista.listanimi}">kauppalista</a>
                         </li>
                     </ul>
                 </div>
                 <br/>
-                <form action="#" th:action="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}" method="POST">
+                <form action="#" th:action="@{/kayttajat/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}" method="POST">
                     <input type="text" name="kauppalistaNimi" placeholder="anna kauppalistalle nimi" autocomplete="off"/>
                     <button type="submit" class="btn btn-success">Luo kauppalista</button>
                 </form>

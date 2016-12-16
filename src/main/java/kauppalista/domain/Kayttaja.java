@@ -8,9 +8,9 @@ import javax.persistence.ManyToMany;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-//Tietokantaan tallennettava käyttäjä,
-//joka voi luoda kauppalistoja (Kauppalista)
-//rooliksi määritellään ADMIN ja salasana kryptataan KayttajaControllerissa
+// Tietokantaan tallennettava käyttäjä,
+// joka voi luoda kauppalistoja (Kauppalista).
+// Rooliksi määritellään "ADMIN" ja salasana kryptataan KayttajaControllerissa.
 @Entity
 public class Kayttaja extends AbstractPersistable<Long> {
 

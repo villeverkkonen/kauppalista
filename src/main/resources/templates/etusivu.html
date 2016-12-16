@@ -76,7 +76,7 @@
                 <span th:if="${kayttajat != null}" text="Luodut tunnukset:">Luodut tunnukset</span>
                 <table class="table">
                     <tr th:each="kayttaja : ${kayttajat}">
-                        <td><a th:href="@{/etusivu/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"
+                        <td><a th:href="@{/kayttajat/{kayttajaId}/kauppalistat(kayttajaId=${kayttaja.id})}"
                                th:text="${kayttaja.kayttajanimi}">Käyttäjän nimi</a></td>
                     </tr>
                 </table>

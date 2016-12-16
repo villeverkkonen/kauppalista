@@ -79,4 +79,9 @@ public class DefaultController {
     public String kirjautumisSivu() {
         return "kirjautuminen";
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginOhjaaKirjautumiseen() {
+        return "kirjautuminen";
+    }
 }

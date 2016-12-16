@@ -29,9 +29,10 @@ public class KayttajaController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    //Authmanager ominaisuus tesissä pois käytöstä
     @Autowired
-    private AuthenticationManager authManager;
-
+    private AuthenticationManager authManager;   
+    
     // Listaa kaikki tunnuksen luoneet käyttäjät etusivulle.
     // Kayttaja on parametrissa Hibernaten validointia varten.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
@@ -102,6 +103,7 @@ public class KayttajaController {
             return "tunnuksenluonti";
         }
 
+        // Authmanager ominaisuus tesissä pois käytöstä
         // Otetaan tokeniin muistiin uuden käyttäjän tiedot.
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getSalasana());
 
@@ -112,6 +114,7 @@ public class KayttajaController {
         kayttajaRepository.save(kayttaja);
 
         // Autentikoidaan uusi luotu käyttäjä.
+            //Authmanager ominaisuus tesissä pois käytöstä
         Authentication auth = authManager.authenticate(authRequest);
         SecurityContextHolder.getContext().setAuthentication(auth);
 

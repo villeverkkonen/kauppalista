@@ -3,13 +3,10 @@ package kauppalista.controller;
 import java.util.Random;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
-import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KauppalistaService;
-import kauppalista.service.LoggedInAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,53 +24,27 @@ public class KauppalistaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
-    @Autowired
-    private KauppalistaRepository kauppalistaRepository;
-
-    @Autowired
-    private LoggedInAccountService kirjautuneetService;
-
     private final String[] noname = {"HoBo", "Pokemon Trainers", "Norjalainen hiihtäjä", "Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
 
     // Listaa yhden kauppalistan tuotteet.
     @RequestMapping(value = "kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
     public String kauppalistaSivu(Model model,
             @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) {
-        if (!kayttajallaOikeudet(kauppalistaId)) {
-            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
-        }
-
-        return this.kauppalistaService.kauppalistaSivu(model, kauppalistaId, kayttajaId);
-    }
-
-    public boolean kayttajallaOikeudet(Long kauppalistaId) {
-        Kayttaja kayttaja = kirjautuneetService.getAuthenticatedAccount();
-        Kauppalista kauppalista = kauppalistaRepository.findOne(kauppalistaId);
-
-        if (kayttaja.getKauppalista().contains(kauppalista)) {
-            return true;
-        }
-        return false;
+        return this.kauppalistaService.kauppalistaSivu(model, kayttajaId, kauppalistaId);
     }
 
     // Lisää tuotteen kauppalistalle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
     public String lisaaTuote(@PathVariable Long kauppalistaId,
             @RequestParam(required = false) String tuotenimi) {
-        if (!kayttajallaOikeudet(kauppalistaId)) {
-            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
-        }
         return this.kauppalistaService.lisaaTuote(kauppalistaId, tuotenimi);
     }
 
     // Merkataan kauppalistalla oleva tuote ostetuksi.
     // kauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
-    public String merkkaaOstetuksi(@PathVariable Long tuoteId, @PathVariable Long kauppalistaId) {
-        if (!kayttajallaOikeudet(kauppalistaId)) {
-            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
-        }
-        return this.kauppalistaService.merkkaaOstetuksi(tuoteId);
+    public String merkkaaOstetuksi(@PathVariable Long kayttajaId, @PathVariable Long kauppalistaId, @PathVariable Long tuoteId) {
+        return this.kauppalistaService.merkkaaOstetuksi(kayttajaId, kauppalistaId, tuoteId);
     }
 
     // Listaa tietyn käyttäjän kauppalistat.
@@ -100,12 +71,9 @@ public class KauppalistaController {
 
     // Valmiiseen kauppalistaan lisätään toinen/kolmas/jne. käyttäjä.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja", method = RequestMethod.POST)
-    public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId,
-            @PathVariable Long kayttajaId,
+    public String lisaaKayttajaKauppalistalle(@PathVariable Long kayttajaId,
+            @PathVariable Long kauppalistaId,
             @RequestParam(required = false) String kayttajatunnus) {
-        if (!kayttajallaOikeudet(kauppalistaId)) {
-            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
-        }
-        return this.kauppalistaService.lisaaKayttajaKauppalistalle(kauppalistaId, kayttajaId, kayttajatunnus);
+        return this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttajaId, kauppalistaId, kayttajatunnus);
     }
 }

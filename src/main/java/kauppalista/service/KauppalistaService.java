@@ -9,6 +9,7 @@ import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.repository.TuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -23,6 +24,9 @@ public class KauppalistaService {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
+
+    @Autowired
+    private LoggedInAccountService kirjautuneetService;
 
     public KauppalistaService() {
     }
@@ -60,8 +64,19 @@ public class KauppalistaService {
         return kauppalistanKayttajat;
     }
 
+    public boolean kayttajallaOikeudet(Long kauppalistaId) {
+        Kayttaja kayttaja = this.kirjautuneetService.getAuthenticatedAccount();
+        Kauppalista kauppalista = this.kauppalistaRepository.findOne(kauppalistaId);
+
+        return kayttaja.getKauppalista().contains(kauppalista);
+    }
+
     public String kauppalistaSivu(Model model,
             Long kauppalistaId, Long kayttajaId) {
+        if (!this.kayttajallaOikeudet(kauppalistaId)) {
+            // TODO: tähän pitää vaihtaa tilalle asianmukainen poikkeus!
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!");
+        }
         List<Tuote> tuotteet = this.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, false);
         List<Tuote> ostetutTuotteet = this.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, true);
 
@@ -75,6 +90,11 @@ public class KauppalistaService {
     }
 
     public String lisaaTuote(Long kauppalistaId, String tuotenimi) {
+        if (!this.kayttajallaOikeudet(kauppalistaId)) {
+            // TODO: tähän pitää vaihtaa tilalle asianmukainen poikkeus!
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!");
+        }
+
         Kauppalista kl = this.kauppalistaRepository.findOne(kauppalistaId);
 
         if (!tuotenimi.trim().isEmpty()) {
@@ -89,28 +109,35 @@ public class KauppalistaService {
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
-    public String merkkaaOstetuksi(Long tuoteId) {
-        Tuote tuote = tuoteRepository.findById(tuoteId);
+    public String merkkaaOstetuksi(Long kayttajaId, Long kauppalistaId, Long tuoteId) {
+        if (!kayttajallaOikeudet(kauppalistaId)) {
+            // TODO: tähän pitää vaihtaa tilalle asianmukainen poikkeus!
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!");
+        }
+        Tuote tuote = this.tuoteRepository.findById(tuoteId);
         tuote.setOstettu(true);
-        tuoteRepository.save(tuote);
+        this.tuoteRepository.save(tuote);
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
     public String kayttajanKauppalistaSivu(Model model, Long kayttajaId) {
-        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
+        Kayttaja kayttaja = this.kayttajaRepository.findOne(kayttajaId);
         List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
 
         // Näytetään testausprofiilissa myös salasanatiiviste (tätä ei ole tuotantoprofiilissa).
-        model.addAttribute("salasanatiiviste", kayttajaRepository.findOne(kayttajaId).getSalasana());
+        model.addAttribute("salasanatiiviste", this.kayttajaRepository.findOne(kayttajaId).getSalasana());
 
         // Näytetään testausprofiilissa myös käyttäjärooli (tätä ei ole tuotantoprofiilissa).
-        model.addAttribute("kayttajarooli", kayttajaRepository.findOne(kayttajaId).getRooli());
+        model.addAttribute("kayttajarooli", this.kayttajaRepository.findOne(kayttajaId).getRooli());
         return "kayttaja";
     }
 
-    public String lisaaKayttajaKauppalistalle(Long kauppalistaId, Long kayttajaId, String kayttajatunnus) {
+    public String lisaaKayttajaKauppalistalle(Long kayttajaId, Long kauppalistaId, String kayttajatunnus) {
+        if (!this.kayttajallaOikeudet(kauppalistaId)) {
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+        }
         if (kayttajatunnus.trim().isEmpty() || kayttajaRepository.findByKayttajanimi(kayttajatunnus) == null) {
             return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
         }

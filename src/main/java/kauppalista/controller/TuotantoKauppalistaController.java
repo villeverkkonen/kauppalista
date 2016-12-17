@@ -2,9 +2,7 @@ package kauppalista.controller;
 
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
-import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
-import kauppalista.repository.TuoteRepository;
 import kauppalista.service.KauppalistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -23,21 +21,13 @@ public class TuotantoKauppalistaController {
     private KauppalistaService kauppalistaService;
 
     @Autowired
-    private TuoteRepository tuoteRepository;
-
-    @Autowired
-    private KauppalistaRepository kauppalistaRepository;
-
-    @Autowired
     private KayttajaRepository kayttajaRepository;
-
-    private final String[] noname = {};
 
     // Listaa yhden kauppalistan tuotteet.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
     public String kauppalistaSivu(Model model,
             @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) {
-        return this.kauppalistaService.kauppalistaSivu(model, kauppalistaId, kayttajaId);
+        return this.kauppalistaService.kauppalistaSivu(model, kayttajaId, kauppalistaId);
     }
 
     // Lisää tuotteen kauppalistalle.
@@ -50,8 +40,10 @@ public class TuotantoKauppalistaController {
     // Merkataan kauppalistalla oleva tuote ostetuksi.
     // kauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
-    public String merkkaaOstetuksi(@PathVariable Long tuoteId) {
-        return this.kauppalistaService.merkkaaOstetuksi(tuoteId);
+    public String merkkaaOstetuksi(@PathVariable Long kayttajaId,
+            @PathVariable Long kauppalistaId,
+            @PathVariable Long tuoteId) {
+        return this.kauppalistaService.merkkaaOstetuksi(kayttajaId, kauppalistaId, tuoteId);
     }
 
     // Listaa tietyn käyttäjän kauppalistat.
@@ -78,9 +70,9 @@ public class TuotantoKauppalistaController {
 
     // Valmiiseen kauppalistaan lisätään toinen/kolmas/jne. käyttäjä.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/lisaaKayttaja", method = RequestMethod.POST)
-    public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId,
-            @PathVariable Long kayttajaId,
+    public String lisaaKayttajaKauppalistalle(@PathVariable Long kayttajaId,
+            @PathVariable Long kauppalistaId,
             @RequestParam(required = false) String kayttajatunnus) {
-        return this.kauppalistaService.lisaaKayttajaKauppalistalle(kauppalistaId, kayttajaId, kayttajatunnus);
+        return this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttajaId, kauppalistaId, kayttajatunnus);
     }
 }

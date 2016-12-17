@@ -120,12 +120,6 @@
                     </div>
                 </div>
                 <div sec:authorize="isAuthenticated()">
-                    <span th:if="${kirjautunutKayttaja != null}" text="Kirjautunut:">Kauppalistat</span>
-                    <td><a th:href="@{/kayttajat/{kayttajaId}/kauppalistat(kayttajaId=${kirjautunutKayttaja.id})}"
-                           th:text="${kirjautunutKayttaja.kayttajanimi}">Kayttäjän nimi</a></td>
-                </div>
-
-                <div sec:authorize="isAuthenticated()">
                     <form action="#" th:action="@{/logout}" method="POST">
                         <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>
                     </form>
@@ -138,61 +132,61 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
         <script type="text/javascript">
-                    function haeData(tunnus) {
-                        return document.getElementById(tunnus).value;
-                    }
-
-                    function kirjautumislomakeOikein()
-                    {
-                        var kayttajatunnus = haeData("kayttajatunnus");
-                        var salasana = haeData("salasana");
-
-                        if (kayttajatunnus) {
-                            if (salasana) {
-                                // OK.
-                                return true;
-                            }
+                        function haeData(tunnus) {
+                            return document.getElementById(tunnus).value;
                         }
 
-                        var virhetekstiElementti = document.getElementById("virhetekstiosio");
-                        var vanhaVirheTekstiKappale = virhetekstiElementti.children[0];
-                        var virheTekstiKappale = document.createElement("p");
-                        var virheTekstiSisalto = document.createTextNode("Kirjautumisessa havaittiin seuraavat virheet:");
-                        virheTekstiKappale.appendChild(virheTekstiSisalto);
-                        virhetekstiElementti.replaceChild(virheTekstiKappale, vanhaVirheTekstiKappale);
-
-                        var virhelistaElementti = document.getElementById("virhelistaosio");
-                        var vanhavirheLista = virhelistaElementti.children[0];
-                        var virheLista = document.createElement("ul");
-
-                        var onkoKayttajatunnuksessaVirheita = 0;
-
-                        if (!kayttajatunnus)
+                        function kirjautumislomakeOikein()
                         {
-                            var kayttajatunnusVirheElementti = document.createElement("li");
-                            var kayttajatunnusVirheTeksti = document.createTextNode("Käyttäjätunnus on annettava!");
-                            kayttajatunnusVirheElementti.appendChild(kayttajatunnusVirheTeksti);
-                            virheLista.appendChild(kayttajatunnusVirheElementti);
+                            var kayttajatunnus = haeData("kayttajatunnus");
+                            var salasana = haeData("salasana");
 
-                            onkoKayttajatunnuksessaVirheita = 1;
-                            document.getElementById("kayttajatunnus").focus();
-                        }
-
-                        if (!salasana)
-                        {
-                            var salasanaVirheElementti = document.createElement("li");
-                            var salasanaVirheTeksti = document.createTextNode("Salasana on annettava!");
-                            salasanaVirheElementti.appendChild(salasanaVirheTeksti);
-                            virheLista.appendChild(salasanaVirheElementti);
-
-                            if (onkoKayttajatunnuksessaVirheita === 0) {
-                                document.getElementById("salasana").focus();
+                            if (kayttajatunnus) {
+                                if (salasana) {
+                                    // OK.
+                                    return true;
+                                }
                             }
-                        }
-                        virhelistaElementti.replaceChild(virheLista, vanhavirheLista);
 
-                        return false;
-                    }
+                            var virhetekstiElementti = document.getElementById("virhetekstiosio");
+                            var vanhaVirheTekstiKappale = virhetekstiElementti.children[0];
+                            var virheTekstiKappale = document.createElement("p");
+                            var virheTekstiSisalto = document.createTextNode("Kirjautumisessa havaittiin seuraavat virheet:");
+                            virheTekstiKappale.appendChild(virheTekstiSisalto);
+                            virhetekstiElementti.replaceChild(virheTekstiKappale, vanhaVirheTekstiKappale);
+
+                            var virhelistaElementti = document.getElementById("virhelistaosio");
+                            var vanhavirheLista = virhelistaElementti.children[0];
+                            var virheLista = document.createElement("ul");
+
+                            var onkoKayttajatunnuksessaVirheita = 0;
+
+                            if (!kayttajatunnus)
+                            {
+                                var kayttajatunnusVirheElementti = document.createElement("li");
+                                var kayttajatunnusVirheTeksti = document.createTextNode("Käyttäjätunnus on annettava!");
+                                kayttajatunnusVirheElementti.appendChild(kayttajatunnusVirheTeksti);
+                                virheLista.appendChild(kayttajatunnusVirheElementti);
+
+                                onkoKayttajatunnuksessaVirheita = 1;
+                                document.getElementById("kayttajatunnus").focus();
+                            }
+
+                            if (!salasana)
+                            {
+                                var salasanaVirheElementti = document.createElement("li");
+                                var salasanaVirheTeksti = document.createTextNode("Salasana on annettava!");
+                                salasanaVirheElementti.appendChild(salasanaVirheTeksti);
+                                virheLista.appendChild(salasanaVirheElementti);
+
+                                if (onkoKayttajatunnuksessaVirheita === 0) {
+                                    document.getElementById("salasana").focus();
+                                }
+                            }
+                            virhelistaElementti.replaceChild(virheLista, vanhavirheLista);
+
+                            return false;
+                        }
         </script>
     </body>
 </html>

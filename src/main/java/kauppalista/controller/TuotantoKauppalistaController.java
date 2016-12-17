@@ -40,62 +40,27 @@ public class TuotantoKauppalistaController {
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
     public String kauppalistaSivu(Model model,
             @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) {
-        List<Tuote> tuotteet = this.kauppalistaService.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, false);
-        List<Tuote> ostetutTuotteet = this.kauppalistaService.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, true);
-
-        model.addAttribute("kauppalista", kauppalistaRepository.findOne(kauppalistaId));
-        model.addAttribute("tuotteet", tuotteet);
-        model.addAttribute("ostetutTuotteet", ostetutTuotteet);
-        model.addAttribute("kayttaja", kayttajaRepository.findOne(kayttajaId));
-        model.addAttribute("kayttajat", kauppalistaService.haeKauppalistanKayttajat(kauppalistaId));
-
-        return "kauppalista";
+        return this.kauppalistaService.kauppalistaSivu(model, kauppalistaId, kayttajaId);
     }
 
     // Lisää tuotteen kauppalistalle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
     public String lisaaTuote(@PathVariable Long kauppalistaId,
             @RequestParam(required = false) String tuotenimi) {
-        Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
-
-        if (!tuotenimi.trim().isEmpty()) {
-            Tuote t = new Tuote(tuotenimi.trim());
-            tuoteRepository.save(t);
-
-            kl.lisaaTuote(t);
-
-            tuoteRepository.save(t);
-            kauppalistaRepository.save(kl);
-        }
-        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+        return this.kauppalistaService.lisaaTuote(kauppalistaId, tuotenimi);
     }
 
     // Merkataan kauppalistalla oleva tuote ostetuksi.
     // kauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
     public String merkkaaOstetuksi(@PathVariable Long tuoteId) {
-
-        Tuote tuote = tuoteRepository.findById(tuoteId);
-        tuote.setOstettu(true);
-        tuoteRepository.save(tuote);
-        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+        return this.kauppalistaService.merkkaaOstetuksi(tuoteId);
     }
 
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
-        Kayttaja kayttaja = kayttajaRepository.findOne(kayttajaId);
-        List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
-        model.addAttribute("kayttaja", kayttaja);
-        model.addAttribute("kauppalistat", kauppalistat);
-
-        // Tuotantoprofiilissa ei näytetä salasanatiivistettä.
-        model.addAttribute("salasanatiiviste", null);
-
-        // Tuotantoprofiilissa ei näytetä käyttäjäroolia.
-        model.addAttribute("kayttajarooli", null);
-
-        return "kayttaja";
+        return this.kauppalistaService.kayttajanKauppalistaSivu(model, kayttajaId);
     }
 
     // Lisää tietylle käyttäjälle kauppalistan.
@@ -103,7 +68,7 @@ public class TuotantoKauppalistaController {
     public String luoKauppalista(@PathVariable Long kayttajaId,
             @RequestParam(required = false) String kauppalistaNimi) {
         if (kauppalistaNimi.trim().isEmpty()) {
-            kauppalistaNimi = "The " + noname[new Random().nextInt(noname.length)] + " diet";
+            kauppalistaNimi = "Uusi kauppalista";
         }
         Kauppalista kl = new Kauppalista();
         kl.setListanimi(kauppalistaNimi);
@@ -119,13 +84,6 @@ public class TuotantoKauppalistaController {
     public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId,
             @PathVariable Long kayttajaId,
             @RequestParam(required = false) String kayttajatunnus) {
-
-        if (kayttajatunnus.trim().isEmpty() || kayttajaRepository.findByKayttajanimi(kayttajatunnus) == null) {
-            return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
-        }
-        Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajatunnus);
-
-        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
-        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+        return this.kauppalistaService.lisaaKayttajaKauppalistalle(kauppalistaId, kayttajaId, kayttajatunnus);
     }
 }

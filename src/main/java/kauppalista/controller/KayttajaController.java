@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KayttajaService;
+import kauppalista.service.LoggedInAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,22 @@ public class KayttajaController {
     @Autowired
     private KayttajaService kayttajaService;
 
+    @Autowired
+    LoggedInAccountService kirjautuneetService;
+
     // Listaa kaikki tunnuksen luoneet käyttäjät etusivulle.
     // Kayttaja on parametrissa Hibernaten validointia varten.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
     public String etusivu(Model model, @ModelAttribute Kayttaja kayttaja) {
         model.addAttribute("kayttajat", kayttajaRepository.findAll());
-        return "etusivu";
+        Kayttaja kirjautunutKayttaja = kirjautuneetService.getAuthenticatedAccount();
+        if (kirjautunutKayttaja == null) {
+            return "etusivu";
+        } else {
+            model.addAttribute("kirjautunutKayttaja", kirjautunutKayttaja);
+            return "etusivu";
+        }
+
     }
 
     // Lomakkeen kautta luodaan uusi käyttäjätunnus.

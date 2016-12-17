@@ -24,4 +24,9 @@ public class TuotantoDefaultController {
     public String kirjautumisSivu() {
         return "kirjautuminen";
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginOhjaaKirjautumiseen() {
+        return "kirjautuminen";
+    }
 }

@@ -27,9 +27,6 @@ public class KauppalistaController {
     private KauppalistaService kauppalistaService;
 
     @Autowired
-    private TuoteRepository tuoteRepository;
-
-    @Autowired
     private KayttajaRepository kayttajaRepository;
 
     @Autowired

@@ -4,11 +4,14 @@ import java.util.Random;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
+import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.repository.TuoteRepository;
 import kauppalista.service.KauppalistaService;
+import kauppalista.service.LoggedInAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,28 +32,101 @@ public class KauppalistaController {
     @Autowired
     private KayttajaRepository kayttajaRepository;
 
+    @Autowired
+    private KauppalistaRepository kauppalistaRepository;
+    
+    @Autowired
+    private LoggedInAccountService kirjautuneetService;
+
     private final String[] noname = {"HoBo", "Pokemon Trainers", "Norjalainen hiihtäjä", "Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
 
     // Listaa yhden kauppalistan tuotteet.
     @RequestMapping(value = "kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)
     public String kauppalistaSivu(Model model,
+//<<<<<<< Updated upstream
             @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) {
-        return this.kauppalistaService.kauppalistaSivu(model, kauppalistaId, kayttajaId);
+            if (!kayttajallaOikeudet(kauppalistaId)) {
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+          }
+
+    return this.kauppalistaService.kauppalistaSivu(model, kauppalistaId, kayttajaId);
+}
+//        
+//=======
+//            @PathVariable Long kauppalistaId, @PathVariable Long kayttajaId) { 
+//        
+//        List<Tuote> tuotteet = this.kauppalistaService.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, false);
+//        List<Tuote> ostetutTuotteet = this.kauppalistaService.haeBooleanillaTuotteetKauppalistalta(kauppalistaId, true);
+//
+//        model.addAttribute("kauppalista", kauppalistaRepository.findOne(kauppalistaId));
+//        model.addAttribute("tuotteet", tuotteet);
+//        model.addAttribute("ostetutTuotteet", ostetutTuotteet);
+//        model.addAttribute("kayttaja", kayttajaRepository.findOne(kayttajaId));
+//        model.addAttribute("kayttajat", kauppalistaService.haeKauppalistanKayttajat(kauppalistaId));
+//
+//        return "kauppalista";
+//>>>>>>> Stashed changes
+//    }
+    
+    public boolean kayttajallaOikeudet(Long kauppalistaId) {
+        Kayttaja kayttaja = kirjautuneetService.getAuthenticatedAccount();
+//        Kauppalista kauppalista = kauppalistaRepository.findOne(kauppalistaId);
+        Kauppalista kauppalista = kauppalistaRepository.findOne(kauppalistaId);
+        
+        if(kayttaja.getKauppalista().contains(kauppalista)) {
+            return true;
+        }
+        return false;
     }
 
     // Lisää tuotteen kauppalistalle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.POST)
     public String lisaaTuote(@PathVariable Long kauppalistaId,
             @RequestParam(required = false) String tuotenimi) {
+//<<<<<<< Updated upstream
+        if (!kayttajallaOikeudet(kauppalistaId)) {
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+        }
         return this.kauppalistaService.lisaaTuote(kauppalistaId, tuotenimi);
+//=======
     }
+        
+//        Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
+//
+//        if (!tuotenimi.trim().isEmpty()) {
+//            Tuote t = new Tuote(tuotenimi.trim());
+//            tuoteRepository.save(t);
+//
+//            kl.lisaaTuote(t);
+//
+//            tuoteRepository.save(t);
+//            kauppalistaRepository.save(kl);
+//        }
+//        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+//>>>>>>> Stashed changes
+//    }
 
     // Merkataan kauppalistalla oleva tuote ostetuksi.
     // kauppalistaId tarvitaan, jotta osataan redirectata oikealle sivulle.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}", method = RequestMethod.POST)
-    public String merkkaaOstetuksi(@PathVariable Long tuoteId) {
+//<<<<<<< Updated upstream
+    public String merkkaaOstetuksi(@PathVariable Long tuoteId, @PathVariable Long kauppalistaId) {
+        if (!kayttajallaOikeudet(kauppalistaId)) {
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+        }
         return this.kauppalistaService.merkkaaOstetuksi(tuoteId);
     }
+//=======
+//    public String merkkaaOstetuksi(@PathVariable Long tuoteId, @PathVariable Long kauppalistaId) {
+//        if (!kayttajallaOikeudet(kauppalistaId)) {
+//            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+//        }
+//        Tuote tuote = tuoteRepository.findById(tuoteId);
+//        tuote.setOstettu(true);
+//        tuoteRepository.save(tuote);
+//        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+//>>>>>>> Stashed changes
+//    }
 
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
@@ -79,6 +155,23 @@ public class KauppalistaController {
     public String lisaaKayttajaKauppalistalle(@PathVariable Long kauppalistaId,
             @PathVariable Long kayttajaId,
             @RequestParam(required = false) String kayttajatunnus) {
+//<<<<<<< Updated upstream
+        if (!kayttajallaOikeudet(kauppalistaId)) {
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+        }
         return this.kauppalistaService.lisaaKayttajaKauppalistalle(kauppalistaId, kayttajaId, kayttajatunnus);
     }
+//=======
+//        if (!kayttajallaOikeudet(kauppalistaId)) {
+//            throw new UsernameNotFoundException("Ei käyttöoikeuksia!"); //Tähän pitää saada parempi exception!
+//        }
+//        if (kayttajatunnus.trim().isEmpty() || kayttajaRepository.findByKayttajanimi(kayttajatunnus) == null) {
+//            return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+//        }
+//        Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajatunnus);
+//
+//        this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
+//        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+//>>>>>>> Stashed changes
+//    }
 }

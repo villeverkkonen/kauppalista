@@ -31,7 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (salasana == null || salasana.equals("")) {
             throw new UsernameNotFoundException("Aseta salasana!");
         }
-
+        
         return new org.springframework.security.core.userdetails.User(
                 kayttajanimi,
                 salasana,

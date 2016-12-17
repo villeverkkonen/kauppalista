@@ -100,4 +100,14 @@ public class KayttajaService {
 
         return "redirect:/etusivu";
     }
+
+    //haetaan kirjautunut käyttäjä, että saadaan kayttajaId käyttäjäsivulinkkiä varten
+    public Kayttaja haeKirjautunutKayttaja() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            Kayttaja kirjautunutKayttaja = kayttajaRepository.findByKayttajanimi(auth.getName());
+            return kirjautunutKayttaja;
+        }
+        return null;
+    }
 }

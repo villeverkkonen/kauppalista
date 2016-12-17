@@ -2,12 +2,9 @@ package kauppalista.controller;
 
 import javax.validation.Valid;
 import kauppalista.domain.Kayttaja;
-import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KayttajaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,17 +19,12 @@ public class TuotantoKayttajaController {
     @Autowired
     private KayttajaService kayttajaService;
 
-    @Autowired
-    private KayttajaRepository kayttajaRepository;
-
     // Tuotannossa ei listata tunnuksen luoneita käyttäjiä etusivulle.
+    // Kayttaja on parametrissa Hibernaten validointia varten.
+    //kirjautunut käyttäjä lisätään siksi, että saadaan kayttajaId käyttäjäsivulinkkiä varten.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
     public String etusivu(Model model, @ModelAttribute Kayttaja kayttaja) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            Kayttaja kirjautunutKayttaja = kayttajaRepository.findByKayttajanimi(auth.getName());
-            model.addAttribute("kirjautunutKayttaja", kirjautunutKayttaja);
-        }
+        model.addAttribute("kirjautunutKayttaja", kayttajaService.haeKirjautunutKayttaja());
         model.addAttribute("kayttajat", null);
         return "etusivu";
     }

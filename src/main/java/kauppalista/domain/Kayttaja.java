@@ -53,7 +53,7 @@ public class Kayttaja extends AbstractPersistable<Long> {
 
     public void lisaaKauppalista(Kauppalista kauppalista) {
         if (this.kauppalistat == null) {
-            this.kauppalistat = new ArrayList<Kauppalista>();
+            this.kauppalistat = new ArrayList<>();
         }
         this.kauppalistat.add(kauppalista);
     }

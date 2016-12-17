@@ -89,7 +89,7 @@ public class KayttajaService {
 
         // Asetetaan kryptattu salasana.
         kayttaja.setSalasana(this.passwordEncoder.encode(kayttaja.getSalasana()));
-        kayttaja.setRooli("ADMIN");
+        kayttaja.setRooli("USER");
 
         this.kayttajaRepository.save(kayttaja);
 

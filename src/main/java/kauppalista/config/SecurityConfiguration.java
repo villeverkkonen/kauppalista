@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();                      // Poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi.
         http.headers().frameOptions().sameOrigin(); // Sallitaan framejen käyttö.
         http.authorizeRequests()
-                .antMatchers("/kayttajat/**").hasAnyAuthority("ADMIN"); // Kauppalista vain admineille.
+                .antMatchers("/kayttajat/**").hasAnyAuthority("USER"); // Kauppalista vain usereille.
 
         http.formLogin() // Kaikki pääsee kirjautumaan sisään ja ulos.
                 .loginPage("/login")

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 // Tietokantaan tallennettava käyttäjä,
 // joka voi luoda kauppalistoja (Kauppalista).
-// Rooliksi määritellään "ADMIN" ja salasana kryptataan KayttajaControllerissa.
+// Rooliksi määritellään "USER" ja salasana kryptataan KayttajaControllerissa.
 @Entity
 public class Kayttaja extends AbstractPersistable<Long> {
 
@@ -30,13 +30,13 @@ public class Kayttaja extends AbstractPersistable<Long> {
 
     public Kayttaja(String kayttajanimi) {
         this.kayttajanimi = kayttajanimi;
-        this.rooli = "ADMIN";
+        this.rooli = "USER";
     }
 
     public Kayttaja(String kayttajanimi, String salasana) {
         this.kayttajanimi = kayttajanimi;
         this.salasana = salasana;
-        this.rooli = "ADMIN";
+        this.rooli = "USER";
     }
 
     public String getKayttajanimi() {

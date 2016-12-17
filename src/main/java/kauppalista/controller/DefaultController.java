@@ -37,13 +37,13 @@ public class DefaultController {
         Kayttaja admin = new Kayttaja();
         admin.setKayttajanimi("admin");
         admin.setSalasana(passwordEncoder.encode("abc123!!"));
-        admin.setRooli("ADMIN");
+        admin.setRooli("USER");
         kayttajaRepository.save(admin);
 
         Kayttaja admin2 = new Kayttaja();
         admin2.setKayttajanimi("admin2");
         admin2.setSalasana(passwordEncoder.encode("abc123!!"));
-        admin2.setRooli("ADMIN");
+        admin2.setRooli("USER");
         kayttajaRepository.save(admin2);
 
         // Luodaan adminille pari testikauppalistaa.

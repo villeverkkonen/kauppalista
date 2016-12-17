@@ -28,6 +28,11 @@
                 color: black;
             }
 
+            .btn-kayttaja {
+                background-color: #ff9900;
+                color: white;
+            }
+
             .table {
                 font-size: 20px;
                 width: auto;
@@ -119,6 +124,10 @@
                         </form>
                     </div>
                 </div>
+                <div th:if="${kirjautunutKayttaja != null}">
+                    <a th:href="@{/kayttajat/{kayttajaId}/kauppalistat(kayttajaId=${kirjautunutKayttaja.id})}"><button class="btn btn-kayttaja" type="submit">Käyttäjäsivulle</button></a>
+                </div>
+                <br/>
                 <div sec:authorize="isAuthenticated()">
                     <form action="#" th:action="@{/logout}" method="POST">
                         <button class="btn btn-logout" type="submit">Kirjaudu ulos</button>

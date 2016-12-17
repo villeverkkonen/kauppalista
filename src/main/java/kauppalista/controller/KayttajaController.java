@@ -6,6 +6,8 @@ import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KayttajaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,11 @@ public class KayttajaController {
     // Kayttaja on parametrissa Hibernaten validointia varten.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
     public String etusivu(Model model, @ModelAttribute Kayttaja kayttaja) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            Kayttaja kirjautunutKayttaja = kayttajaRepository.findByKayttajanimi(auth.getName());
+            model.addAttribute("kirjautunutKayttaja", kirjautunutKayttaja);
+        }
         model.addAttribute("kayttajat", kayttajaRepository.findAll());
         return "etusivu";
     }

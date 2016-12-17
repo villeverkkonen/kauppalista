@@ -1,10 +1,7 @@
 package kauppalista.controller;
 
-import java.util.List;
-import java.util.Random;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
-import kauppalista.domain.Tuote;
 import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.repository.TuoteRepository;

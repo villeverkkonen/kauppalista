@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.domain.Tuote;
-import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.repository.TuoteRepository;
 import kauppalista.service.KauppalistaService;

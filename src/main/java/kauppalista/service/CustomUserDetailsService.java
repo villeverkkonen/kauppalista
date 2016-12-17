@@ -19,12 +19,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String kayttajanimi) throws UsernameNotFoundException {
         Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajanimi);
-        String rooli = kayttaja.getRooli();
-        String salasana = kayttaja.getSalasana();
         if (kayttaja == null) {
             throw new UsernameNotFoundException("Käyttäjätunnusta "
                     + kayttajanimi + "ei löydy");
         }
+        String rooli = kayttaja.getRooli();
+        String salasana = kayttaja.getSalasana();
+
         if (kayttajanimi == null || kayttajanimi.equals("")) {
             throw new UsernameNotFoundException("Aseta käyttäjänimi!");
         }

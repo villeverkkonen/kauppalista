@@ -1,17 +1,11 @@
 package kauppalista.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.validation.Valid;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KayttajaRepository;
+import kauppalista.service.KayttajaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,12 +21,8 @@ public class KayttajaController {
     private KayttajaRepository kayttajaRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private KayttajaService kayttajaService;
 
-    //Authmanager ominaisuus tesissä pois käytöstä
-    @Autowired
-    private AuthenticationManager authManager;   
-    
     // Listaa kaikki tunnuksen luoneet käyttäjät etusivulle.
     // Kayttaja on parametrissa Hibernaten validointia varten.
     @RequestMapping(value = "/etusivu", method = RequestMethod.GET)
@@ -47,77 +37,6 @@ public class KayttajaController {
     // tunnuksenluontisivulle, missä virheilmoitus virheellisen kentän kohdalla.
     @RequestMapping(value = "/etusivu", method = RequestMethod.POST)
     public String lisaaKayttaja(Model model, @Valid @ModelAttribute Kayttaja kayttaja, BindingResult bindingResult) {
-
-        boolean onkoVirheita = false;
-        List<String> virheet = new ArrayList();
-
-        if (bindingResult.hasErrors()) {
-            virheet.add("Virhe kirjautumisessa.");
-            onkoVirheita = true;
-        }
-
-        if (kayttajaRepository.findByKayttajanimi(kayttaja.getKayttajanimi()) != null) {
-            virheet.add("Käyttäjänimi on varattu.");
-            onkoVirheita = true;
-        }
-
-        if (kayttaja.getSalasana().equals(kayttaja.getKayttajanimi())) {
-            virheet.add("Salasana ei saa olla sama kuin käyttäjänimi.");
-            onkoVirheita = true;
-        }
-
-        if (kayttaja.getSalasana().length() < 8) {
-            virheet.add("Salasanan vähimmäispituus on 8.");
-            onkoVirheita = true;
-        }
-
-        if (!kayttaja.getSalasana().matches(".*[a-zA-Z]++.*")) {
-            virheet.add("Salasanan tulee sisältää ainakin yksi kirjain väliltä a ... z tai A ... Z.");
-            onkoVirheita = true;
-        }
-
-        if (!kayttaja.getSalasana().matches(".*[0-9]++.*")) {
-            virheet.add("Salasanan tulee sisältää ainakin yksi numero.");
-            onkoVirheita = true;
-        }
-
-        if (!kayttaja.getSalasana().matches(".*[^0-9a-zA-Z]++.*")) {
-            virheet.add("Salasanan tulee sisältää ainakin yksi merkki, joka ei ole kirjain a ... z eikä numero.");
-            onkoVirheita = true;
-        }
-
-        String kayttajatunnusTakaperin = new StringBuilder(kayttaja.getKayttajanimi()).reverse().toString();
-
-        if (kayttaja.getSalasana().equals(kayttajatunnusTakaperin)) {
-            virheet.add("Salasana ei saa olla käyttäjänimi takaperin.");
-            onkoVirheita = true;
-        }
-
-        if (kayttaja.getKayttajanimi().contains(kayttaja.getSalasana())) {
-            virheet.add("Salasana ei saa olla käyttäjätunnuksen osa.");
-            onkoVirheita = true;
-        }
-
-        if (onkoVirheita) {
-            model.addAttribute("virheet", virheet);
-            return "tunnuksenluonti";
-        }
-
-        // Authmanager ominaisuus tesissä pois käytöstä
-        // Otetaan tokeniin muistiin uuden käyttäjän tiedot.
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(kayttaja.getKayttajanimi(), kayttaja.getSalasana());
-
-        // Asetetaan kryptattu salasana.
-        kayttaja.setSalasana(passwordEncoder.encode(kayttaja.getSalasana()));
-        kayttaja.setRooli("ADMIN");
-
-        kayttajaRepository.save(kayttaja);
-
-        // Autentikoidaan uusi luotu käyttäjä.
-            //Authmanager ominaisuus tesissä pois käytöstä
-        Authentication auth = authManager.authenticate(authRequest);
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
-        return "redirect:/etusivu";
+        return this.kayttajaService.lisaaKayttaja(model, kayttaja, bindingResult);
     }
 }

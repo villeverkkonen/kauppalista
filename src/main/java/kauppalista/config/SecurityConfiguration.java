@@ -1,5 +1,6 @@
 package kauppalista.config;
 
+import kauppalista.service.LoggedInAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+        
 
     // Määritellään mihin polkuihin kukin pääsee.
     @Override
@@ -29,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin() // Kaikki pääsee kirjautumaan sisään ja ulos.
                 .loginPage("/login")
                 .defaultSuccessUrl("/etusivu")
+//                .defaultSuccessUrl("/kayttajat/" + kirjautuneetService.getAuthenticatedAccount().getId() + "/kauppalistat") ei toiminut tämä ratkaisu
                 .failureUrl("/kirjautuminen")
                 .permitAll()
                 .and()
@@ -40,7 +43,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-//        auth.inMemoryAuthentication().withUser();
     }
 
     // Palauttaa bcryptillä salasanasta lasketun kryptografisen tiivisteen (hash).

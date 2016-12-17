@@ -49,7 +49,7 @@ public class TuotantoKauppalistaController {
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
-        return this.kauppalistaService.kayttajanKauppalistaSivu(model, kayttajaId);
+        return this.kauppalistaService.kayttajanKauppalistaSivu(model, kayttajaId, null, null);
     }
 
     // Lisää tietylle käyttäjälle kauppalistan.

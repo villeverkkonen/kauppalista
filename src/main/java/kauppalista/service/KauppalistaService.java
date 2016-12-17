@@ -120,17 +120,17 @@ public class KauppalistaService {
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
-    public String kayttajanKauppalistaSivu(Model model, Long kayttajaId) {
+    public String kayttajanKauppalistaSivu(Model model, Long kayttajaId, String salasanatiiviste, String kayttajarooli) {
         Kayttaja kayttaja = this.kayttajaRepository.findOne(kayttajaId);
         List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
 
         // Näytetään testausprofiilissa myös salasanatiiviste (tätä ei ole tuotantoprofiilissa).
-        model.addAttribute("salasanatiiviste", this.kayttajaRepository.findOne(kayttajaId).getSalasana());
+        model.addAttribute("salasanatiiviste", salasanatiiviste);
 
         // Näytetään testausprofiilissa myös käyttäjärooli (tätä ei ole tuotantoprofiilissa).
-        model.addAttribute("kayttajarooli", this.kayttajaRepository.findOne(kayttajaId).getRooli());
+        model.addAttribute("kayttajarooli", kayttajarooli);
         return "kayttaja";
     }
 

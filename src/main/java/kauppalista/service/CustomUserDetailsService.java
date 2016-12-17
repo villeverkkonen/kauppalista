@@ -18,6 +18,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String kayttajanimi) throws UsernameNotFoundException {
+        if (kayttajanimi == null || kayttajanimi.equals("")) {
+            throw new UsernameNotFoundException("Aseta käyttäjänimi!");
+        }
+
         Kayttaja kayttaja = kayttajaRepository.findByKayttajanimi(kayttajanimi);
         if (kayttaja == null) {
             throw new UsernameNotFoundException("Käyttäjätunnusta "
@@ -26,9 +30,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         String rooli = kayttaja.getRooli();
         String salasana = kayttaja.getSalasana();
 
-        if (kayttajanimi == null || kayttajanimi.equals("")) {
-            throw new UsernameNotFoundException("Aseta käyttäjänimi!");
-        }
         if (salasana == null || salasana.equals("")) {
             throw new UsernameNotFoundException("Aseta salasana!");
         }

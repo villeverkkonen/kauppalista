@@ -1,0 +1,58 @@
+Web-palvelinohjelmointikurssin harjoitustyö: Kauppalista
+
+tekijät: Ville Verkkonen, Antti Nuortimo, Kasimir Aula, Eero Kalaja
+
+17. joulukuuta 2016
+
+Verkkosivun osoite: http://kauppalistat.herokuapp.com
+
+GitHub-sivu: https://github.com/villeverkkonen/kauppalista
+
+Ryhmän jäsenet:
+
+Ville Verkkonen, opiskelijanumero:
+Antti Nuortimo, opiskelijanumero:
+Kasimir Aula, opiskelijanumero:
+Eero Kalaja, opiskelijanumero:
+
+Kauppalista on web-sovellus, johon on mahdollista tallentaa kauppalistoja ja niitä on mahdollista jakaa muiden käyttäjien kanssa.
+
+Kauppalistan käyttöohje
+
+Kauppalistaa käyttääkseen on ensin luotava käyttäjätunnus. Käyttäjätunnuksen luomista varten on annettava haluttu käyttäjätunnus sekä salasana.
+Käyttäjätunnus voi olla mikä tahansa merkkijono, paitsi tyhjä merkkijono tai varattu käyttäjätunnus.
+Salasanan on oltava pituudeltaan vähintään 8 merkkiä, siinä on oltava vähintään yksi kirjain joukosta a ... z tai A ... Z, vähintään yksi numero,
+sekä vähintään yksi merkki, joka ei kuulu kumpaankaan em. joukoista. Lisäksi salasana ei saa olla sama kuin käyttäjätunnus eikä käyttäjätunnuksen osa.
+Salasana ei saa myöskään olla käyttäjätunnus takaperin.
+
+salasanoihin liittyvää pohdiskelua (nämä kannattaa varmaan jättää pois mutta jos jollakin tulee tästä jotain olennaista mieleen niin voidaan ottaa mukaan):
+Näillä tarkastuksilla pyritään siihen, että salasanan murtaminen brute force -menetelmällä ei onnistu kovin helposti.
+Tämä ei kuitenkaan ole kovin tehokas suoja sanakirjahyökkäystä vastaan, esim. salasana "qwerty1!" (ilman lainausmerkkejä) on kelvollinen salasana
+(qwerty on yleisimpien sanakirjojen sanalistoissa).
+
+Kauppalistan etusivulta osoitteesta http://kauppalistat.herokuapp.com/etusivu löytyy kentät ja painikkeet kirjautumista ja uuden tunnuksen luomista varten.
+Kun halutaan luoda uusi tunnus, painetaan "Luo uusi tunnus"-painikkeesta, jolloin kentät uuden tunnuksen halutulle käyttäjätunnukselle ja salasanalle ilmestyvät näkyviin.
+Kun painetaan "Luo tunnus", tunnus luodaan, jos käyttäjätunnus ja salasana toteuttavat vaaditut ehdot.
+Tunnuksen luonnin yhteydessä tehdään automaattinen kirjautuminen uudella tunnuksella (autologin) ja siirrytään sivulle
+https://kauppalistat.herokuapp.com/kayttajat/{kayttajaid}/kauppalistat. Tällä sivulla on näkyvissä käyttäjän tiedot ja kauppalistat,
+joiden muokkaukseen käyttäjällä on oikeudet. Lisäksi sivulla on mahdollisuus luoda uusia kauppalistoja.
+
+Kun uusi kauppalista luodaan, siirrytään kauppalistan sivulle https://kauppalistat.herokuapp.com/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}.
+Luotu lista on aluksi tyhjä, joten näkymässä ei ole mitään kauppalistan tuotteita. Näkymässä on tekstikenttä uusien tuotteiden lisäämiselle sekä uusien käyttäjien lisäämiselle.
+Kauppalistaan lisätyt asiat näkyvät listattuna lisäyskentän yläpuolella. Kun käyttäjä painaa “Ostettu” painiketta tuotteen vierestä,
+siirtyy tämä alempaan (Ostetut tuotteet) listauksen alle. Muiden käyttäjien lisääminen antaa kyseiselle käyttäjälle oikeudet katsella ja muokata kyseistä kauppalistaa.
+Sivun yläosassa on listattuna kauppalistan kaikki käyttäjät.
+
+Sivun favicon on itse tehty, eikä siis tarvitse lisenssiä.
+
+Harkittuja ideoita jatkokehitystä ajatellen on tullut todella paljon. Hyödyllisiksi koetuista mainittakoon:
+kauppalistan historian kontrollointi mahdollisuus
+ehdotukset lisättäville tuotteille
+tuotteiden lisäys kuvan perusteella
+mahdollisuus poistaa käyttäjiä kauppalistalta
+
+Koimme kuitenkin web-sovelluksen jo toteuttavan sille annetut vaatimukset ja päätimme jättää näiden ominaisuuksien toteutuksen tulevaisuuteen ja siirtyä joulun viettoon.
+
+Työskentelytavoista:
+Tapasimme torstaisin parin tunnin sessioissa, eli pääosin työskentely tapahtui yksinämme. Tosin Facebook-chattimme oli ahkerassa käytössä,
+jossa aina joku vastasi, kun joku kysyi. Eli käytännössä ei aivan yksin joutunut juuri koskaan koodailemaan.

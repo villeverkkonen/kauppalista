@@ -1,7 +1,9 @@
 package kauppalista.controller;
 
+import java.util.Random;
 import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
+import kauppalista.repository.KauppalistaRepository;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KauppalistaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Profile("production")
 @Controller
 public class TuotantoKauppalistaController {
+
+    @Autowired
+    private KauppalistaRepository kauppalistaRepository;
 
     @Autowired
     private KauppalistaService kauppalistaService;

@@ -72,7 +72,7 @@ public class KauppalistaService {
     }
 
     public String kauppalistaSivu(Model model,
-            Long kauppalistaId, Long kayttajaId) {
+            Long kayttajaId, Long kauppalistaId) {
         if (!this.kayttajallaOikeudet(kauppalistaId)) {
             // TODO: tähän pitää vaihtaa tilalle asianmukainen poikkeus!
             throw new UsernameNotFoundException("Ei käyttöoikeuksia!");

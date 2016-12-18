@@ -8,7 +8,6 @@
 - (extrana jos aikaa riittää, kielivaihtoehto {eng riittänee}, mahdollisuus lisäpisteisiin)
 - Lisää käyttäjä -nappi ohjaa takaisin sivulle, jos käyttäjää ei löydy tai kenttä on tyhjä
 	* tähän voisi jonkun tekstin ympätä mukaan, joka kertoisi, että käyttäjää ei löydy
-- Tuotantoprofiiliin etusivulle nappi omalle käyttäjäsivulle
 - Tunnuksen luonnin kehitystä?
 	* nyt jos typottaa salasanan, niin sitä ei tiedä kun salattu kenttä, etkä nää salasanaasi mistään
 		* pitäisikö olla tuplavarmistus salasanan luonnille? Ja ehkä mahdollisuus nähdä salasana jostain?
@@ -41,3 +40,4 @@ Valmiit tehtävät:
 - Käyttäjien kutsuminen =lisääminen  kauppalistaan käyttäjiksi
 - Erilliset tuotanto- ja testausprofiilit
 - kirjautumaton näkee vain "/" ja "/etusivu"
+- Etusivulle nappi omalle käyttäjäsivulle

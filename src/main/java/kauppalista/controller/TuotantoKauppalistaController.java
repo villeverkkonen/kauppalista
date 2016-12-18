@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TuotantoKauppalistaController {
 
     @Autowired
-    private KauppalistaRepository kauppalistaRepository;
-
-    @Autowired
     private KauppalistaService kauppalistaService;
 
     @Autowired

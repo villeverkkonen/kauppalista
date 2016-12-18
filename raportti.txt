@@ -44,8 +44,8 @@ siirtyy tämä alempaan (Ostetut tuotteet) listauksen alle. Muiden käyttäjien 
 Sivun yläosassa on listattuna kauppalistan kaikki käyttäjät.
 
 Web-sovellus on toteutettu mobiilikäytettävyyttä silmällä pitäen, sillä kännykällä tätä sovellusta tultaisiin luultavasti täysin käyttämään.
-Tämän vuoksi tietokoneen näytöllä on paljon ns. "tyhjää tilaa", mutta kännykän ruudulla boxi skaalautuu kauniisti näytön mukaisesti,
-näyttäen jopa autenttiselta natiiviapplikaatiolta.
+Boksi skaalautuu sen mukaan, miten pitkästi sen sisällä on tekstiä, venymättä kuitenkaan käytettävän laitteen reunojen yli.
+Sovellus näyttääkin kännykällä kuin natiiviapplikaationilta.
 
 Sivun favicon on itse tehty, eikä siis tarvitse lisenssiä.
 

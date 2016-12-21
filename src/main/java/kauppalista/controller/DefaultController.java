@@ -70,7 +70,7 @@ public class DefaultController {
     }
 
     // Pyyntö juuripolkuun ohjaa etusivulle.
-    @RequestMapping("/")
+    @RequestMapping("*")
     public String ohjaaEtusivulle() {
         return "redirect:/etusivu";
     }

@@ -33,23 +33,24 @@ public class DefaultController {
     @PostConstruct
     public void init() {
 
-        // Luodaan valmiiksi ADMIN-oikeuksinen testikäyttäjä.
-        Kayttaja admin = new Kayttaja();
-        admin.setKayttajanimi("admin");
-        admin.setSalasana(passwordEncoder.encode("abc123!!"));
-        admin.setRooli("USER");
-        kayttajaRepository.save(admin);
+        // Luodaan valmiiksi USER-oikeuksinen testikäyttäjä.
+        Kayttaja user1 = new Kayttaja();
+        user1.setKayttajanimi("user1");
+        user1.setSalasana(passwordEncoder.encode("abc123!!"));
+        user1.setRooli("USER");
+        kayttajaRepository.save(user1);
 
-        Kayttaja admin2 = new Kayttaja();
-        admin2.setKayttajanimi("admin2");
-        admin2.setSalasana(passwordEncoder.encode("abc123!!"));
-        admin2.setRooli("USER");
-        kayttajaRepository.save(admin2);
+        // Luodaan toinenkin USER-oikeuksinen testikäyttäjä.
+        Kayttaja user2 = new Kayttaja();
+        user2.setKayttajanimi("user2");
+        user2.setSalasana(passwordEncoder.encode("abc123!!"));
+        user2.setRooli("USER");
+        kayttajaRepository.save(user2);
 
         // Luodaan adminille pari testikauppalistaa.
         Kauppalista kl = new Kauppalista();
         kl.setListanimi("lista 1");
-        this.kauppalistaService.lisaaKayttajaKauppalistalle(admin, kl);
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(user1, kl);
 
         // Lisätään kauppalistalle banaani.
         Tuote t = new Tuote("banaani");
@@ -65,7 +66,7 @@ public class DefaultController {
         // Luodaan toinenkin kauppalista ja jätetään se tyhjäksi.
         Kauppalista kl2 = new Kauppalista();
         kl2.setListanimi("lista 2");
-        this.kauppalistaService.lisaaKayttajaKauppalistalle(admin, kl2);
+        this.kauppalistaService.lisaaKayttajaKauppalistalle(user1, kl2);
     }
 
     // Pyyntö juuripolkuun ohjaa etusivulle.

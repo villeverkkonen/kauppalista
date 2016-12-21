@@ -40,11 +40,17 @@ public class Kayttaja extends AbstractPersistable<Long> {
     }
 
     public String getKayttajanimi() {
-        return kayttajanimi;
+        if (this.kayttajanimi == null) {
+            this.kayttajanimi = "";
+        }
+        return this.kayttajanimi;
     }
 
     public List<Kauppalista> getKauppalista() {
-        return kauppalistat;
+        if (this.kauppalistat == null) {
+            this.kauppalistat = new ArrayList<>();
+        }
+        return this.kauppalistat;
     }
 
     public void setKauppalistat(List<Kauppalista> kauppalistat) {
@@ -59,7 +65,10 @@ public class Kayttaja extends AbstractPersistable<Long> {
     }
 
     public String getNimi() {
-        return kayttajanimi;
+        if (this.kayttajanimi == null) {
+            this.kayttajanimi = "";
+        }
+        return this.kayttajanimi;
     }
 
     public void setKayttajanimi(String nimi) {
@@ -67,6 +76,9 @@ public class Kayttaja extends AbstractPersistable<Long> {
     }
 
     public String getSalasana() {
+        if (this.salasana == null) {
+            this.salasana = "";
+        }
         return salasana;
     }
 
@@ -75,11 +87,13 @@ public class Kayttaja extends AbstractPersistable<Long> {
     }
 
     public String getRooli() {
-        return rooli;
+        if (this.rooli == null) {
+            this.rooli = "";
+        }
+        return this.rooli;
     }
 
     public void setRooli(String rooli) {
         this.rooli = rooli;
     }
-
 }

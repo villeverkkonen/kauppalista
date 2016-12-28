@@ -151,8 +151,8 @@ public class KauppalistaService {
         Tuote tuote = tuoteRepository.findOne(tuoteId);
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
         kl.poistaTuote(tuote);
+        tuoteRepository.delete(tuoteId);
         kauppalistaRepository.save(kl);
-        this.tuoteRepository.delete(tuote);
 
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }

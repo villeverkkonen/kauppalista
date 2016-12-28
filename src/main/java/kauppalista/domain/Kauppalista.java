@@ -50,6 +50,15 @@ public class Kauppalista extends AbstractPersistable<Long> {
         this.kayttajat.add(kayttaja);
     }
 
+    public void poistaKayttaja(Kayttaja kayttaja) {
+        int i = 0;
+        for (Kayttaja kayttelija : this.kayttajat) {
+            if (kayttelija.getId().equals(kayttaja.getId())) {
+                this.kayttajat.remove(i);
+            }
+        }
+    }
+
     public void lisaaTuote(Tuote tuote) {
         if (this.ostettavatTuotteet == null) {
             this.ostettavatTuotteet = new ArrayList<Tuote>();

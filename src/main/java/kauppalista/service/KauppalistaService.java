@@ -151,8 +151,28 @@ public class KauppalistaService {
         Tuote tuote = tuoteRepository.findOne(tuoteId);
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
         kl.poistaTuote(tuote);
+        kauppalistaRepository.save(kl);
         this.tuoteRepository.delete(tuote);
 
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+    }
+
+    public String poistaKauppalista(Long kayttajaId, Long kauppalistaId) {
+        Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
+        for (Kayttaja kayttaja : kl.getKayttajat()) {
+            kl.poistaKayttaja(kayttaja);
+            kayttajaRepository.save(kayttaja);
+            kauppalistaRepository.save(kl);
+        }
+        for (Tuote tuote : kl.getOstettavatTuotteet()) {
+            kl.poistaTuote(tuote);
+            tuoteRepository.delete(tuote.getId());
+            kauppalistaRepository.save(kl);
+        }
+        kauppalistaRepository.save(kl);
+
+        kauppalistaRepository.delete(kauppalistaId);
+
+        return "redirect:/kayttajat/{kayttajaId}/kauppalistat/";
     }
 }

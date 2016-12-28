@@ -75,4 +75,11 @@ public class TuotantoKauppalistaController {
             @RequestParam(required = false) String kayttajatunnus) {
         return this.kauppalistaService.lisaaKayttajaKauppalistalle(kayttajaId, kauppalistaId, kayttajatunnus);
     }
+
+    //Poistetaan tuote kokonaan listalta
+    @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/poistettu/{tuoteId}", method = RequestMethod.DELETE)
+    public String poistaTuoteKauppalistalta(@PathVariable Long kayttajaId,
+            @PathVariable Long kauppalistaId, @PathVariable Long tuoteId) {
+        return this.kauppalistaService.poistaTuote(kayttajaId, kauppalistaId, tuoteId);
+    }
 }

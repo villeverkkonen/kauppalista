@@ -58,6 +58,16 @@ public class Kauppalista extends AbstractPersistable<Long> {
         this.ostettavatTuotteet.add(tuote);
     }
 
+    public void poistaTuote(Tuote tuote) {
+        int i = 0;
+        for (Tuote asia : this.ostettavatTuotteet) {
+            if (asia.getId().equals(tuote.getId())) {
+                this.ostettavatTuotteet.remove(i);
+            }
+            i++;
+        }
+    }
+
     public List<Tuote> getOstettavatTuotteet() {
         return ostettavatTuotteet;
     }

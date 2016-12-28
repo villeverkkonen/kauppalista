@@ -146,4 +146,13 @@ public class KauppalistaService {
         this.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
+
+    public String poistaTuote(Long kayttajaId, Long kauppalistaId, Long tuoteId) {
+        Tuote tuote = tuoteRepository.findOne(tuoteId);
+        Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
+        kl.poistaTuote(tuote);
+        this.tuoteRepository.delete(tuote);
+
+        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+    }
 }

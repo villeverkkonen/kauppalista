@@ -98,7 +98,7 @@
                 <table class="table">
                     <tr th:each="tuote : ${tuotteet}">
                         <td th:text="${tuote.tuotenimi}">Tuotteen nimi</td>
-                        <td><form th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id},kayttajaId=${kayttaja.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
+                        <td><form th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/ostettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id},kayttajaId=${kayttaja.id})}" th:method="DELETE"><button class="btn btn-warning" type="submit">Ostettu</button></form></td>
                         <td><form th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/poistettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${tuote.id},kayttajaId=${kayttaja.id})}" th:method="DELETE"><button class="btn btn-poistaTuote" type="submit">Poista</button></form></td>
                     </tr>
                 </table>

@@ -148,9 +148,8 @@ public class KauppalistaService {
     }
 
     public String poistaTuote(Long kayttajaId, Long kauppalistaId, Long tuoteId) {
-        Tuote tuote = tuoteRepository.findOne(tuoteId);
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
-        kl.poistaTuote(tuote);
+        kl.poistaTuote(tuoteId);
         tuoteRepository.delete(tuoteId);
         kauppalistaRepository.save(kl);
 
@@ -159,14 +158,15 @@ public class KauppalistaService {
 
     public String poistaKauppalista(Long kayttajaId, Long kauppalistaId) {
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
+        for (Tuote tuote : kl.getOstettavatTuotteet()) {
+            kl.poistaTuote(tuote.getId());
+            tuoteRepository.delete(tuote.getId());
+            kauppalistaRepository.save(kl);
+        }
+
         for (Kayttaja kayttaja : kl.getKayttajat()) {
             kl.poistaKayttaja(kayttaja);
             kayttajaRepository.save(kayttaja);
-            kauppalistaRepository.save(kl);
-        }
-        for (Tuote tuote : kl.getOstettavatTuotteet()) {
-            kl.poistaTuote(tuote);
-            tuoteRepository.delete(tuote.getId());
             kauppalistaRepository.save(kl);
         }
         kauppalistaRepository.save(kl);

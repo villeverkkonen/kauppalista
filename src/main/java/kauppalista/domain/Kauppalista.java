@@ -56,6 +56,7 @@ public class Kauppalista extends AbstractPersistable<Long> {
             if (kayttelija.getId().equals(kayttaja.getId())) {
                 this.kayttajat.remove(i);
             }
+            i++;
         }
     }
 
@@ -67,10 +68,10 @@ public class Kauppalista extends AbstractPersistable<Long> {
         this.ostettavatTuotteet.add(tuote);
     }
 
-    public void poistaTuote(Tuote tuote) {
+    public void poistaTuote(Long tuoteId) {
         int i = 0;
         for (Tuote asia : this.ostettavatTuotteet) {
-            if (asia.getId().equals(tuote.getId())) {
+            if (asia.getId().equals(tuoteId)) {
                 this.ostettavatTuotteet.remove(i);
             }
             i++;

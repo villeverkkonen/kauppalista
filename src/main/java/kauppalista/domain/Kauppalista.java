@@ -69,12 +69,11 @@ public class Kauppalista extends AbstractPersistable<Long> {
     }
 
     public void poistaTuote(Long tuoteId) {
-        int i = 0;
-        for (Tuote asia : this.ostettavatTuotteet) {
-            if (asia.getId().equals(tuoteId)) {
+        for (int i = 0; i < this.ostettavatTuotteet.size(); i++) {
+            Tuote poistettavaTuote = ostettavatTuotteet.get(i);
+            if (poistettavaTuote.getId().equals(tuoteId)) {
                 this.ostettavatTuotteet.remove(i);
             }
-            i++;
         }
     }
 

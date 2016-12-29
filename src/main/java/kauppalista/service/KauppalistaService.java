@@ -165,7 +165,7 @@ public class KauppalistaService {
         }
 
         for (Kayttaja kayttaja : kl.getKayttajat()) {
-            kl.poistaKayttaja(kayttaja);
+            kl.poistaKayttaja(kayttajaId);
             kayttajaRepository.save(kayttaja);
             kauppalistaRepository.save(kl);
         }

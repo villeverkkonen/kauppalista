@@ -158,18 +158,22 @@ public class KauppalistaService {
 
     public String poistaKauppalista(Long kayttajaId, Long kauppalistaId) {
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
-        for (Tuote tuote : kl.getOstettavatTuotteet()) {
-            kl.poistaTuote(tuote.getId());
-            tuoteRepository.delete(tuote.getId());
-            kauppalistaRepository.save(kl);
+        if (kl.getOstettavatTuotteet().size() > 0) {
+            for (int i = 0; i < kl.getOstettavatTuotteet().size(); i++) {
+                Tuote tuote = kl.getOstettavatTuotteet().get(i);
+                kl.poistaTuote(tuote.getId());
+            }
+
         }
 
-        for (Kayttaja kayttaja : kl.getKayttajat()) {
-            kl.poistaKayttaja(kayttajaId);
-            kayttajaRepository.save(kayttaja);
-            kauppalistaRepository.save(kl);
+        if (kl.getKayttajat().size() > 0) {
+            for (int i = 0; i > kl.getKayttajat().size(); i++) {
+                Kayttaja kayttaja = kl.getKayttajat().get(i);
+                kl.poistaKayttaja(kayttaja.getId());
+                kayttajaRepository.save(kayttaja);
+                kauppalistaRepository.save(kl);
+            }
         }
-        kauppalistaRepository.save(kl);
 
         kauppalistaRepository.delete(kauppalistaId);
 

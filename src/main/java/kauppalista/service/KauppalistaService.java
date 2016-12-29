@@ -162,6 +162,8 @@ public class KauppalistaService {
             for (int i = 0; i < kl.getOstettavatTuotteet().size(); i++) {
                 Tuote tuote = kl.getOstettavatTuotteet().get(i);
                 kl.poistaTuote(tuote.getId());
+                tuoteRepository.delete(tuote.getId());
+                kauppalistaRepository.save(kl);
             }
 
         }
@@ -170,10 +172,13 @@ public class KauppalistaService {
             for (int i = 0; i > kl.getKayttajat().size(); i++) {
                 Kayttaja kayttaja = kl.getKayttajat().get(i);
                 kl.poistaKayttaja(kayttaja.getId());
+                kayttaja.poistaKauppalista(kauppalistaId);
                 kayttajaRepository.save(kayttaja);
                 kauppalistaRepository.save(kl);
             }
         }
+
+        kauppalistaRepository.save(kl);
 
         kauppalistaRepository.delete(kauppalistaId);
 

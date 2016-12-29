@@ -96,4 +96,12 @@ public class Kayttaja extends AbstractPersistable<Long> {
     public void setRooli(String rooli) {
         this.rooli = rooli;
     }
+
+    public void poistaKauppalista(Long kauppalistaId) {
+        for (int i = 0; i < this.kauppalistat.size(); i++) {
+            if (this.kauppalistat.get(i).getId().equals(kauppalistaId)) {
+                this.kauppalistat.remove(i);
+            }
+        }
+    }
 }

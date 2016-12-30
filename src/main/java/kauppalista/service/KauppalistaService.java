@@ -171,14 +171,12 @@ public class KauppalistaService {
             kauppalistaRepository.save(kl);
         }
 
-        if (kl.getKayttajat().size() > 0) {
-            for (int i = 0; i > kl.getKayttajat().size(); i++) {
-                Kayttaja kayttaja = kl.getKayttajat().get(i);
-                kl.poistaKayttaja(kayttaja.getId());
-                kayttaja.poistaKauppalista(kauppalistaId);
-                kayttajaRepository.save(kayttaja);
-                kauppalistaRepository.save(kl);
-            }
+        for (int i = 0; i < kl.getKayttajat().size(); i++) {
+            Kayttaja kayttaja = kl.getKayttajat().get(i);
+            kl.poistaKayttaja(kayttaja.getId());
+            kayttaja.poistaKauppalista(kauppalistaId);
+            kayttajaRepository.save(kayttaja);
+            kauppalistaRepository.save(kl);
         }
 
         kauppalistaRepository.save(kl);

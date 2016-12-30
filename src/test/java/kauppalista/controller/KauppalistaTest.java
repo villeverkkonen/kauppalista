@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KayttajaService;
@@ -110,13 +111,54 @@ public class KauppalistaTest {
 
         Long kayttajaId = kayttajaServiceKayttajaId;
 
-        // No niin, sitten luodaan uusi kauppalista.
+        // Tarkistetaan että päästään käyttäjä-sivulle, jolla näkyy
+        // käyttäjän kauppalistat.
         MvcResult kauppalistatRes = this.mockMvc.perform(get("/kayttajat/" + kayttajaId + "/kauppalistat"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttaja"))
                 .andExpect(model().attributeExists("kauppalistat"))
                 .andExpect(view().name("kayttaja"))
                 .andReturn();
+
+        List<Kauppalista> kauppalistat = new ArrayList((Collection<Kauppalista>) kauppalistatRes.getModelAndView().getModel().get("kauppalistat"));
+        int kauppalistojenLkm = kauppalistat.size();
+        assertTrue("Kun on luotu uusi käyttäjä, käyttäjällä ei saa olla valmiina yhtään kauppalistaa.", kauppalistojenLkm == 0);
+
+        // No niin, sitten luodaan uusi kauppalista.
+        String kauppalistaNimi = "testilista 1";
+
+        mockMvc.perform(post("/kayttajat/" + kayttajaId + "/kauppalistat").param("kauppalistaNimi", kauppalistaNimi))
+                .andExpect(status().is3xxRedirection());
+
+        // Haetaan uusi kauppalistat-sivu.
+        MvcResult kauppalistatRes1kpl = this.mockMvc.perform(get("/kayttajat/" + kayttajaId + "/kauppalistat"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("kayttaja"))
+                .andExpect(model().attributeExists("kauppalistat"))
+                .andExpect(view().name("kayttaja"))
+                .andReturn();
+
+        List<Kauppalista> kauppalistatLuonninJalkeen = new ArrayList((Collection<Kauppalista>) kauppalistatRes1kpl.getModelAndView().getModel().get("kauppalistat"));
+        int kauppalistojenLkmLuonninJalkeen = kauppalistatLuonninJalkeen.size();
+        assertTrue("Kun on luotu käyttäjän ensimmäinen kauppalista, kauppalistojen lukumäärän pitää olla 1.", kauppalistojenLkmLuonninJalkeen == 1);
+
+        // No niin, sitten luodaan uusi kauppalista.
+        String kauppalistaNimi2 = "testilista 2";
+
+        mockMvc.perform(post("/kayttajat/" + kayttajaId + "/kauppalistat").param("kauppalistaNimi", kauppalistaNimi2))
+                .andExpect(status().is3xxRedirection());
+
+        // Haetaan uusi kauppalistat-sivu.
+        MvcResult kauppalistatRes2kpl = this.mockMvc.perform(get("/kayttajat/" + kayttajaId + "/kauppalistat"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("kayttaja"))
+                .andExpect(model().attributeExists("kauppalistat"))
+                .andExpect(view().name("kayttaja"))
+                .andReturn();
+
+        List<Kauppalista> kauppalistatToisenLuonninJalkeen = new ArrayList((Collection<Kauppalista>) kauppalistatRes2kpl.getModelAndView().getModel().get("kauppalistat"));
+        int kauppalistojenLkmToisenLuonninJalkeen = kauppalistatToisenLuonninJalkeen.size();
+        assertTrue("Kun on luotu käyttäjän toinen kauppalista, kauppalistojen lukumäärän pitää olla 2.", kauppalistojenLkmToisenLuonninJalkeen == 2);
     }
 
     @Test

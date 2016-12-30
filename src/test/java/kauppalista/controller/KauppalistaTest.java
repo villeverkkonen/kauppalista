@@ -30,7 +30,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles("default")
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class KayttajaControllerTest {
+public class KauppalistaTest {
 
     @Autowired
     private WebApplicationContext context;

@@ -54,6 +54,23 @@ public class KauppalistaController {
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
+        // null-tarkistus tehdään varmuuden vuoksi myös jo tässä vaiheessa,
+        // jotta ei tulisi null pointer exceptionia.
+        if (kayttajaId == null) {
+            return "redirect:/etusivu";
+        }
+
+        Kayttaja kayttaja = this.kayttajaRepository.findOne(kayttajaId);
+
+        // Tämäkin tarkistus pitää tehdä jo täällä, jotta ei tule
+        // null pointer exceptionia, kun pyydetään polun
+        // /kayttajat/{kayttajaId}/kauppalistat sivu kayttajaId:lle, jota
+        // ei ole olemassa.
+        if (kayttaja == null) {
+            Kayttaja kirjautunutKayttaja = kirjautuneetService.getAuthenticatedAccount();
+            return "redirect:/kayttajat/" + kirjautunutKayttaja.getId() + "/kauppalistat";
+        }
+
         return this.kauppalistaService.kayttajanKauppalistaSivu(
                 model,
                 kayttajaId,

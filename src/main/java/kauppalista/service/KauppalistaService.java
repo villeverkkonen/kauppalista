@@ -164,6 +164,7 @@ public class KauppalistaService {
 
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
 
+        // Kun poistetaan kauppalista, poistetaan ensin kaikki tuotteet listalta.
         while (!kl.getOstettavatTuotteet().isEmpty()) {
             Tuote tuote = kl.getOstettavatTuotteet().get(0);
             kl.poistaTuote(tuote.getId());
@@ -171,6 +172,7 @@ public class KauppalistaService {
             kauppalistaRepository.save(kl);
         }
 
+        // Poistetaan listalta kaikki käyttäjät.
         while (!kl.getKayttajat().isEmpty()) {
             Kayttaja kayttaja = kl.getKayttajat().get(0);
             kl.poistaKayttaja(kayttaja.getId());

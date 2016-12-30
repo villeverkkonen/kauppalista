@@ -210,6 +210,10 @@ public class KauppalistaService {
     }
 
     public String poistaTuote(Long kayttajaId, Long kauppalistaId, Long tuoteId) {
+        if (kayttajaId == null || kauppalistaId == null || tuoteId == null) {
+            return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+        }
+
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
         kl.poistaTuote(tuoteId);
         tuoteRepository.delete(tuoteId);

@@ -28,6 +28,9 @@ public class Kauppalista extends AbstractPersistable<Long> {
     }
 
     public String getListanimi() {
+        if (this.listanimi == null) {
+            this.listanimi = "";
+        }
         return listanimi;
     }
 

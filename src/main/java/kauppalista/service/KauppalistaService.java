@@ -183,6 +183,11 @@ public class KauppalistaService {
         }
 
         Kayttaja kayttaja = this.kayttajaRepository.findOne(kayttajaId);
+        if (kayttaja == null) {
+            // Jos käyttäjää ei löydy, ohjataan etusivulle.
+            return "redirect:/etusivu";
+        }
+
         List<Kauppalista> kauppalistat = kayttaja.getKauppalistat();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);

@@ -31,7 +31,7 @@ public class KayttajaService {
         boolean onkoVirheita = false;
         List<String> virheet = new ArrayList();
 
-        if (bindingResult.hasErrors()) {
+        if (kayttaja == null || bindingResult == null || bindingResult.hasErrors()) {
             virheet.add("Virhe kirjautumisessa.");
             onkoVirheita = true;
         }

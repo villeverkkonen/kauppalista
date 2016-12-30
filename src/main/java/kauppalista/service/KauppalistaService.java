@@ -37,7 +37,7 @@ public class KauppalistaService {
         }
 
         List<Tuote> listanTuotteet = kauppalistaRepository.findOne(kauppalistaId).getOstettavatTuotteet();
-        List<Tuote> palautettavatTuotteet = new ArrayList();
+        List<Tuote> palautettavatTuotteet = new ArrayList<>();
         for (Tuote t : listanTuotteet) {
             if (t.getOstettu() == b) {
                 palautettavatTuotteet.add(t);

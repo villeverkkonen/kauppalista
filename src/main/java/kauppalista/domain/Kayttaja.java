@@ -46,7 +46,7 @@ public class Kayttaja extends AbstractPersistable<Long> {
         return this.kayttajanimi;
     }
 
-    public List<Kauppalista> getKauppalista() {
+    public List<Kauppalista> getKauppalistat() {
         if (this.kauppalistat == null) {
             this.kauppalistat = new ArrayList<>();
         }

@@ -68,7 +68,7 @@ public class KauppalistaService {
         Kayttaja kayttaja = this.kirjautuneetService.getAuthenticatedAccount();
         Kauppalista kauppalista = this.kauppalistaRepository.findOne(kauppalistaId);
 
-        return kayttaja.getKauppalista().contains(kauppalista);
+        return kayttaja.getKauppalistat().contains(kauppalista);
     }
 
     public String kauppalistaSivu(Model model,
@@ -135,7 +135,7 @@ public class KauppalistaService {
         }
 
         Kayttaja kayttaja = this.kayttajaRepository.findOne(kayttajaId);
-        List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
+        List<Kauppalista> kauppalistat = kayttaja.getKauppalistat();
         model.addAttribute("kayttaja", kayttaja);
         model.addAttribute("kauppalistat", kauppalistat);
 

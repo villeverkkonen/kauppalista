@@ -114,6 +114,7 @@
                     <table class="table">
                         <tr th:each="ostettuTuote : ${ostetutTuotteet}">
                             <td th:text="${ostettuTuote.tuotenimi}">Tuotteen nimi</td>
+                            <td><form th:action="@{/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/peruOstettu/{tuoteId}(kauppalistaId = ${kauppalista.id},tuoteId=${ostettuTuote.id},kayttajaId=${kayttaja.id})}" th:method="POST"><button class="btn btn-warning" type="submit">Peru</button></form></td>
                         </tr>
                     </table>
                 </div>

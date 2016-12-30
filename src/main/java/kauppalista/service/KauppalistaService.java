@@ -125,6 +125,17 @@ public class KauppalistaService {
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 
+    public String merkkaaOstettuTakaisinOstettavaksi(Long kayttajaId, Long kauppalistaId, Long tuoteId) {
+        if (!kayttajallaOikeudet(kauppalistaId)) {
+            // TODO: tähän pitää vaihtaa tilalle asianmukainen poikkeus!
+            throw new UsernameNotFoundException("Ei käyttöoikeuksia!");
+        }
+        Tuote tuote = this.tuoteRepository.findById(tuoteId);
+        tuote.setOstettu(false);
+        this.tuoteRepository.save(tuote);
+        return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
+    }
+
     public String kayttajanKauppalistaSivu(Model model, Long kayttajaId, String salasanatiiviste, String kayttajarooli) {
         // Jos käyttäjä yrittää päästä toisen käyttäjän kauppalistasivulle,
         // esimerkiksi polun kayttajaId:tä vaihtamalla,

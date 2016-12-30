@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Profile("default")
+@Profile("production")
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class TuotantoSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -23,7 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Määritellään mihin polkuihin kukin pääsee.
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();                      // Poistetaan csrf-tarkistus käytöstä h2-konsolin vuoksi.
         http.headers().frameOptions().sameOrigin(); // Sallitaan framejen käyttö.
         http.authorizeRequests()
                 .antMatchers("/kayttajat/**").hasAnyAuthority("USER"); // Kauppalista vain usereille.

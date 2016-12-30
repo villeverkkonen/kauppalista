@@ -94,6 +94,11 @@ public class KauppalistaService {
 
         Kauppalista kauppalista = this.kauppalistaRepository.findOne(kauppalistaId);
 
+        if (kauppalista == null) {
+            // jos kauppalistaa ei ole, niin ei ole oikeuksia.
+            return false;
+        }
+
         return kayttaja.getKauppalistat().contains(kauppalista);
     }
 

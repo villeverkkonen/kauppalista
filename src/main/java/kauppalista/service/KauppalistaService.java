@@ -157,6 +157,11 @@ public class KauppalistaService {
     }
 
     public String poistaKauppalista(Long kayttajaId, Long kauppalistaId) {
+
+        if (kayttajaId == null || kauppalistaId == null) {
+            return "redirect:/kayttajat/{kayttajaId}/kauppalistat/";
+        }
+
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
         if (kl.getOstettavatTuotteet().size() > 0) {
             for (int i = 0; i < kl.getOstettavatTuotteet().size(); i++) {

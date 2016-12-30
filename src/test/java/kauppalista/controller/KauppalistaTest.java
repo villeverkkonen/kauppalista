@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import kauppalista.domain.Kayttaja;
+import kauppalista.repository.KayttajaRepository;
+import kauppalista.service.KayttajaService;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -13,6 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -38,6 +42,12 @@ public class KauppalistaTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    @Autowired
+    KayttajaService kayttajaService;
+
+    @Autowired
+    KayttajaRepository kayttajaRepository;
+
     private MockMvc mockMvc;
 
     @Before
@@ -46,7 +56,7 @@ public class KauppalistaTest {
     }
 
     @Test
-    public void tunnuksenLuontiToimiiOikein() throws Exception {
+    public void tunnuksenLuontiJaKauppalistanLuontiToimiiOikein() throws Exception {
         MvcResult res = this.mockMvc.perform(get("/etusivu"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("kayttajat"))
@@ -85,6 +95,28 @@ public class KauppalistaTest {
         assertTrue("Luodun käyttäjän tallennetun salasanatiivisteen pitää olla oikea salasanatiiviste.",
                 this.passwordEncoder.matches(salasana, luotuKayttaja.getSalasana()));
         assertFalse("Luodun käyttäjän tallennettu salasanatiiviste ei saa olla annettu salasana.", luotuKayttaja.getSalasana().equals(salasana));
+
+        Long kayttajaServiceKayttajaId = this.kayttajaService.haeKirjautunutKayttaja().getId();
+        assertTrue("Luodun käyttäjän kayttajaServicestä haettu id ei saa olla null.", kayttajaServiceKayttajaId != null);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        assertTrue("Autentikaatio auth ei saa olla null, kun on kirjauduttu sisään autologinilla.", auth != null);
+
+        Long kayttajaRepositoryKayttajaId = kayttajaRepository.findByKayttajanimi(auth.getName()).getId();
+        assertTrue("Luodun käyttäjän kayttajaRepositorystä haettu id ei saa olla null.", kayttajaRepositoryKayttajaId != null);
+
+        assertTrue("Luodun käyttäjän kayttajaServicestä ja kayttajaRepositorystä haettujen id-arvojen pitää olla samat.",
+                kayttajaServiceKayttajaId.equals(kayttajaRepositoryKayttajaId));
+
+        Long kayttajaId = kayttajaServiceKayttajaId;
+
+        // No niin, sitten luodaan uusi kauppalista.
+        MvcResult kauppalistatRes = this.mockMvc.perform(get("/kayttajat/" + kayttajaId + "/kauppalistat"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("kayttaja"))
+                .andExpect(model().attributeExists("kauppalistat"))
+                .andExpect(view().name("kayttaja"))
+                .andReturn();
     }
 
     @Test

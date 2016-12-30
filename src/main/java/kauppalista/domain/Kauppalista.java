@@ -36,6 +36,9 @@ public class Kauppalista extends AbstractPersistable<Long> {
     }
 
     public List<Kayttaja> getKayttajat() {
+        if (this.kayttajat == null) {
+            this.kayttajat = new ArrayList<>();
+        }
         return kayttajat;
     }
 

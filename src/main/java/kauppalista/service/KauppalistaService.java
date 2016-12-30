@@ -32,6 +32,10 @@ public class KauppalistaService {
     }
 
     public List<Tuote> haeBooleanillaTuotteetKauppalistalta(Long kauppalistaId, boolean b) {
+        if (kauppalistaId == null) {
+            return new ArrayList<>();
+        }
+
         List<Tuote> listanTuotteet = kauppalistaRepository.findOne(kauppalistaId).getOstettavatTuotteet();
         List<Tuote> palautettavatTuotteet = new ArrayList();
         for (Tuote t : listanTuotteet) {

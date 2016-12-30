@@ -50,6 +50,12 @@ public class TuotantoKauppalistaController {
         return this.kauppalistaService.merkkaaOstetuksi(kayttajaId, kauppalistaId, tuoteId);
     }
 
+    // Merkataan ostetuksi merkattu tuote takaisin ostettavien listalle
+    @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}/peruOstettu/{tuoteId}", method = RequestMethod.POST)
+    public String merkkaaOstettuTakaisinOstettavaksi(@PathVariable Long kayttajaId, @PathVariable Long kauppalistaId, @PathVariable Long tuoteId) {
+        return this.kauppalistaService.merkkaaOstettuTakaisinOstettavaksi(kayttajaId, kauppalistaId, tuoteId);
+    }
+
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {

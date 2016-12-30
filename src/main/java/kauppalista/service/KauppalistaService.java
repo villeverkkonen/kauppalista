@@ -70,6 +70,10 @@ public class KauppalistaService {
     }
 
     public List<Kayttaja> haeKauppalistanKayttajat(Long kauppalistaId) {
+        if (kauppalistaId == null) {
+            return new ArrayList<>();
+        }
+
         Kauppalista kauppalista = kauppalistaRepository.findOne(kauppalistaId);
         List<Kayttaja> kauppalistanKayttajat = kauppalista.getKayttajat();
 

@@ -75,6 +75,12 @@ public class KauppalistaService {
         }
 
         Kauppalista kauppalista = kauppalistaRepository.findOne(kauppalistaId);
+
+        if (kauppalista == null) {
+            // Jos listaa ei ole, ei sillä ole käyttäjiäkään.
+            return new ArrayList<>();
+        }
+
         List<Kayttaja> kauppalistanKayttajat = kauppalista.getKayttajat();
 
         return kauppalistanKayttajat;

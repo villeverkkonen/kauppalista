@@ -164,15 +164,15 @@ public class KauppalistaService {
 
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
 
-        for (int i = 0; i < kl.getOstettavatTuotteet().size(); i++) {
-            Tuote tuote = kl.getOstettavatTuotteet().get(i);
+        while (!kl.getOstettavatTuotteet().isEmpty()) {
+            Tuote tuote = kl.getOstettavatTuotteet().get(0);
             kl.poistaTuote(tuote.getId());
             tuoteRepository.delete(tuote.getId());
             kauppalistaRepository.save(kl);
         }
 
-        for (int i = 0; i < kl.getKayttajat().size(); i++) {
-            Kayttaja kayttaja = kl.getKayttajat().get(i);
+        while (!kl.getKayttajat().isEmpty()) {
+            Kayttaja kayttaja = kl.getKayttajat().get(0);
             kl.poistaKayttaja(kayttaja.getId());
             kayttaja.poistaKauppalista(kauppalistaId);
             kayttajaRepository.save(kayttaja);

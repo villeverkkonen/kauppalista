@@ -126,7 +126,7 @@ public class KauppalistaService {
         // ohjataan hänet omalle kauppalistasivulleen.
         Kayttaja kirjautunutKayttaja = kirjautuneetService.getAuthenticatedAccount();
 
-        if (kirjautunutKayttaja == null) {
+        if (kayttajaId == null || kirjautunutKayttaja == null) {
             return "redirect:/etusivu";
         }
 

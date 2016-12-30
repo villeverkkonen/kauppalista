@@ -81,6 +81,11 @@ public class KauppalistaService {
     }
 
     public boolean kayttajallaOikeudet(Long kauppalistaId) {
+        if (kauppalistaId == null) {
+            // jos kauppalistaId on null, niin ei ole oikeuksia.
+            return false;
+        }
+
         Kayttaja kayttaja = this.kirjautuneetService.getAuthenticatedAccount();
         Kauppalista kauppalista = this.kauppalistaRepository.findOne(kauppalistaId);
 

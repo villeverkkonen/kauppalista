@@ -163,14 +163,12 @@ public class KauppalistaService {
         }
 
         Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
-        if (kl.getOstettavatTuotteet().size() > 0) {
-            for (int i = 0; i < kl.getOstettavatTuotteet().size(); i++) {
-                Tuote tuote = kl.getOstettavatTuotteet().get(i);
-                kl.poistaTuote(tuote.getId());
-                tuoteRepository.delete(tuote.getId());
-                kauppalistaRepository.save(kl);
-            }
 
+        for (int i = 0; i < kl.getOstettavatTuotteet().size(); i++) {
+            Tuote tuote = kl.getOstettavatTuotteet().get(i);
+            kl.poistaTuote(tuote.getId());
+            tuoteRepository.delete(tuote.getId());
+            kauppalistaRepository.save(kl);
         }
 
         if (kl.getKayttajat().size() > 0) {

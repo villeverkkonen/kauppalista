@@ -51,7 +51,7 @@ public class Kauppalista extends AbstractPersistable<Long> {
 
     public void lisaaKayttaja(Kayttaja kayttaja) {
         if (this.kayttajat == null) {
-            this.kayttajat = new ArrayList<Kayttaja>();
+            this.kayttajat = new ArrayList<>();
         }
         this.kayttajat.add(kayttaja);
     }
@@ -67,7 +67,7 @@ public class Kauppalista extends AbstractPersistable<Long> {
 
     public void lisaaTuote(Tuote tuote) {
         if (this.ostettavatTuotteet == null) {
-            this.ostettavatTuotteet = new ArrayList<Tuote>();
+            this.ostettavatTuotteet = new ArrayList<>();
         }
 
         this.ostettavatTuotteet.add(tuote);

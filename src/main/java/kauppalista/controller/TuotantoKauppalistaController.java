@@ -4,7 +4,6 @@ import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KauppalistaService;
-import kauppalista.service.LoggedInAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -23,9 +22,6 @@ public class TuotantoKauppalistaController {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
-
-    @Autowired
-    private LoggedInAccountService kirjautuneetService;
 
     // Listaa yhden kauppalistan tuotteet.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}", method = RequestMethod.GET)

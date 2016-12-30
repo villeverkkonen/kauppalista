@@ -49,9 +49,13 @@ public class KauppalistaService {
     }
 
     public void lisaaKayttajaKauppalistalle(Kayttaja k, Kauppalista kl) {
+        if (!kl.getKayttajat().contains(k)) {
+            kl.lisaaKayttaja(k);
+        }
 
-        kl.lisaaKayttaja(k);
-        k.lisaaKauppalista(kl);
+        if (!k.getKauppalistat().contains(kl)) {
+            k.lisaaKauppalista(kl);
+        }
 
         this.kauppalistaRepository.save(kl);
         this.kayttajaRepository.save(k);

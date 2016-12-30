@@ -35,6 +35,8 @@
 
 \linespread{1.3} % 1.3 vastaa riviväliä 1.5.
 
+\newcommand{\quotes}[1]{``#1''}
+
 \begin{document}
 \renewcommand\refname{Lähteet} % tämän rivin pitää olla rivin `\selectlanguage{finnish}` jälkeen (voi olla alempanakin)!
 % http://tex.stackexchange.com/questions/124006/apacite-replace-et-al-when-citing-multi-authored-papers
@@ -71,19 +73,24 @@ Kauppalista on web-sovellus, johon on mahdollista tallentaa kauppalistoja ja nii
 
 Kauppalistaa käyttääkseen on ensin luotava käyttäjätunnus. Käyttäjätunnuksen luomista varten on annettava haluttu käyttäjätunnus sekä salasana. Käyttäjätunnus voi olla mikä tahansa merkkijono, paitsi tyhjä merkkijono tai varattu käyttäjätunnus. Salasanan on oltava pituudeltaan vähintään 8 merkkiä, siinä on oltava vähintään yksi kirjain joukosta a ... z tai A ... Z, vähintään yksi numero, sekä vähintään yksi merkki, joka ei kuulu kumpaankaan em. joukoista. Lisäksi salasana ei saa olla sama kuin käyttäjätunnus eikä käyttäjätunnuksen osa. Salasana ei saa myöskään olla käyttäjätunnus takaperin. Näillä tarkastuksilla pyritään siihen, että salasanan murtaminen brute force -menetelmällä ei onnistu kovin helposti.
 
-Kauppalistan etusivulta osoitteesta http://kauppalistat.herokuapp.com/etusivu löytyy kentät ja painikkeet kirjautumista ja uuden tunnuksen luomista varten. Kun halutaan luoda uusi tunnus, painetaan "Luo uusi tunnus"-painikkeesta, jolloin kentät uuden tunnuksen halutulle käyttäjätunnukselle ja salasanalle ilmestyvät näkyviin. Kun painetaan "Luo tunnus", tunnus luodaan, jos käyttäjätunnus ja salasana toteuttavat vaaditut ehdot. Tunnuksen luonnin yhteydessä tehdään automaattinen kirjautuminen uudella tunnuksella (autologin) ja siirrytään kauppalistat-sivulle. Tällä sivulla on näkyvissä käyttäjän tiedot ja kauppalistat, joiden muokkaukseen käyttäjällä on oikeudet. Lisäksi sivulla on mahdollisuus luoda uusia kauppalistoja.
+Kauppalistan etusivulla osoitteessa http://kauppalistat.herokuapp.com/etusivu näkyy eri näkymä kirjautuneille ja kirjautumattomille käyttäjille. Kirjautumattomille näkyy kirjautumislomake ja \quotes{Luo uusi tunnus}-nappi. Kirjautuneille näkyy linkki käyttäjäsivulle ja \quotes{Kirjaudu ulos}-nappi. Tunnuksen luonnin yhteydessä tehdään automaattinen kirjautuminen uudella tunnuksella (autologin) ja siirrytään sivulle https://kauppalistat.herokuapp.com/kayttajat/{kayttajaid}/kauppalistat. Tällä sivulla on näkyvissä käyttäjän tiedot ja kauppalistat, joiden muokkaukseen käyttäjällä on oikeudet. Lisäksi sivulla on mahdollisuus luoda uusia kauppalistoja. Yksittäinen käyttäjä ei pääse muiden käyttäjien käyttäjäsivuille.
 
-Kun uusi kauppalista luodaan, siirrytään kauppalistan sivulle. Luotu lista on aluksi tyhjä, joten näkymässä ei ole mitään kauppalistan tuotteita. Näkymässä on tekstikenttä uusien tuotteiden lisäämiselle sekä uusien käyttäjien lisäämiselle. Kauppalistaan lisätyt asiat näkyvät listattuna lisäyskentän yläpuolella. Kun käyttäjä painaa “Ostettu” painiketta tuotteen vierestä, siirtyy tämä alempaan (Ostetut tuotteet) listauksen alle. Muiden käyttäjien lisääminen antaa kyseiselle käyttäjälle oikeudet katsella ja muokata kyseistä kauppalistaa. Sivun yläosassa on listattuna kauppalistan kaikki käyttäjät.
+Kun uusi kauppalista luodaan, siirrytään kauppalistan sivulle \linebreak https://kauppalistat.herokuapp.com/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}. Luotu lista on aluksi tyhjä. Näkymässä on tekstikenttä uusien tuotteiden lisäämiselle sekä uusien käyttäjien lisäämiselle.  Kauppalistaan lisätyt asiat näkyvät listattuna lisäyskentän yläpuolella. Kun käyttäjä painaa \quotes{Ostettu}-painiketta tuotteen vierestä, siirtyy tuote \quotes{Ostetut tuotteet}-listaan. \quotes{Poista}-nappi poistaa tuotteen kokonaan listalta. Muiden käyttäjien lisääminen antaa kyseiselle käyttäjälle oikeudet katsella ja muokata kyseistä kauppalistaa. Sivun yläosassa on listattuna kauppalistan kaikki käyttäjät. \quotes{Poista kauppalista}-nappi poistaa kaikki tuotteet ja käyttäjät listalta, sekä koko kauppalistan.
 
-Web-sovellus on toteutettu mobiilikäytettävyyttä silmällä pitäen, sillä sovellusta tultaisiin käyttämään luultavasti lähinnä kännykällä. Boksi skaalautuu sen mukaan, miten pitkästi sen sisällä on tekstiä, venymättä kuitenkaan käytettävän laitteen näytön reunan yli. Sovellus näyttää kännykällä kuin natiiviapplikaatiolta.
+Web-sovellus on toteutettu mobiilikäytettävyyttä silmällä pitäen, sillä sovellusta tultaisiin käyttämään luultavasti lähinnä kännykällä. Boksi skaalautuu sen mukaan, miten pitkästi sen sisällä on tekstiä, venymättä kuitenkaan käytettävän laitteen näytön reunan yli.
 
 Sivun favicon on itse tehty, eikä siis tarvitse lisenssiä.
 
+Sovellus on yhdistetty Travikseen. Kun muutokset työnnetään Github-repositorioon, käydään testit Traviksen kautta läpi. Jos testit menevät läpi, sovellus päivitetään myös Herokuun.
+
+Sovelluksessa on erikseen testi- ja tuotantoprofiilit. Testiprofiilissa näytetään esimerkiksi etusivulla kaikki käyttäjät, ja käyttäjäsivulla näytetään käyttäjän salasana. Testiprofiilissa sallitaan myös framejen käyttö h2-tietokantaa varten. Tuotantoprofiilissa tämä on estetty CSRF-hyökkäysten estämiseksi.
+
+\pagebreak
+
 Harkittuja ideoita jatkokehitystä ajatellen on tullut todella paljon. Hyödyllisiksi koetuista mainittakoon:
 \begin{itemize}
-    \item kauppalistan historian kontrollointimahdollisuus
-    \item ehdotukset lisättäville tuotteille
-    \item tuotteiden lisäys kuvan perusteella
+    \item käyttäjien historia, sekä mahdollisuus muokata omaa historiaansa
+    \item tuotteiden lisäys kuvan perusteella, jos ei esimerkiksi muista nimeä
     \item mahdollisuus poistaa käyttäjiä kauppalistalta
     \item kielen vaihtaminen
 \end{itemize}

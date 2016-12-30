@@ -181,8 +181,6 @@ public class KauppalistaService {
             kauppalistaRepository.save(kl);
         }
 
-        kauppalistaRepository.save(kl);
-
         kauppalistaRepository.delete(kauppalistaId);
 
         return "redirect:/kayttajat/{kayttajaId}/kauppalistat/";

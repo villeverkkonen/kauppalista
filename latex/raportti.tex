@@ -1,0 +1,94 @@
+\documentclass[12pt,a4paper]{article}
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+
+\newcommand{\comments}[1]{} % tällä saa tehtyä kätevästi monirivisiä kommentteja, myös LaTeX-koodirivien kommentointi toimii.
+\newcommand{\degree}{\ensuremath{^\circ}}
+
+\usepackage[american,finnish]{babel}
+\usepackage{amsmath}
+
+\usepackage[a4paper, margin=2cm]{geometry}
+
+\usepackage{listings}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\usepackage{multirow}             % multirow.
+
+\usepackage{url}
+\usepackage[colorlinks]{hyperref} % jos hyperref & apacite ovat käytössä, niin hyperref:n pitää olla ensin.
+\usepackage{bookmark}             % ota molemmat hyperref ja bookmark pois päältä kun haluat hyperlinkit pois.
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc}
+
+\usepackage[]{siunitx}
+
+\usepackage[natbibapa]{apacite}   % apacite on kai hyvä olla viimeinen paketti.
+
+\linespread{1.3} % 1.3 vastaa riviväliä 1.5.
+
+\begin{document}
+\renewcommand\refname{Lähteet} % tämän rivin pitää olla rivin `\selectlanguage{finnish}` jälkeen (voi olla alempanakin)!
+% http://tex.stackexchange.com/questions/124006/apacite-replace-et-al-when-citing-multi-authored-papers
+\renewcommand{\BOthers}[1]{ym.\hbox{}}% et al
+\renewcommand{\BOthersPeriod}[1]{ym.\hbox{}}% et al.
+
+\title{Web-palvelinohjelmointikurssin harjoitustyö: Kauppalista}
+\author{Ville Verkkonen, Antti Nuortimo, Kasimir Aula, Eero Kalaja}
+\maketitle
+
+Verkkosivun nimi: Kauppalista
+
+Verkkosivun osoite: http://kauppalistat.herokuapp.com
+
+GitHub-sivu: https://github.com/villeverkkonen/kauppalista
+
+Travis-sivu: https://travis-ci.org/villeverkkonen/kauppalista
+
+Ryhmän jäsenet:
+
+Ville Verkkonen, opiskelijanumero:
+
+Antti Nuortimo, opiskelijanumero:
+
+Kasimir Aula, opiskelijanumero:
+
+Eero Kalaja, opiskelijanumero:
+
+Kauppalista on web-sovellus, johon on mahdollista tallentaa kauppalistoja ja niitä on mahdollista jakaa muiden käyttäjien kanssa.
+
+\pagebreak
+
+\section*{Kauppalistan käyttöohje}
+
+Kauppalistaa käyttääkseen on ensin luotava käyttäjätunnus. Käyttäjätunnuksen luomista varten on annettava haluttu käyttäjätunnus sekä salasana. Käyttäjätunnus voi olla mikä tahansa merkkijono, paitsi tyhjä merkkijono tai varattu käyttäjätunnus. Salasanan on oltava pituudeltaan vähintään 8 merkkiä, siinä on oltava vähintään yksi kirjain joukosta a ... z tai A ... Z, vähintään yksi numero, sekä vähintään yksi merkki, joka ei kuulu kumpaankaan em. joukoista. Lisäksi salasana ei saa olla sama kuin käyttäjätunnus eikä käyttäjätunnuksen osa. Salasana ei saa myöskään olla käyttäjätunnus takaperin. Näillä tarkastuksilla pyritään siihen, että salasanan murtaminen brute force -menetelmällä ei onnistu kovin helposti.
+
+Kauppalistan etusivulta osoitteesta http://kauppalistat.herokuapp.com/etusivu löytyy kentät ja painikkeet kirjautumista ja uuden tunnuksen luomista varten. Kun halutaan luoda uusi tunnus, painetaan "Luo uusi tunnus"-painikkeesta, jolloin kentät uuden tunnuksen halutulle käyttäjätunnukselle ja salasanalle ilmestyvät näkyviin. Kun painetaan "Luo tunnus", tunnus luodaan, jos käyttäjätunnus ja salasana toteuttavat vaaditut ehdot. Tunnuksen luonnin yhteydessä tehdään automaattinen kirjautuminen uudella tunnuksella (autologin) ja siirrytään kauppalistat-sivulle. Tällä sivulla on näkyvissä käyttäjän tiedot ja kauppalistat, joiden muokkaukseen käyttäjällä on oikeudet. Lisäksi sivulla on mahdollisuus luoda uusia kauppalistoja.
+
+Kun uusi kauppalista luodaan, siirrytään kauppalistan sivulle. Luotu lista on aluksi tyhjä, joten näkymässä ei ole mitään kauppalistan tuotteita. Näkymässä on tekstikenttä uusien tuotteiden lisäämiselle sekä uusien käyttäjien lisäämiselle. Kauppalistaan lisätyt asiat näkyvät listattuna lisäyskentän yläpuolella. Kun käyttäjä painaa “Ostettu” painiketta tuotteen vierestä, siirtyy tämä alempaan (Ostetut tuotteet) listauksen alle. Muiden käyttäjien lisääminen antaa kyseiselle käyttäjälle oikeudet katsella ja muokata kyseistä kauppalistaa. Sivun yläosassa on listattuna kauppalistan kaikki käyttäjät.
+
+Web-sovellus on toteutettu mobiilikäytettävyyttä silmällä pitäen, sillä sovellusta tultaisiin käyttämään luultavasti lähinnä kännykällä. Boksi skaalautuu sen mukaan, miten pitkästi sen sisällä on tekstiä, venymättä kuitenkaan käytettävän laitteen näytön reunan yli. Sovellus näyttää kännykällä kuin natiiviapplikaatiolta.
+
+Sivun favicon on itse tehty, eikä siis tarvitse lisenssiä.
+
+Harkittuja ideoita jatkokehitystä ajatellen on tullut todella paljon. Hyödyllisiksi koetuista mainittakoon:
+\begin{itemize}
+    \item kauppalistan historian kontrollointimahdollisuus
+    \item ehdotukset lisättäville tuotteille
+    \item tuotteiden lisäys kuvan perusteella
+    \item mahdollisuus poistaa käyttäjiä kauppalistalta
+    \item kielen vaihtaminen
+\end{itemize}
+
+\section*{Työskentelytavoista}
+Tapasimme torstaisin parin tunnin sessioissa, eli pääosin työskentely tapahtui yksinämme. Tosin Facebook-chattimme oli ahkerassa käytössä, jossa aina joku vastasi, kun joku kysyi. Käytännössä aivan yksin ei joutunut juuri koskaan koodailemaan.
+
+\end{document}

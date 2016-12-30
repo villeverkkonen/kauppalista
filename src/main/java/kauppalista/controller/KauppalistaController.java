@@ -5,6 +5,7 @@ import kauppalista.domain.Kauppalista;
 import kauppalista.domain.Kayttaja;
 import kauppalista.repository.KayttajaRepository;
 import kauppalista.service.KauppalistaService;
+import kauppalista.service.LoggedInAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,9 @@ public class KauppalistaController {
 
     @Autowired
     private KayttajaRepository kayttajaRepository;
+
+    @Autowired
+    private LoggedInAccountService kirjautuneetService;
 
     private final String[] noname = {"HoBo", "Pokemon Trainers", "Norjalainen hiihtäjä", "Jack Bauer", "Chuck Norris", "Al Pacino", "Arnold Schwarzenegger", "Denzel Washington", "Tauski", "Darth Vader", "Arto"};
 
@@ -50,6 +54,14 @@ public class KauppalistaController {
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
+        //jos käyttäjä yrittää päästä toisen käyttäjän kauppalistasivulle,
+        //esimerkiksi polun kayttajaId:tä vaihtamalla,
+        //ohjataan hänet omalle kauppalistasivulleen
+        Kayttaja kayttaja = kirjautuneetService.getAuthenticatedAccount();
+        if (!kayttaja.getId().equals(kayttajaId)) {
+            return "redirect:/kayttajat/" + kayttaja.getId() + "/kauppalistat";
+        }
+
         return this.kauppalistaService.kayttajanKauppalistaSivu(
                 model,
                 kayttajaId,

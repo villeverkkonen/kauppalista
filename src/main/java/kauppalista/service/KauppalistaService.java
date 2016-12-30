@@ -121,6 +121,19 @@ public class KauppalistaService {
     }
 
     public String kayttajanKauppalistaSivu(Model model, Long kayttajaId, String salasanatiiviste, String kayttajarooli) {
+        // Jos käyttäjä yrittää päästä toisen käyttäjän kauppalistasivulle,
+        // esimerkiksi polun kayttajaId:tä vaihtamalla,
+        // ohjataan hänet omalle kauppalistasivulleen.
+        Kayttaja kirjautunutKayttaja = kirjautuneetService.getAuthenticatedAccount();
+
+        if (kirjautunutKayttaja == null) {
+            return "redirect:/etusivu";
+        }
+
+        if (!kirjautunutKayttaja.getId().equals(kayttajaId)) {
+            return "redirect:/kayttajat/" + kirjautunutKayttaja.getId() + "/kauppalistat";
+        }
+
         Kayttaja kayttaja = this.kayttajaRepository.findOne(kayttajaId);
         List<Kauppalista> kauppalistat = kayttaja.getKauppalista();
         model.addAttribute("kayttaja", kayttaja);

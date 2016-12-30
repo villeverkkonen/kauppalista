@@ -54,14 +54,6 @@ public class KauppalistaController {
     // Listaa tietyn käyttäjän kauppalistat.
     @RequestMapping(value = "/kayttajat/{kayttajaId}/kauppalistat", method = RequestMethod.GET)
     public String kayttajanKauppalistaSivu(Model model, @PathVariable Long kayttajaId) {
-        //jos käyttäjä yrittää päästä toisen käyttäjän kauppalistasivulle,
-        //esimerkiksi polun kayttajaId:tä vaihtamalla,
-        //ohjataan hänet omalle kauppalistasivulleen
-        Kayttaja kayttaja = kirjautuneetService.getAuthenticatedAccount();
-        if (!kayttaja.getId().equals(kayttajaId)) {
-            return "redirect:/kayttajat/" + kayttaja.getId() + "/kauppalistat";
-        }
-
         return this.kauppalistaService.kayttajanKauppalistaSivu(
                 model,
                 kayttajaId,

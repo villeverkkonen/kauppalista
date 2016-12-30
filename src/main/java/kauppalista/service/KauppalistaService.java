@@ -47,6 +47,9 @@ public class KauppalistaService {
     }
 
     public void lisaaTuoteKauppalistalle(Tuote tuote, Kauppalista kauppalista) {
+        if (tuote == null || kauppalista == null) {
+            return;
+        }
         tuoteRepository.save(tuote);
         kauppalista.lisaaTuote(tuote);
         this.kauppalistaRepository.save(kauppalista);

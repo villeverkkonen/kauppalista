@@ -87,6 +87,11 @@ public class KauppalistaService {
         }
 
         Kayttaja kayttaja = this.kirjautuneetService.getAuthenticatedAccount();
+        if (kayttaja == null) {
+            // jos käyttäjä ei ole kirjautunut, niin ei ole oikeuksia.
+            return false;
+        }
+
         Kauppalista kauppalista = this.kauppalistaRepository.findOne(kauppalistaId);
 
         return kayttaja.getKauppalistat().contains(kauppalista);

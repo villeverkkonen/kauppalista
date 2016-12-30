@@ -49,7 +49,6 @@ public class KauppalistaService {
     }
 
     public void lisaaKayttajaKauppalistalle(Kayttaja k, Kauppalista kl) {
-
         kl.lisaaKayttaja(k);
         k.lisaaKauppalista(kl);
 
@@ -156,7 +155,17 @@ public class KauppalistaService {
         }
         Kayttaja kayttaja = this.kayttajaRepository.findByKayttajanimi(kayttajatunnus);
 
-        this.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
+        //Lisätään käyttäjä listalle vain, jos hän ei ole jo listalla
+        Kauppalista kl = kauppalistaRepository.findOne(kauppalistaId);
+        Boolean kayttajaOnJoListalla = false;
+        for (Kayttaja kayttelija : kl.getKayttajat()) {
+            if (kayttelija.getId().equals(kayttaja.getId())) {
+                kayttajaOnJoListalla = true;
+            }
+        }
+        if (!kayttajaOnJoListalla) {
+            this.lisaaKayttajaKauppalistalle(kayttaja, this.kauppalistaRepository.findOne(kauppalistaId));
+        }
         return "redirect:/kayttajat/{kayttajaId}/kauppalista/{kauppalistaId}";
     }
 

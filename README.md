@@ -19,4 +19,5 @@ Kauppalista
 ![overview](https://github.com/villeverkkonen/kauppalista/blob/master/documentation/images/kauppalista.png)
 
 Käyttäjäsivu
+
 ![overview](https://github.com/villeverkkonen/kauppalista/blob/master/documentation/images/kayttajasivu.png)
